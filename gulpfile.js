@@ -4,6 +4,7 @@ var gulp       = require('gulp');
 var livereload = require('tiny-lr');
 var source     = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
+var uglify     = require('gulp-uglify');
 var watchify   = require('watchify');
 
 gulp.task('express', function() {
@@ -54,6 +55,13 @@ gulp.task('watch', function() {
   gulp.watch('public/js/app.js', notifyLiveReload);
 });
 
-gulp.task('default', ['express', 'scripts', 'livereload', 'watch'], function() {
-
+gulp.task('build', function() {
+  return browserify('./public/js/main.js')
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest('./public/js/'));
 });
+
+gulp.task('default', ['express', 'scripts', 'livereload', 'watch']);
