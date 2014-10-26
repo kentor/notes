@@ -46,6 +46,7 @@ var Note = React.createClass({
           <time>{moment(note.createdAt).fromNow().replace(' ago', '')}</time>
           <div className="icons">
             <a href="#" onClick={this.props.onToggleHidden}>{note.hidden ? '☼' : '☀'}</a>
+            &nbsp;
             <a href="#" className="delete-note" onClick={this.props.onDelete}>✖</a>
           </div>
         </div>
