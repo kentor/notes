@@ -116,6 +116,7 @@ var Index = React.createClass({
   handleKeyDown: function(e) {
     if (e.keyCode == 13 && e.ctrlKey) {
       this.submitNewNote();
+      e.preventDefault(); // prevents new line from pressing enter
     }
   },
 
