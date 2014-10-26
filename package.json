@@ -10,6 +10,7 @@
     "gulp": "^3.8.9",
     "gulp-sourcemaps": "^1.2.4",
     "moment": "^2.8.3",
+    "pagedown": "^1.1.0",
     "randomcolor": "^0.1.1",
     "react": "^0.11.2",
     "react-addons": "^0.9.0",

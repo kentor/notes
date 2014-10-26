@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var Firebase    = require('firebase');
+var Markdown    = require('pagedown');
 var moment      = require('moment');
 var randomColor = require('randomcolor');
 var React       = require('react');
@@ -14,6 +15,7 @@ var Link   = Router.Link;
 function transformSnapshotToNote(snapshot) {
   var note = snapshot.val();
   note.name = snapshot.name();
+  note.content = Markdown.getSanitizingConverter().makeHtml(note.content);
   note.createdAt = new Date(note.createdAt);
   note.localHidden = note.hidden;
   note.style = { background: randomColor({luminosity: 'light'}) };
@@ -47,9 +49,7 @@ var Note = React.createClass({
             <a href="#" className="delete-note" onClick={this.props.onDelete}>✖</a>
           </div>
         </div>
-        <div className={noteContentClasses}>
-          {note.content}
-        </div>
+        <div className={noteContentClasses} dangerouslySetInnerHTML={{__html: note.content}} />
       </li>
     );
   }
