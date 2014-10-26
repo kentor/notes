@@ -1,6 +1,7 @@
 var browserify = require('browserify');
 var buffer     = require('vinyl-buffer');
 var gulp       = require('gulp');
+var livereload = require('tiny-lr');
 var source     = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var watchify   = require('watchify');
@@ -35,7 +36,7 @@ gulp.task('scripts', function() {
 
 var tinylr;
 gulp.task('livereload', function() {
-  tinylr = require('tiny-lr')();
+  tinylr = livereload();
   tinylr.listen(4070);
 });
 
