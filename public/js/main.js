@@ -1,5 +1,11 @@
 /** @jsx React.DOM */
 
+var Firebase    = require('firebase');
+var moment      = require('moment');
+var randomColor = require('randomcolor');
+var React       = require('react');
+require('react/addons');
+
 function transformSnapshotToNote(snapshot) {
   var note = snapshot.val();
   note.name = snapshot.name();
@@ -162,4 +168,4 @@ var NoteApp = React.createClass({
   },
 });
 
-React.renderComponent(<NoteApp />, document.getElementById('mount'));
+React.renderComponent(<NoteApp />, document.body);
