@@ -13,6 +13,7 @@
     "randomcolor": "^0.1.1",
     "react": "^0.11.2",
     "react-addons": "^0.9.0",
+    "react-router": "^0.9.4",
     "reactify": "^0.14.0",
     "tiny-lr": "^0.1.4",
     "vinyl-buffer": "^1.0.0",

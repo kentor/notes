@@ -6,6 +6,11 @@ var randomColor = require('randomcolor');
 var React       = require('react');
 require('react/addons');
 
+var Router = require('react-router');
+var Routes = Router.Routes;
+var Route  = Router.Route;
+var Link   = Router.Link;
+
 function transformSnapshotToNote(snapshot) {
   var note = snapshot.val();
   note.name = snapshot.name();
@@ -50,15 +55,15 @@ var Note = React.createClass({
   }
 });
 
-var NoteApp = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
+var Index = React.createClass({
+  mixins: [React.addons.LinkedStateMixin, AuthenticatedRoute],
 
   getInitialState: function() {
     return { notes: [], newNote: '', filter: '' };
   },
 
   componentWillMount: function() {
-    this.firebaseRef = new Firebase("https://selfnote.firebaseio.com/notes/");
+    this.firebaseRef = firebaseRef.child('notes');
 
     this.firebaseRef.on('child_added', function(snapshot) {
       this.state.notes.push(transformSnapshotToNote(snapshot));
@@ -136,6 +141,12 @@ var NoteApp = React.createClass({
         return note.content.match(filterRegexp);
       });
     }
+
+    var logoutLink;
+    if (user) {
+      logoutLink = <Link to="logout" className="logout-button">Logout</Link>;
+    }
+
     return (
       <div id="wrapper">
         <aside>
@@ -147,6 +158,8 @@ var NoteApp = React.createClass({
           <div>
             <input type="text" valueLink={this.linkState('filter')} />
           </div>
+
+          {logoutLink}
         </aside>
 
         <ul>
@@ -166,4 +179,71 @@ var NoteApp = React.createClass({
   },
 });
 
-React.renderComponent(<NoteApp />, document.body);
+var user = JSON.parse(localStorage.getItem('user'));
+var authRequired = true;
+var firebaseRef = new Firebase("https://qdsndc.firebaseio.com");
+
+var App = React.createClass({
+  mixins: [Router.Navigation],
+
+  componentWillMount: function() {
+    firebaseRef.onAuth(function(jsonUser) {
+      if (jsonUser) {
+        user = jsonUser;
+        localStorage.setItem('user', JSON.stringify(jsonUser));
+        this.transitionTo('index');
+      } else {
+        user = null;
+        localStorage.removeItem('user');
+        this.transitionTo('login');
+      }
+    }.bind(this));
+  },
+
+  render: function() {
+    return <this.props.activeRouteHandler />;
+  },
+});
+
+var AuthenticatedRoute = {
+  statics: {
+    willTransitionTo: function(transition) {
+      if (authRequired && !user) {
+        transition.redirect('login');
+      }
+    }
+  }
+};
+
+var Login = React.createClass({
+  handleClick: function() {
+    firebaseRef.authWithOAuthRedirect('twitter', function() {});
+  },
+
+  render: function() {
+    return <a className="login-button" onClick={this.handleClick}>Login</a>;
+  },
+});
+
+var Logout = React.createClass({
+  mixins: [Router.Navigation],
+
+  componentWillMount: function() {
+    firebaseRef.unauth();
+    this.transitionTo('login');
+  },
+
+  render: function() {
+    return <div></div>;
+  }
+});
+
+React.renderComponent((
+  <Routes>
+    <Route name="app" path="/" handler={App}>
+      <Route name="index" path="/" handler={Index} />
+      <Route name="login" handler={Login} />
+      <Route name="logout" handler={Logout} />
+    </Route>
+  </Routes>
+), document.body);

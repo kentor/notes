@@ -12,6 +12,7 @@ body {
 .login-button {
   -webkit-transform: translate(-50%, -50%);
   background: #4eabf1;
+  cursor: pointer;
   display: block;
   font-size: 30px;
   left: 50%;
