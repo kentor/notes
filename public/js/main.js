@@ -78,7 +78,6 @@ var NoteApp = React.createClass({
 
     this.firebaseRef.on('child_changed', function(snapshot) {
       var snapshotName = snapshot.name();
-      var snapshotVal = snapshot.val();
       var note, i;
       for (i = 0; i < this.state.notes.length; i++) {
         if (this.state.notes[i].name === snapshotName) {
@@ -86,8 +85,7 @@ var NoteApp = React.createClass({
           break;
         }
       }
-      note.hidden = snapshotVal.hidden;
-      note.localHidden = note.hidden;
+      note.hidden = note.localHidden = snapshot.val().hidden;
       this.setState({ notes: this.state.notes });
     }.bind(this));
   },
