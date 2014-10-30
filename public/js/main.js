@@ -215,28 +215,8 @@ var App = React.createClass({
   },
 });
 
-var Login = React.createClass({
-  handleClick: function() {
-    Appconfig.firebaseRef.authWithOAuthRedirect('twitter', function() {});
-  },
-
-  render: function() {
-    return <a className="login-button" onClick={this.handleClick}>Login</a>;
-  },
-});
-
-var Logout = React.createClass({
-  mixins: [Router.Navigation],
-
-  componentWillMount: function() {
-    Appconfig.firebaseRef.unauth();
-    this.transitionTo('login');
-  },
-
-  render: function() {
-    return <div></div>;
-  }
-});
+var Login  = require('./components/login.jsx');
+var Logout = require('./components/logout.jsx');
 
 React.renderComponent((
   <Routes>
