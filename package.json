@@ -12,7 +12,6 @@
     "moment": "^2.8.3",
     "morgan": "^1.4.1",
     "pagedown": "^1.1.0",
-    "randomcolor": "^0.1.1",
     "react": "^0.11.2",
     "react-addons": "^0.9.0",
     "react-router": "^0.9.4",
