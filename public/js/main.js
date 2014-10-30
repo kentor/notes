@@ -189,6 +189,8 @@ var App = React.createClass({
   mixins: [Router.Navigation],
 
   componentWillMount: function() {
+    if (!authRequired) return;
+
     firebaseRef.onAuth(function(jsonUser) {
       if (jsonUser) {
         user = jsonUser;
