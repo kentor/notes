@@ -191,30 +191,7 @@ var Index = React.createClass({
   },
 });
 
-var App = React.createClass({
-  mixins: [Router.Navigation],
-
-  componentWillMount: function() {
-    if (!Appconfig.authRequired) return;
-
-    Appconfig.firebaseRef.onAuth(function(jsonUser) {
-      if (jsonUser) {
-        Appconfig.user = jsonUser;
-        localStorage.setItem('user', JSON.stringify(jsonUser));
-        this.transitionTo('index');
-      } else {
-        Appconfig.user = null;
-        localStorage.removeItem('user');
-        this.transitionTo('login');
-      }
-    }.bind(this));
-  },
-
-  render: function() {
-    return <this.props.activeRouteHandler />;
-  },
-});
-
+var App    = require('./components/app.jsx');
 var Login  = require('./components/login.jsx');
 var Logout = require('./components/logout.jsx');
 
