@@ -59,7 +59,15 @@ var Note = React.createClass({
 });
 
 var Index = React.createClass({
-  mixins: [React.addons.LinkedStateMixin, AuthenticatedRoute],
+  mixins: [React.addons.LinkedStateMixin],
+
+  statics: {
+    willTransitionTo: function(transition) {
+      if (Appconfig.authRequired && !Appconfig.user) {
+        transition.redirect('login');
+      }
+    },
+  },
 
   getInitialState: function() {
     return { notes: [], newNote: '', filter: '' };
@@ -206,16 +214,6 @@ var App = React.createClass({
     return <this.props.activeRouteHandler />;
   },
 });
-
-var AuthenticatedRoute = {
-  statics: {
-    willTransitionTo: function(transition) {
-      if (Appconfig.authRequired && !Appconfig.user) {
-        transition.redirect('login');
-      }
-    }
-  }
-};
 
 var Login = React.createClass({
   handleClick: function() {
