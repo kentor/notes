@@ -1,16 +1,9 @@
 /** @jsx React.DOM */
 
-var Firebase    = require('firebase');
-var Markdown    = require('pagedown');
-var moment      = require('moment');
-var randomColor = require('randomcolor');
-var React       = require('react');
-require('react/addons');
-
+var React  = require('react');
 var Router = require('react-router');
 var Routes = Router.Routes;
 var Route  = Router.Route;
-var Link   = Router.Link;
 
 var Appconfig = require('./appconfig');
 
