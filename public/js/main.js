@@ -12,6 +12,8 @@ var Routes = Router.Routes;
 var Route  = Router.Route;
 var Link   = Router.Link;
 
+var Appconfig = require('./appconfig');
+
 function transformSnapshotToNote(snapshot) {
   var note = snapshot.val();
   note.name = snapshot.name();
@@ -64,7 +66,7 @@ var Index = React.createClass({
   },
 
   componentWillMount: function() {
-    this.firebaseRef = firebaseRef.child('notes');
+    this.firebaseRef = Appconfig.firebaseRef.child('notes');
 
     this.firebaseRef.on('child_added', function(snapshot) {
       this.state.notes.push(transformSnapshotToNote(snapshot));
@@ -145,7 +147,7 @@ var Index = React.createClass({
     }
 
     var logoutLink;
-    if (user) {
+    if (Appconfig.user) {
       logoutLink = <Link to="logout" className="logout-button">Logout</Link>;
     }
 
@@ -181,23 +183,19 @@ var Index = React.createClass({
   },
 });
 
-var user = JSON.parse(localStorage.getItem('user'));
-var authRequired = true;
-var firebaseRef = new Firebase("https://qdsndc.firebaseio.com");
-
 var App = React.createClass({
   mixins: [Router.Navigation],
 
   componentWillMount: function() {
-    if (!authRequired) return;
+    if (!Appconfig.authRequired) return;
 
-    firebaseRef.onAuth(function(jsonUser) {
+    Appconfig.firebaseRef.onAuth(function(jsonUser) {
       if (jsonUser) {
-        user = jsonUser;
+        Appconfig.user = jsonUser;
         localStorage.setItem('user', JSON.stringify(jsonUser));
         this.transitionTo('index');
       } else {
-        user = null;
+        Appconfig.user = null;
         localStorage.removeItem('user');
         this.transitionTo('login');
       }
@@ -212,7 +210,7 @@ var App = React.createClass({
 var AuthenticatedRoute = {
   statics: {
     willTransitionTo: function(transition) {
-      if (authRequired && !user) {
+      if (Appconfig.authRequired && !Appconfig.user) {
         transition.redirect('login');
       }
     }
@@ -221,7 +219,7 @@ var AuthenticatedRoute = {
 
 var Login = React.createClass({
   handleClick: function() {
-    firebaseRef.authWithOAuthRedirect('twitter', function() {});
+    Appconfig.firebaseRef.authWithOAuthRedirect('twitter', function() {});
   },
 
   render: function() {
@@ -233,7 +231,7 @@ var Logout = React.createClass({
   mixins: [Router.Navigation],
 
   componentWillMount: function() {
-    firebaseRef.unauth();
+    Appconfig.firebaseRef.unauth();
     this.transitionTo('login');
   },
 
