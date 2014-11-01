@@ -2,18 +2,10 @@ var React     = require('react');
 require('react/addons');
 var Appconfig = require('../appconfig');
 var Link      = require('react-router').Link;
-var Markdown  = require('pagedown');
 var moment    = require('moment');
 
-function transformSnapshotToNote(snapshot) {
-  var note = snapshot.val();
-  note.name = snapshot.name();
-  note.content = Markdown.getSanitizingConverter().makeHtml(note.content);
-  note.createdAt = new Date(note.createdAt);
-  note.localHidden = note.hidden;
-  note.style = { background: 'hsl(' + Math.floor(Math.random()*360) + ',100%,87.5%)' };
-  return note;
-}
+var NoteActions = require('../actions/NoteActions');
+var NoteStore = require('../stores/NoteStore');
 
 function escapeRegexp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
@@ -61,40 +53,36 @@ var Index = React.createClass({
   },
 
   getInitialState: function() {
-    return { notes: [], newNote: '', filter: '' };
+    return { notes: NoteStore.getAll(), newNote: '', filter: '' };
   },
 
   componentWillMount: function() {
     this.firebaseRef = Appconfig.firebaseRef.child('notes');
 
     this.firebaseRef.on('child_added', function(snapshot) {
-      this.state.notes.push(transformSnapshotToNote(snapshot));
-      this.state.notes.sort(function(a, b) {
-        return a.createdAt > b.createdAt ? -1 : 1;
-      });
-      this.setState({ notes: this.state.notes });
+      NoteActions.add(snapshot);
     }.bind(this));
 
     this.firebaseRef.on('child_removed', function(snapshot) {
-      var snapshotName = snapshot.name();
-      var newNotesList = this.state.notes.filter(function(note) {
-        return note.name !== snapshotName;
-      });
-      this.setState({ notes: newNotesList });
+      var noteName = snapshot.name();
+      NoteActions.remove(noteName);
     }.bind(this));
 
     this.firebaseRef.on('child_changed', function(snapshot) {
-      var snapshotName = snapshot.name();
-      var note, i;
-      for (i = 0; i < this.state.notes.length; i++) {
-        if (this.state.notes[i].name === snapshotName) {
-          note = this.state.notes[i];
-          break;
-        }
-      }
-      note.hidden = note.localHidden = snapshot.val().hidden;
-      this.setState({ notes: this.state.notes });
+      var noteName = snapshot.name();
+      var note = snapshot.val();
+      NoteActions.change(noteName, note);
     }.bind(this));
+
+    NoteStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    this.firebaseRef.off('child_added');
+    this.firebaseRef.off('child_removed');
+    this.firebaseRef.off('child_changed');
+    NoteStore.clearAll();
+    NoteStore.removeChangeListener(this._onChange);
   },
 
   updateNewNote: function() {
@@ -179,6 +167,10 @@ var Index = React.createClass({
         </ul>
       </div>
     );
+  },
+
+  _onChange: function() {
+    this.setState({ notes: NoteStore.getAll() });
   },
 });
 
