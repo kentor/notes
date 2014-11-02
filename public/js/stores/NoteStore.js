@@ -30,7 +30,6 @@ var NoteStore = Reflux.createStore({
   },
 
   onNoteAdded: function(snapshot) {
-    console.log('onNoteAdded Called');
     var note = transformSnapshotToNote(snapshot);
     _noteByName[note.name] = note;
     _notes.push(note);
