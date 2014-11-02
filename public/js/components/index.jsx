@@ -109,8 +109,7 @@ var Index = React.createClass({
   },
 
   toggleLocalHidden: function(note) {
-    note.localHidden = !note.localHidden;
-    this.setState({ notes: this.state.notes });
+    NoteActions.toggleLocalHidden(note);
   },
 
   toggleHidden: function(note) {

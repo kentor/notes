@@ -44,6 +44,11 @@ var NoteStore = Reflux.createStore({
     _notesByName.get(noteName).localHidden = note.hidden;
     this.triggerAsync();
   },
+
+  onToggleLocalHidden: function(note) {
+    note.localHidden = !note.localHidden;
+    this.triggerAsync();
+  },
 });
 
 module.exports = NoteStore;
