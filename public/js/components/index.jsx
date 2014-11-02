@@ -87,10 +87,6 @@ var Index = React.createClass({
     NoteStore.clearAll();
   },
 
-  updateNewNote: function() {
-    this.setState({ newNote: this.refs.textarea.getDOMNode().value });
-  },
-
   submitNewNote: function() {
     if (!this.state.newNote) {
       return;
