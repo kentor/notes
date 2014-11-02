@@ -31,9 +31,9 @@ var Note = React.createClass({
         <div className="controls">
           <time>{moment(note.createdAt).fromNow().replace(' ago', '')}</time>
           <div className="icons">
-            <a href="#" onClick={this.props.onToggleHidden}>{note.hidden ? '☼' : '☀'}</a>
+            <a onClick={this.props.onToggleHidden}>{note.hidden ? '☼' : '☀'}</a>
             &nbsp;
-            <a href="#" className="delete-note" onClick={this.props.onDelete}>✖</a>
+            <a className="delete-note" onClick={this.props.onDelete}>✖</a>
           </div>
         </div>
         <div className={noteContentClasses} dangerouslySetInnerHTML={{__html: note.content}} />
@@ -126,7 +126,7 @@ var Index = React.createClass({
   },
 
   render: function() {
-    var notes = this.state.notes;
+    var notes = this.state.notes.toSeq();
 
     if (this.state.filter) {
       var filterRegexp = new RegExp(escapeRegexp(this.state.filter), 'i');
@@ -164,7 +164,7 @@ var Index = React.createClass({
                     onToggleHidden={this.toggleHidden.bind(this, note)}
                     onDelete={this.delete.bind(this, note)} />
             );
-          }, this).toSeq().reverse().toArray()}
+          }, this).reverse().toArray()}
           <li>Notes: {this.state.notes.size}</li>
         </ul>
       </div>
