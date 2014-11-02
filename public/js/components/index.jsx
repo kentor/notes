@@ -4,6 +4,7 @@ var Appconfig = require('../appconfig');
 var Link      = require('react-router').Link;
 var moment    = require('moment');
 
+var Reflux = require('reflux');
 var NoteActions = require('../actions/NoteActions');
 var NoteStore = require('../stores/NoteStore');
 
@@ -42,7 +43,7 @@ var Note = React.createClass({
 });
 
 var Index = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
+  mixins: [React.addons.LinkedStateMixin, Reflux.ListenerMixin],
 
   statics: {
     willTransitionTo: function(transition) {
@@ -57,24 +58,26 @@ var Index = React.createClass({
   },
 
   componentWillMount: function() {
+    this.listenTo(NoteStore, function() {
+      this.setState({ notes: NoteStore.getAll() });
+    }.bind(this));
+
     this.firebaseRef = Appconfig.firebaseRef.child('notes');
 
     this.firebaseRef.on('child_added', function(snapshot) {
-      NoteActions.add(snapshot);
+      NoteActions.noteAdded(snapshot);
     }.bind(this));
 
     this.firebaseRef.on('child_removed', function(snapshot) {
       var noteName = snapshot.name();
-      NoteActions.remove(noteName);
+      NoteActions.noteRemoved(noteName);
     }.bind(this));
 
     this.firebaseRef.on('child_changed', function(snapshot) {
       var noteName = snapshot.name();
       var note = snapshot.val();
-      NoteActions.change(noteName, note);
+      NoteActions.noteChanged(noteName, note);
     }.bind(this));
-
-    NoteStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
@@ -82,7 +85,6 @@ var Index = React.createClass({
     this.firebaseRef.off('child_removed');
     this.firebaseRef.off('child_changed');
     NoteStore.clearAll();
-    NoteStore.removeChangeListener(this._onChange);
   },
 
   updateNewNote: function() {
@@ -167,10 +169,6 @@ var Index = React.createClass({
         </ul>
       </div>
     );
-  },
-
-  _onChange: function() {
-    this.setState({ notes: NoteStore.getAll() });
   },
 });
 
