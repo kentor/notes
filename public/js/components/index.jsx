@@ -156,7 +156,7 @@ var Index = React.createClass({
         </aside>
 
         <ul>
-          <li>Notes: {this.state.notes.length}</li>
+          <li>Notes: {this.state.notes.size}</li>
           {notes.map(function(note) {
             return (
               <Note note={note}
@@ -164,8 +164,8 @@ var Index = React.createClass({
                     onToggleHidden={this.toggleHidden.bind(this, note)}
                     onDelete={this.delete.bind(this, note)} />
             );
-          }, this)}
-          <li>Notes: {this.state.notes.length}</li>
+          }, this).toSeq().reverse().toArray()}
+          <li>Notes: {this.state.notes.size}</li>
         </ul>
       </div>
     );

@@ -1,11 +1,11 @@
 var Markdown  = require('pagedown');
 var mergeInPlace = require('merge');
+var Immutable = require('immutable');
 
 var Reflux = require('reflux');
 var NoteActions = require('../actions/NoteActions');
 
-var _noteByName = {};
-var _notes = [];
+var _notesByName = Immutable.OrderedMap();
 
 function transformSnapshotToNote(snapshot) {
   var note = snapshot.val();
@@ -21,33 +21,27 @@ var NoteStore = Reflux.createStore({
   listenables: NoteActions,
 
   getAll: function() {
-    return _notes;
+    return _notesByName;
   },
 
   clearAll: function() {
-    _noteByName = {};
-    _notes = [];
+    _notesByName = Immutable.OrderedMap();
   },
 
   onNoteAdded: function(snapshot) {
     var note = transformSnapshotToNote(snapshot);
-    _noteByName[note.name] = note;
-    _notes.push(note);
-    _notes.sort(function(a, b) { return a.createdAt > b.createdAt ? -1 : 1 });
+    _notesByName = _notesByName.set(note.name, note);
     this.triggerAsync();
   },
 
   onNoteRemoved: function(noteName) {
-    _notes = _notes.filter(function(note) {
-      return note.name !== noteName;
-    });
-    delete _noteByName[noteName];
+    _notesByName = _notesByName.remove(noteName);
     this.triggerAsync();
   },
 
   onNoteChanged: function(noteName, note) {
-    mergeInPlace(_noteByName[noteName], note);
-    _noteByName[noteName].localHidden = note.hidden;
+    mergeInPlace(_notesByName.get(noteName), note);
+    _notesByName.get(noteName).localHidden = note.hidden;
     this.triggerAsync();
   },
 });
