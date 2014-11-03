@@ -123,9 +123,10 @@ var Index = React.createClass({
 
         <ul>
           <li>Notes: {this.state.notes.size}</li>
-          {notes.map(function(note) {
+          {notes.map(function(note, name) {
             return (
               <Note note={note}
+                    key={name}
                     onToggleLocalHidden={this.toggleLocalHidden.bind(this, note)}
                     onToggleHidden={this.toggleHidden.bind(this, note)}
                     onDelete={this.delete.bind(this, note)} />
