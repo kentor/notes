@@ -2,45 +2,16 @@ var React     = require('react');
 require('react/addons');
 var Appconfig = require('../appconfig');
 var Link      = require('react-router').Link;
-var moment    = require('moment');
 
 var Reflux = require('reflux');
 var NoteActions = require('../actions/NoteActions');
 var NoteStore = require('../stores/NoteStore');
 
+var Note = require('./note.jsx');
+
 function escapeRegexp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
-
-var Note = React.createClass({
-  toggleLocalHidden: function(e) {
-    if (window.getSelection().toString() || e.target.tagName.match(/^[ai]$/i)) return;
-    this.props.onToggleLocalHidden();
-  },
-
-  render: function() {
-    var note = this.props.note;
-    var cx = React.addons.classSet;
-    var noteContentClasses = cx({
-      'note-content': true,
-      'hidden': note.localHidden,
-    });
-
-    return (
-      <li className="note" onClick={this.toggleLocalHidden} style={note.style}>
-        <div className="controls">
-          <time>{moment(note.createdAt).fromNow().replace(' ago', '')}</time>
-          <div className="icons">
-            <a onClick={this.props.onToggleHidden}>{note.hidden ? '☼' : '☀'}</a>
-            &nbsp;
-            <a className="delete-note" onClick={this.props.onDelete}>✖</a>
-          </div>
-        </div>
-        <div className={noteContentClasses} dangerouslySetInnerHTML={{__html: note.content}} />
-      </li>
-    );
-  }
-});
 
 var Index = React.createClass({
   mixins: [React.addons.LinkedStateMixin, Reflux.ListenerMixin],
