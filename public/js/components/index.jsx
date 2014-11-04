@@ -80,16 +80,16 @@ var Index = React.createClass({
   },
 
   toggleLocalHidden: function(note) {
-    note.localHidden = !note.localHidden;
-    this.setState({ notes: this.state.notes });
+    var updatedNote = note.set('localHidden', !note.get('localHidden'));
+    this.setState({ notes: this.state.notes.set(note.get('name'), updatedNote) });
   },
 
   toggleHidden: function(note) {
-    this.firebaseRef.child(note.name).update({ hidden: !note.hidden });
+    this.firebaseRef.child(note.get('name')).update({ hidden: !note.get('hidden') });
   },
 
   delete: function(note) {
-    this.firebaseRef.child(note.name).remove();
+    this.firebaseRef.child(note.get('name')).remove();
   },
 
   render: function() {
@@ -98,7 +98,7 @@ var Index = React.createClass({
     if (this.state.filter) {
       var filterRegexp = new RegExp(escapeRegexp(this.state.filter), 'i');
       notes = notes.filter(function(note) {
-        return note.content.match(filterRegexp);
+        return note.get('content').match(filterRegexp);
       });
     }
 

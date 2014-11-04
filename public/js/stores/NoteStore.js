@@ -1,5 +1,4 @@
 var Markdown  = require('pagedown');
-var mergeInPlace = require('merge');
 var Immutable = require('immutable');
 
 var Reflux = require('reflux');
@@ -14,7 +13,7 @@ function transformSnapshotToNote(snapshot) {
   note.createdAt = new Date(note.createdAt);
   note.localHidden = note.hidden;
   note.style = { background: 'hsl(' + Math.floor(Math.random()*360) + ',100%,87.5%)' };
-  return note;
+  return Immutable.Map(note);
 }
 
 var NoteStore = Reflux.createStore({
@@ -30,7 +29,7 @@ var NoteStore = Reflux.createStore({
 
   onNoteAdded: function(snapshot) {
     var note = transformSnapshotToNote(snapshot);
-    _notesByName = _notesByName.set(note.name, note);
+    _notesByName = _notesByName.set(note.get('name'), note);
     this.triggerAsync();
   },
 
@@ -40,8 +39,9 @@ var NoteStore = Reflux.createStore({
   },
 
   onNoteChanged: function(noteName, note) {
-    mergeInPlace(_notesByName.get(noteName), note);
-    _notesByName.get(noteName).localHidden = note.hidden;
+    var newNote = _notesByName.get(noteName).merge(note);
+    newNote = newNote.set('localHidden', note.hidden);
+    _notesByName = _notesByName.set(noteName, newNote);
     this.triggerAsync();
   },
 });
