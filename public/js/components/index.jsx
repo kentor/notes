@@ -30,7 +30,10 @@ var Index = React.createClass({
 
   componentWillMount: function() {
     this.listenTo(NoteStore, function() {
-      this.setState({ notes: NoteStore.getAll() });
+      var notes = NoteStore.getAll();
+      if (this.state.notes !== notes) {
+        this.setState({ notes: notes });
+      }
     }.bind(this));
 
     this.firebaseRef = Appconfig.firebaseRef.child('notes');
