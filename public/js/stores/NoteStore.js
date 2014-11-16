@@ -1,3 +1,4 @@
+var BgGen     = require('../bg-gen');
 var Markdown  = require('pagedown');
 var Immutable = require('immutable');
 
@@ -12,7 +13,7 @@ function transformSnapshotToNote(snapshot) {
   note.content = Markdown.getSanitizingConverter().makeHtml(note.content);
   note.createdAt = new Date(note.createdAt);
   note.localHidden = note.hidden;
-  note.style = { background: 'hsl(' + Math.floor(Math.random()*360) + ',100%,87.5%)' };
+  note.style = (new BgGen()).toStyle();
   return Immutable.Map(note);
 }
 
