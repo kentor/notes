@@ -1,5 +1,4 @@
 var BgGen     = require('../bg-gen');
-var Markdown  = require('pagedown');
 var Immutable = require('immutable');
 
 var Reflux = require('reflux');
@@ -16,7 +15,6 @@ function transformSnapshotToNote(snapshot) {
   var note = snapshot.val();
 
   note.name = snapshot.name();
-  note.content = Markdown.getSanitizingConverter().makeHtml(note.content);
   note.createdAt = new Date(note.createdAt);
   note.localHidden = note.hidden;
 

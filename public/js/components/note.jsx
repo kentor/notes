@@ -1,5 +1,6 @@
 var React = require('react');
 require('react/addons');
+var Markdown = require('pagedown').getSanitizingConverter();
 var moment = require('moment');
 
 var Note = React.createClass({
@@ -15,6 +16,7 @@ var Note = React.createClass({
       'note-content': true,
       'hidden': note.get('localHidden'),
     });
+    var content = Markdown.makeHtml(note.get('content'));
 
     return (
       <li className="note" onClick={this.toggleLocalHidden} style={note.get('style').toObject()}>
@@ -26,7 +28,7 @@ var Note = React.createClass({
             <a className="delete-note" onClick={this.props.onDelete}>✖</a>
           </div>
         </div>
-        <div className={noteContentClasses} dangerouslySetInnerHTML={{__html: note.get('content')}} />
+        <div className={noteContentClasses} dangerouslySetInnerHTML={{__html: content}} />
       </li>
     );
   }
