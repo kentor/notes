@@ -1,5 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
+var RouteHandler = Router.RouteHandler;
 var Appconfig = require('../appconfig');
 
 var App = React.createClass({
@@ -22,7 +23,7 @@ var App = React.createClass({
   },
 
   render: function() {
-    return <this.props.activeRouteHandler />;
+    return <RouteHandler />;
   },
 });
 
