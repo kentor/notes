@@ -40,18 +40,18 @@ var Index = React.createClass({
     this.firebaseRef = Appconfig.firebaseRef.child('notes');
 
     this.firebaseRef.on('child_added', function(snapshot) {
-      var noteName = snapshot.name();
+      var noteName = snapshot.key();
       var note = snapshot.val()
       NoteActions.noteAdded(noteName, note);
     }.bind(this));
 
     this.firebaseRef.on('child_removed', function(snapshot) {
-      var noteName = snapshot.name();
+      var noteName = snapshot.key();
       NoteActions.noteRemoved(noteName);
     }.bind(this));
 
     this.firebaseRef.on('child_changed', function(snapshot) {
-      var noteName = snapshot.name();
+      var noteName = snapshot.key();
       var note = snapshot.val();
       NoteActions.noteChanged(noteName, note);
     }.bind(this));
