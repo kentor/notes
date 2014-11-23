@@ -17,7 +17,7 @@ var Note = React.createClass({
     });
 
     return (
-      <li className="note" onClick={this.toggleLocalHidden} style={note.get('style')}>
+      <li className="note" onClick={this.toggleLocalHidden} style={note.get('style').toObject()}>
         <div className="controls">
           <time>{moment(note.get('createdAt')).fromNow().replace(' ago', '')}</time>
           <div className="icons">

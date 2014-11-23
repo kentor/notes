@@ -32,6 +32,7 @@ var Index = React.createClass({
     this.listenTo(NoteStore, function() {
       var notes = NoteStore.getAll();
       if (this.state.notes !== notes) {
+        localStorage['notes'] = JSON.stringify(notes);
         this.setState({ notes: notes });
       }
     }.bind(this));

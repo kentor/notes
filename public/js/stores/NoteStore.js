@@ -7,13 +7,24 @@ var NoteActions = require('../actions/NoteActions');
 
 var _notesByName = Immutable.OrderedMap();
 
+var localNotes = localStorage && localStorage['notes'];
+if (localNotes) {
+  _notesByName = _notesByName.mergeDeep(JSON.parse(localNotes));
+}
+
 function transformSnapshotToNote(snapshot) {
   var note = snapshot.val();
+
   note.name = snapshot.name();
   note.content = Markdown.getSanitizingConverter().makeHtml(note.content);
   note.createdAt = new Date(note.createdAt);
   note.localHidden = note.hidden;
-  note.style = (new BgGen()).toStyle();
+
+  var noteInLocalStorage = _notesByName.get(note.name);
+  var style = (noteInLocalStorage && noteInLocalStorage.get('style'))
+    || Immutable.Map((new BgGen()).toStyle());
+  note.style = style;
+
   return Immutable.Map(note);
 }
 
