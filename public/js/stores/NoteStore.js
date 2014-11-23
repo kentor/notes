@@ -11,10 +11,8 @@ if (localNotes) {
   _notesByName = _notesByName.mergeDeep(JSON.parse(localNotes));
 }
 
-function transformSnapshotToNote(snapshot) {
-  var note = snapshot.val();
-
-  note.name = snapshot.name();
+function deserializeNote(noteName, note) {
+  note.name = noteName;
   note.createdAt = new Date(note.createdAt);
   note.localHidden = note.hidden;
 
@@ -37,8 +35,8 @@ var NoteStore = Reflux.createStore({
     _notesByName = Immutable.OrderedMap();
   },
 
-  onNoteAdded: function(snapshot) {
-    var note = transformSnapshotToNote(snapshot);
+  onNoteAdded: function(noteName, note) {
+    var note = deserializeNote(noteName, note);
     _notesByName = _notesByName.set(note.get('name'), note);
     this.triggerAsync();
   },
