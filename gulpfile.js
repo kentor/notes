@@ -1,6 +1,7 @@
 var browserify = require('browserify');
 var buffer     = require('vinyl-buffer');
 var gulp       = require('gulp');
+var jshint     = require('gulp-jshint');
 var livereload = require('tiny-lr');
 var source     = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
@@ -35,6 +36,16 @@ gulp.task('scripts', function() {
   return rebundle();
 });
 
+var LINT = ['./public/js/**/*.js',
+            '!./public/js/main.js',
+            '!./public/js/app.js',
+           ];
+gulp.task('lint', function() {
+  gulp.src(LINT)
+    .pipe(jshint())
+    .pipe(jshint.reporter(require('jshint-stylish')));
+});
+
 var tinylr;
 gulp.task('livereload', function() {
   tinylr = livereload();
@@ -53,6 +64,7 @@ function notifyLiveReload(event) {
 gulp.task('watch', function() {
   gulp.watch('public/*.html', notifyLiveReload);
   gulp.watch('public/js/app.js', notifyLiveReload);
+  gulp.watch(LINT, ['lint']);
 });
 
 gulp.task('build', function() {
@@ -64,4 +76,4 @@ gulp.task('build', function() {
     .pipe(gulp.dest('./public/js/'));
 });
 
-gulp.task('default', ['express', 'scripts', 'livereload', 'watch']);
+gulp.task('default', ['express', 'scripts', 'lint', 'livereload', 'watch']);

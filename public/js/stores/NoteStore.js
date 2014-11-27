@@ -36,7 +36,7 @@ var NoteStore = Reflux.createStore({
   },
 
   onNoteAdded: function(noteName, note) {
-    var note = deserializeNote(noteName, note);
+    note = deserializeNote(noteName, note);
     _notesByName = _notesByName.set(note.get('name'), note);
     this.triggerAsync();
   },

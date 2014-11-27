@@ -2,7 +2,7 @@ function BackgroundGenerator() {
   this.hue = Math.floor(Math.random()*360);
   this.color = 'hsl(' + this.hue + ',100%,87.5%)';
   this.pattern = this.PATTERNS[Math.floor(Math.random()*this.PATTERNS.length)];
-};
+}
 
 BackgroundGenerator.prototype = {
   PATTERNS: ['checkerboard', 'dots', 'striped'],
