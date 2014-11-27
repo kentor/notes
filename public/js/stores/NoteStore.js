@@ -6,9 +6,10 @@ var NoteActions = require('../actions/NoteActions');
 
 var _notesByName = Immutable.OrderedMap();
 
-var localNotes = localStorage && localStorage['notes'];
+var localNotes = localStorage && localStorage.notes;
+var coldNotesByName = Immutable.OrderedMap();
 if (localNotes) {
-  _notesByName = _notesByName.mergeDeep(JSON.parse(localNotes));
+  coldNotesByName = coldNotesByName.mergeDeep(JSON.parse(localNotes));
 }
 
 function deserializeNote(noteName, note) {
@@ -16,9 +17,9 @@ function deserializeNote(noteName, note) {
   note.createdAt = new Date(note.createdAt);
   note.localHidden = note.hidden;
 
-  var noteInLocalStorage = _notesByName.get(note.name);
-  var style = (noteInLocalStorage && noteInLocalStorage.get('style'))
-    || Immutable.Map((new BgGen()).toStyle());
+  var noteInColdNotes = coldNotesByName.get(note.name);
+  var style = (noteInColdNotes && noteInColdNotes.get('style')) ||
+    Immutable.Map((new BgGen()).toStyle());
   note.style = style;
 
   return Immutable.Map(note);
@@ -28,7 +29,7 @@ var NoteStore = Reflux.createStore({
   listenables: NoteActions,
 
   getAll: function() {
-    return _notesByName;
+    return _notesByName.size !== 0 ? _notesByName : coldNotesByName;
   },
 
   clearAll: function() {
