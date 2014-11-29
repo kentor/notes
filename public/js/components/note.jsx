@@ -1,17 +1,40 @@
 var React = require('react');
 require('react/addons');
+var Hammer = require('hammerjs');
 var Markdown = require('pagedown').getSanitizingConverter();
 var moment = require('moment');
 
 var Note = React.createClass({
+  getInitialState: function() {
+    return { swiped: false };
+  },
+
   toggleLocalHidden: function(e) {
     if (window.getSelection().toString() || e.target.tagName.match(/^[ai]$/i)) return;
     this.props.onToggleLocalHidden();
   },
 
+  componentDidMount: function() {
+    new Hammer(this.getDOMNode(), {
+      cssProps: {
+        userSelect: true,
+      },
+    })
+    .on('swipeleft', function() {
+      this.setState({swiped: true});
+    }.bind(this))
+    .on('swiperight', function() {
+      this.setState({swiped: false});
+    }.bind(this));
+  },
+
   render: function() {
     var note = this.props.note;
     var cx = React.addons.classSet;
+    var noteClasses = cx({
+      'note': true,
+      'swiped': this.state.swiped,
+    });
     var noteContentClasses = cx({
       'note-content': true,
       'hidden': note.get('localHidden'),
@@ -19,7 +42,8 @@ var Note = React.createClass({
     var content = Markdown.makeHtml(note.get('content'));
 
     return (
-      <li className="note" onClick={this.toggleLocalHidden} style={note.get('style').toObject()}>
+      <li className={noteClasses} onClick={this.toggleLocalHidden}
+          style={note.get('style').toObject()}>
         <div className="controls">
           <time>{moment(note.get('createdAt')).fromNow().replace(' ago', '')}</time>
           <div className="icons">
@@ -29,6 +53,9 @@ var Note = React.createClass({
           </div>
         </div>
         <div className={noteContentClasses} dangerouslySetInnerHTML={{__html: content}} />
+        <a onClick={this.props.onDelete} className="swipe-delete">
+          Delete
+        </a>
       </li>
     );
   }
