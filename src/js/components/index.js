@@ -32,7 +32,7 @@ var Index = React.createClass({
     this.listenTo(NoteStore, function() {
       var notes = NoteStore.getAll();
       if (this.state.notes !== notes) {
-        localStorage['notes'] = JSON.stringify(notes);
+        localStorage.notes = JSON.stringify(notes);
         this.setState({ notes: notes });
       }
     }.bind(this));
@@ -41,7 +41,7 @@ var Index = React.createClass({
 
     this.firebaseRef.on('child_added', function(snapshot) {
       var noteName = snapshot.key();
-      var note = snapshot.val()
+      var note = snapshot.val();
       NoteActions.noteAdded(noteName, note);
     }.bind(this));
 

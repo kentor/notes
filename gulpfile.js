@@ -3,6 +3,7 @@ var buffer     = require('vinyl-buffer');
 var gulp       = require('gulp');
 var jshint     = require('gulp-jshint');
 var livereload = require('tiny-lr');
+var react      = require('gulp-react');
 var source     = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var stylus     = require('gulp-stylus');
@@ -65,6 +66,7 @@ var LINT = [
 
 gulp.task('lint', function() {
   gulp.src(LINT)
+    .pipe(react())
     .pipe(jshint())
     .pipe(jshint.reporter(require('jshint-stylish')));
 });
