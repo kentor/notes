@@ -5,6 +5,7 @@ var jshint     = require('gulp-jshint');
 var livereload = require('tiny-lr');
 var source     = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
+var stylus     = require('gulp-stylus');
 var uglify     = require('gulp-uglify');
 var watchify   = require('watchify');
 
@@ -76,4 +77,17 @@ gulp.task('build', function() {
     .pipe(gulp.dest('./public/js/'));
 });
 
-gulp.task('default', ['express', 'scripts', 'lint', 'livereload', 'watch']);
+gulp.task('css', function() {
+  gulp.src('src/css/app.styl')
+    .pipe(stylus({
+      'include css': true,
+    }))
+    .pipe(gulp.dest('public/css/'));
+});
+
+gulp.task('watch-css', ['css'], function() {
+  gulp.watch('src/css/**/*.styl', ['css']);
+});
+
+gulp.task('default', ['express', 'scripts', 'lint', 'livereload',
+                      'watch-css', 'watch']);
