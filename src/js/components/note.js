@@ -31,10 +31,12 @@ var Note = React.createClass({
   render: function() {
     var note = this.props.note;
     var cx = React.addons.classSet;
-    var noteClasses = cx({
+    var noteClasses = {
       'note': true,
       'swiped': this.state.swiped,
-    });
+    };
+    noteClasses[note.get('className')] = true;
+    noteClasses = cx(noteClasses);
     var noteContentClasses = cx({
       'note-content': true,
       'hidden': note.get('localHidden'),
@@ -42,8 +44,7 @@ var Note = React.createClass({
     var content = Markdown.makeHtml(note.get('content'));
 
     return (
-      <li className={noteClasses} onClick={this.toggleLocalHidden}
-          style={note.get('style').toObject()}>
+      <li className={noteClasses} onClick={this.toggleLocalHidden}>
         <div className="controls">
           <time>{moment(note.get('createdAt')).fromNow().replace(' ago', '')}</time>
           <div className="icons">

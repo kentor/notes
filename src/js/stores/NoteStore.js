@@ -18,9 +18,10 @@ function deserializeNote(noteName, note) {
   note.localHidden = note.hidden;
 
   var noteInColdNotes = coldNotesByName.get(note.name);
-  var style = (noteInColdNotes && noteInColdNotes.get('style')) ||
-    Immutable.Map((new BgGen()).toStyle());
-  note.style = style;
+
+  var className = (noteInColdNotes && noteInColdNotes.get('className')) ||
+    (new BgGen()).toClassName();
+  note.className = className;
 
   return Immutable.Map(note);
 }
