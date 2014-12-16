@@ -7,7 +7,7 @@ var Reflux = require('reflux');
 var NoteActions = require('../actions/NoteActions');
 var NoteStore = require('../stores/NoteStore');
 
-var Note = require('./note.jsx');
+var Note = require('./note');
 
 function escapeRegexp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");

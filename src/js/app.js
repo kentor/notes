@@ -2,10 +2,10 @@ var React  = require('react');
 var Router = require('react-router');
 var Route  = Router.Route;
 
-var App    = require('./components/app.jsx');
-var Index  = require('./components/index.jsx');
-var Login  = require('./components/login.jsx');
-var Logout = require('./components/logout.jsx');
+var App    = require('./components/app');
+var Index  = require('./components/index');
+var Login  = require('./components/login');
+var Logout = require('./components/logout');
 
 Router.run((
   <Route name="app" path="/" handler={App}>
