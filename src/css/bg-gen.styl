@@ -1,30 +1,26 @@
-checkerboard(n)
+.checkerboard
   pattern = linear-gradient(45deg, transparent 25%, rgba(255,255,255,.2) 25%,
                             rgba(255,255,255,.2) 75%, transparent 75%,
                             transparent)
-  background-color hsl(n, 100%, 87.5%)
   background-image pattern, pattern
   background-position 0 0, 15px 15px
   background-size 30px 30px
 
-dots(n)
+.dots
   pattern = radial-gradient(rgba(255,255,255,.2) 25%, transparent 25%)
-  background-color hsl(n, 100%, 87.5%)
   background-image pattern, pattern
   background-position 0 0, 15px 15px
   background-size 30px 30px
 
-striped(n)
-  background-color hsl(n, 100%, 87.5%)
+.striped
   background-image repeating-linear-gradient(135deg, transparent,
                                              transparent 11px,
                                              rgba(255,255,255,.2) 11px,
                                              rgba(255,255,255,.2) 22px)
 
-for n in 1..360
-  .checkerboard-{n}
-    checkerboard(n)
-  .dots-{n}
-    dots(n)
-  .striped-{n}
-    striped(n)
+pastel(n)
+  background-color hsl(n, 100%, 87.5%)
+
+for n in 0..359
+  .bg-{n}
+    pastel(n)

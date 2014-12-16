@@ -7,7 +7,7 @@ BackgroundGenerator.prototype = {
   PATTERNS: ['checkerboard', 'dots', 'striped'],
 
   toClassName: function() {
-    return this.pattern + '-' + this.hue;
+    return this.pattern + ' bg-' + this.hue;
   },
 };
 
