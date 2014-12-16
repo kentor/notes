@@ -3,6 +3,7 @@ var buffer     = require('vinyl-buffer');
 var gulp       = require('gulp');
 var jshint     = require('gulp-jshint');
 var livereload = require('tiny-lr');
+var minifyCSS  = require('gulp-minify-css');
 var react      = require('gulp-react');
 var source     = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
@@ -18,7 +19,7 @@ gulp.task('express', function() {
   app.listen(4069);
 });
 
-gulp.task('build', function() {
+gulp.task('build', ['css'], function() {
   return browserify('./src/js/app.js')
     .bundle()
     .pipe(source('app.js'))
@@ -32,6 +33,7 @@ gulp.task('css', function() {
     .pipe(stylus({
       'include css': true,
     }))
+    .pipe(minifyCSS())
     .pipe(gulp.dest('public/css/'));
 });
 
