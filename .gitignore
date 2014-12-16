@@ -1,4 +1,4 @@
 node_modules
-app.css
-app.js
+public/css/app.css
+public/js/app.js
 *.js.map

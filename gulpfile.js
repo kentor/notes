@@ -19,7 +19,7 @@ gulp.task('express', function() {
 
 gulp.task('scripts', function() {
   watchify.args.debug = true;
-  var bundler = watchify(browserify('./public/js/main.js', watchify.args));
+  var bundler = watchify(browserify('./src/js/app.js', watchify.args));
 
   bundler.on('update', rebundle);
   bundler.on('log', console.error);
@@ -37,10 +37,10 @@ gulp.task('scripts', function() {
   return rebundle();
 });
 
-var LINT = ['./public/js/**/*.js',
-            '!./public/js/main.js',
-            '!./public/js/app.js',
-           ];
+var LINT = [
+  'src/js/**/*.js',
+  '!src/js/app.js',
+];
 gulp.task('lint', function() {
   gulp.src(LINT)
     .pipe(jshint())
@@ -69,7 +69,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', function() {
-  return browserify('./public/js/main.js')
+  return browserify('./src/js/app.js')
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
