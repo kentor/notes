@@ -63,7 +63,6 @@ gulp.task('watch-js', function() {
 
 var LINT = [
   'src/js/**/*.js',
-  '!src/js/app.js',
 ];
 
 gulp.task('lint', function() {
