@@ -134,6 +134,13 @@ a
 .hidden
   display none
 
+.fade-leave
+  opacity 1
+  transition opacity .5s ease-out
+
+  &.fade-leave-active
+    opacity 0
+
 @media (min-width: 700px)
   #wrapper
     display -webkit-flex

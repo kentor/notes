@@ -4,6 +4,7 @@ var Note = require('./note');
 var NoteActions = require('../actions/NoteActions');
 var NoteStore = require('../stores/NoteStore');
 var React = require('react');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Reflux = require('reflux');
 
 function escapeRegexp(str) {
@@ -134,11 +135,12 @@ var Index = React.createClass({
           {logoutLink}
         </aside>
 
-        <ul>
+        <ReactCSSTransitionGroup transitionName="fade" transitionEnter={false}
+                                 component="ul">
           <li>Notes: {this.state.notes.size}</li>
           {notes}
           <li>Notes: {this.state.notes.size}</li>
-        </ul>
+        </ReactCSSTransitionGroup>
       </div>
     );
   },
