@@ -9,7 +9,8 @@ var Note = React.createClass({
   },
 
   toggleLocalHidden: function(e) {
-    if (window.getSelection().toString() || e.target.tagName.match(/^[ai]$/i)) return;
+    if (window.getSelection().toString() ||
+        e.target.tagName.match(/^[ai]$/i)) return;
     this.props.onToggleLocalHidden();
   },
 
@@ -41,18 +42,22 @@ var Note = React.createClass({
       'hidden': note.get('localHidden'),
     });
     var content = Markdown.makeHtml(note.get('content'));
+    var time = moment(note.get('createdAt')).fromNow().replace(' ago', '');
 
     return (
       <li className={noteClasses} onClick={this.toggleLocalHidden}>
         <div className="controls">
-          <time>{moment(note.get('createdAt')).fromNow().replace(' ago', '')}</time>
+          <time>{time}</time>
           <div className="icons">
-            <a onClick={this.props.onToggleHidden}>{note.get('hidden') ? '☼' : '☀'}</a>
+            <a onClick={this.props.onToggleHidden}>
+              {note.get('hidden') ? '☼' : '☀'}
+            </a>
             &nbsp;
             <a className="delete-note" onClick={this.props.onDelete}>✖</a>
           </div>
         </div>
-        <div className={noteContentClasses} dangerouslySetInnerHTML={{__html: content}} />
+        <div className={noteContentClasses}
+             dangerouslySetInnerHTML={{__html: content}} />
         <a onClick={this.props.onDelete} className="swipe-delete">
           Delete
         </a>

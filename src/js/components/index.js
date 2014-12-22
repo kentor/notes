@@ -88,7 +88,8 @@ var Index = React.createClass({
   },
 
   toggleHidden: function(note) {
-    this.firebaseRef.child(note.get('name')).update({ hidden: !note.get('hidden') });
+    this.firebaseRef.child(note.get('name'))
+      .update({ hidden: !note.get('hidden') });
   },
 
   delete: function(note) {
@@ -124,7 +125,8 @@ var Index = React.createClass({
       <div id="wrapper">
         <aside>
           <div>
-            <textarea valueLink={this.linkState('newNote')} onKeyDown={this.handleKeyDown}></textarea>
+            <textarea valueLink={this.linkState('newNote')}
+                      onKeyDown={this.handleKeyDown}></textarea>
             <button onClick={this.submitNewNote}>Post</button>
           </div>
 
