@@ -104,6 +104,16 @@ var Index = React.createClass({
       });
     }
 
+    notes = notes.map(function(note, name) {
+      return (
+        <Note note={note}
+              key={name}
+              onToggleLocalHidden={this.toggleLocalHidden.bind(this, note)}
+              onToggleHidden={this.toggleHidden.bind(this, note)}
+              onDelete={this.delete.bind(this, note)} />
+      );
+    }, this).reverse().toArray();
+
     var logoutLink;
     if (Appconfig.user) {
       logoutLink = <Link to="logout" className="logout-button">Logout</Link>;
@@ -126,15 +136,7 @@ var Index = React.createClass({
 
         <ul>
           <li>Notes: {this.state.notes.size}</li>
-          {notes.map(function(note, name) {
-            return (
-              <Note note={note}
-                    key={name}
-                    onToggleLocalHidden={this.toggleLocalHidden.bind(this, note)}
-                    onToggleHidden={this.toggleHidden.bind(this, note)}
-                    onDelete={this.delete.bind(this, note)} />
-            );
-          }, this).reverse().toArray()}
+          {notes}
           <li>Notes: {this.state.notes.size}</li>
         </ul>
       </div>
