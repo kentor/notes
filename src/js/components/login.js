@@ -1,5 +1,5 @@
-var React = require('react');
 var Appconfig = require('../appconfig');
+var React = require('react');
 
 var Login = React.createClass({
   handleClick: function() {

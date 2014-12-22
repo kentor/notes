@@ -1,6 +1,6 @@
+var Appconfig = require('../appconfig');
 var React = require('react');
 var Router = require('react-router');
-var Appconfig = require('../appconfig');
 
 var Logout = React.createClass({
   mixins: [Router.Navigation],

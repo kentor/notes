@@ -1,13 +1,10 @@
-var React     = require('react');
-require('react/addons');
 var Appconfig = require('../appconfig');
-var Link      = require('react-router').Link;
-
-var Reflux = require('reflux');
+var Link = require('react-router').Link;
+var Note = require('./note');
 var NoteActions = require('../actions/NoteActions');
 var NoteStore = require('../stores/NoteStore');
-
-var Note = require('./note');
+var React = require('react');
+var Reflux = require('reflux');
 
 function escapeRegexp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");

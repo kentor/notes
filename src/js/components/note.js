@@ -1,8 +1,7 @@
-var React = require('react');
-require('react/addons');
 var Hammer = require('hammerjs');
 var Markdown = require('pagedown').getSanitizingConverter();
 var moment = require('moment');
+var React = require('react');
 
 var Note = React.createClass({
   getInitialState: function() {
