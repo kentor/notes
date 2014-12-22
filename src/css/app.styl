@@ -1,180 +1,150 @@
 @import '../../node_modules/normalize.css/normalize.css'
 @import bg-gen
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*
+  box-sizing border-box
+  margin 0
+  padding 0
 
-body {
-  background: #1a1b1f;
-  font: 15px HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+body
+  background #1a1b1f
+  font 15px HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif
 
-.login-button {
-  -webkit-transform: translate(-50%, -50%);
-  background: #4eabf1;
-  cursor: pointer;
-  display: block;
-  font-size: 30px;
-  left: 50%;
-  padding: 10px 20px;
-  position: fixed;
-  top: 50%;
-}
+.login-button
+  -webkit-transform translate(-50%, -50%)
+  background #4eabf1
+  cursor pointer
+  display block
+  font-size 30px
+  left 50%
+  padding 10px 20px
+  position fixed
+  top 50%
 
-#wrapper {
-  margin: auto;
-  max-width: 900px;
-  padding: 0 20px;
-}
+#wrapper
+  margin auto
+  max-width 900px
+  padding 0 20px
 
-textarea {
-  display: block;
-  height: 100px;
-  margin: 20px 0;
-  resize: none;
-  width: 100%;
-}
+textarea
+  display block
+  height 100px
+  margin 20px 0
+  resize none
+  width 100%
 
-input, textarea, button {
-  -webkit-appearance: none;
-  background: #333;
-  border-radius: 0;
-  border: 1px solid #fff;
-  color: #fff;
-  font-family: inherit;
-  font-size: inherit;
-  outline: 0;
-}
+button,
+input,
+textarea
+  -webkit-appearance none
+  background #333
+  border-radius 0
+  border 1px solid #fff
+  color #fff
+  font-family inherit
+  font-size inherit
+  outline 0
 
-input {
-  width: 152px;
-  padding: 1px 2px;
-}
+input
+  width 152px
+  padding 1px 2px
 
-button {
-  float: right;
-  padding: 1px 8px;
-}
+button
+  float right
+  padding 1px 8px
 
-.logout-button {
-  color: #777;
-  display: inline-block;
-  margin-top: 15px;
-}
+.logout-button
+  color #777
+  display inline-block
+  margin-top 15px
 
-#notes, ul {
-  border-radius: 4px;
-  -webkit-flex-grow: 1;
-}
+#notes, ul
+  border-radius 4px
+  -webkit-flex-grow 1
 
-li {
-  background: #f9f9f9;
-  color: #000;
-  list-style: none;
-  margin: 20px 0;
-  padding: 10px;
-}
+li
+  background #f9f9f9
+  color #000
+  list-style none
+  margin 20px 0
+  padding 10px
 
-li:first-of-type {
-  border-radius: 4px 4px 0 0;
-}
+li:first-child
+  border-radius 4px 4px 0 0
 
-li:last-of-type {
-  border-radius: 0 0 4px 4px;
-}
+li:last-child
+  border-radius 0 0 4px 4px
 
-li:hover {
-  cursor: pointer;
-}
+li:hover
+  cursor pointer
 
-.note {
-  overflow: hidden;
-  position: relative;
-}
+.note
+  overflow hidden
+  position relative
 
-.swipe-delete {
-  -webkit-align-items: center;
-  -webkit-transform: translate3d(100%, 0, 0);
-  -webkit-transition: all .1s ease-in;
-  background: #f00;
-  bottom: 0;
-  color: #fff;
-  display: -webkit-flex;
-  padding: 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  user-select: none;
-}
+.swipe-delete
+  -webkit-align-items center
+  -webkit-transform translate3d(100%, 0, 0)
+  -webkit-transition all .1s ease-in-out
+  background #f00
+  bottom 0
+  color #fff
+  display -webkit-flex
+  padding 10px
+  position absolute
+  right 0
+  top 0
+  user-select none
 
-.note.swiped .swipe-delete {
-  -webkit-transform: translate3d(0, 0, 0);
-}
+.note.swiped .swipe-delete
+  -webkit-transform translate3d(0, 0, 0)
 
-.controls {
-  -webkit-align-items: center;
-  -webkit-justify-content: space-between;
-  display: -webkit-flex;
-  font-size: 12px;
-}
+.controls
+  -webkit-align-items center
+  -webkit-justify-content space-between
+  display -webkit-flex
+  font-size 12px
 
-.icons {
-  line-height: 1em;
-}
+.icons
+  line-height 1em
 
 .controls,
-time,
-.icons {
-  -webkit-user-select: none;
-}
+.icons
+  -webkit-user-select none
 
-.delete-note {
-  display: none;
-}
+.delete-note
+  display none
 
-a {
-  color: #000;
-  text-decoration: none;
-}
+a
+  color #000
+  text-decoration none
 
-.note-content {
-  word-wrap: break-word;
-}
+.note-content
+  word-wrap break-word
 
-.note-content a {
-  text-decoration: underline;
-}
+  a
+    text-decoration underline
 
-.note-content p {
-  margin: 10px 0;
-}
+  p
+    margin 10px 0
 
-.note-content p:first-of-type {
-  margin: 0;
-}
+  p:first-of-type
+    margin 0
 
-.note-content p:last-of-type {
-  margin-bottom: 0;
-}
+  p:last-of-type
+    margin-bottom 0
 
-.hidden {
-  display: none;
-}
+.hidden
+  display none
 
-@media (min-width: 700px) {
-  #wrapper {
-    display: -webkit-flex;
-  }
+@media (min-width: 700px)
+  #wrapper
+    display -webkit-flex
 
-  aside {
-    margin-right: 20px;
-    min-width: 220px;
-  }
+  aside
+    margin-right 20px
+    min-width 220px
 
-  .delete-note {
-    display: inline;
-  }
-}
+  .delete-note
+    display inline
+
