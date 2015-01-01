@@ -1,5 +1,6 @@
 var BgGen     = require('../bg-gen');
 var Immutable = require('immutable');
+var Note      = require('../models/note');
 
 var Reflux = require('reflux');
 var NoteActions = require('../actions/NoteActions');
@@ -23,7 +24,7 @@ function deserializeNote(noteName, note) {
     (new BgGen()).toClassName();
   note.className = className;
 
-  return Immutable.Map(note);
+  return new Note(note);
 }
 
 var NoteStore = Reflux.createStore({
