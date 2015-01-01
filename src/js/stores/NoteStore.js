@@ -37,6 +37,10 @@ var NoteStore = Reflux.createStore({
     _notesByName = Immutable.OrderedMap();
   },
 
+  persist: function() {
+    localStorage.notes = JSON.stringify(this.getAll());
+  },
+
   onNoteAdded: function(noteName, note) {
     note = deserializeNote(noteName, note);
     _notesByName = _notesByName.set(note.get('name'), note);
