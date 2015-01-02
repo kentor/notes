@@ -19,8 +19,15 @@ gulp.task('express', function() {
   app.listen(4069);
 });
 
-gulp.task('build', ['css'], function() {
-  return browserify('./src/js/app.js')
+gulp.task('build', function() {
+  gulp.src('src/css/app.styl')
+    .pipe(stylus({
+      'include css': true,
+    }))
+    .pipe(minifyCSS())
+    .pipe(gulp.dest('public/css/'));
+
+  browserify('./src/js/app.js')
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
@@ -32,8 +39,10 @@ gulp.task('css', function() {
   gulp.src('src/css/app.styl')
     .pipe(stylus({
       'include css': true,
+      sourcemap: {
+        inline: true,
+      },
     }))
-    .pipe(minifyCSS())
     .pipe(gulp.dest('public/css/'));
 });
 
