@@ -20,12 +20,12 @@ var Note = React.createClass({
         userSelect: true,
       },
     })
-    .on('swipeleft', function() {
+    .on('swipeleft', () => {
       this.setState({swiped: true});
-    }.bind(this))
-    .on('swiperight', function() {
+    })
+    .on('swiperight', () => {
       this.setState({swiped: false});
-    }.bind(this));
+    });
   },
 
   render: function() {

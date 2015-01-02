@@ -27,32 +27,32 @@ var Index = React.createClass({
   },
 
   componentWillMount: function() {
-    this.listenTo(NoteStore, function() {
+    this.listenTo(NoteStore, () => {
       var notes = NoteStore.getAll();
       if (this.state.notes !== notes) {
         NoteStore.persist();
-        this.setState({ notes: notes });
+        this.setState({ notes });
       }
-    }.bind(this));
+    });
 
     this.firebaseRef = Appconfig.firebaseRef.child('notes');
 
-    this.firebaseRef.on('child_added', function(snapshot) {
+    this.firebaseRef.on('child_added', (snapshot) => {
       var noteName = snapshot.key();
       var note = snapshot.val();
       NoteActions.noteAdded(noteName, note);
-    }.bind(this));
+    });
 
-    this.firebaseRef.on('child_removed', function(snapshot) {
+    this.firebaseRef.on('child_removed', (snapshot) => {
       var noteName = snapshot.key();
       NoteActions.noteRemoved(noteName);
-    }.bind(this));
+    });
 
-    this.firebaseRef.on('child_changed', function(snapshot) {
+    this.firebaseRef.on('child_changed', (snapshot) => {
       var noteName = snapshot.key();
       var note = snapshot.val();
       NoteActions.noteChanged(noteName, note);
-    }.bind(this));
+    });
   },
 
   componentWillUnmount: function() {
@@ -106,7 +106,7 @@ var Index = React.createClass({
       });
     }
 
-    notes = notes.map(function(note, name) {
+    notes = notes.map((note, name) => {
       return (
         <Note note={note}
               key={name}
@@ -114,7 +114,7 @@ var Index = React.createClass({
               onToggleHidden={this.toggleHidden.bind(this, note)}
               onDelete={this.delete.bind(this, note)} />
       );
-    }, this).reverse().toArray();
+    }).reverse().toArray();
 
     var logoutLink;
     if (Appconfig.user) {

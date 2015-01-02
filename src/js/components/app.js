@@ -10,7 +10,7 @@ var App = React.createClass({
   componentWillMount: function() {
     if (!Appconfig.authRequired) return;
 
-    Appconfig.firebaseRef.onAuth(function(jsonUser) {
+    Appconfig.firebaseRef.onAuth((jsonUser) => {
       if (jsonUser) {
         Appconfig.user = jsonUser;
         localStorage.setItem('user', JSON.stringify(jsonUser));
@@ -20,7 +20,7 @@ var App = React.createClass({
         localStorage.removeItem('user');
         this.transitionTo('login');
       }
-    }.bind(this));
+    });
   },
 
   render: function() {
