@@ -39,7 +39,8 @@ var Note = React.createClass({
     noteClasses = cx(noteClasses);
     var noteContentClasses = cx({
       'note-content': true,
-      'hidden': note.get('localHidden'),
+      'hidden': note.has('localHidden') ? note.get('localHidden')
+                                        : note.get('hidden'),
     });
     var content = Markdown.makeHtml(note.get('content'));
     var time = moment(note.get('createdAt')).fromNow().replace(' ago', '');
