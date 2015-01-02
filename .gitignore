@@ -1,5 +1,7 @@
+*.js.map
 .DS_Store
 node_modules
-public/css/app.css
-public/js/app.js
-*.js.map
+public/css/*.css
+public/index.html
+public/js/*.js
+rev-manifest.json
