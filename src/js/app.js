@@ -16,3 +16,5 @@ Router.run((
 ), function(Handler) {
   React.render(<Handler />, document.body);
 });
+
+require('fastclick')(document.body);
