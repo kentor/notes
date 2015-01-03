@@ -85,6 +85,7 @@ gulp.task('build-js', function() {
 
 var LINT = [
   'src/js/**/*.js',
+  '__tests__/**/*.js'
 ];
 
 gulp.task('lint', function() {
