@@ -8,7 +8,6 @@ var react      = require('gulp-react');
 var replace    = require('gulp-fingerprint');
 var rev        = require('gulp-rev');
 var source     = require('vinyl-source-stream');
-var sourcemaps = require('gulp-sourcemaps');
 var stylus     = require('gulp-stylus');
 var uglify     = require('gulp-uglify');
 var watchify   = require('watchify');
@@ -65,9 +64,6 @@ gulp.task('watch-js', function() {
     return bundler
       .bundle()
       .pipe(source('app.js'))
-      .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./public/js/'));
   }
 
