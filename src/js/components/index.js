@@ -3,7 +3,7 @@ var Link = require('react-router').Link;
 var Note = require('./note');
 var NoteActions = require('../actions/NoteActions');
 var NoteStore = require('../stores/NoteStore');
-var React = require('react');
+var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Reflux = require('reflux');
 

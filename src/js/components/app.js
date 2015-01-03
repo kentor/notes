@@ -1,5 +1,4 @@
 var React = require('react');
-require('react/addons');
 var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 var Appconfig = require('../appconfig');
