@@ -1,14 +1,14 @@
-function BackgroundGenerator() {
-  this.hue = Math.floor(Math.random()*360);
-  this.pattern = this.PATTERNS[Math.floor(Math.random()*this.PATTERNS.length)];
-}
+var PATTERNS = ['checkerboard', 'dots', 'striped'];
 
-BackgroundGenerator.prototype = {
-  PATTERNS: ['checkerboard', 'dots', 'striped'],
+class BackgroundGenerator {
+  constructor() {
+    this.hue = Math.floor(Math.random()*360);
+    this.pattern = PATTERNS[Math.floor(Math.random()*PATTERNS.length)];
+  }
 
-  toClassName: function() {
+  toClassName() {
     return `${this.pattern} bg-${this.hue}`;
-  },
-};
+  }
+}
 
 module.exports = BackgroundGenerator;
