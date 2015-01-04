@@ -5,14 +5,14 @@ var Router = require('react-router');
 var Logout = React.createClass({
   mixins: [Router.Navigation],
 
-  componentWillMount: function() {
+  componentWillMount() {
     Appconfig.firebaseRef.unauth();
     this.transitionTo('login');
   },
 
-  render: function() {
+  render() {
     return <div></div>;
-  }
+  },
 });
 
 module.exports = Logout;

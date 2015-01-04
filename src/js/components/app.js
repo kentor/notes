@@ -6,7 +6,7 @@ var Appconfig = require('../appconfig');
 var App = React.createClass({
   mixins: [Router.Navigation],
 
-  componentWillMount: function() {
+  componentWillMount() {
     if (!Appconfig.authRequired) return;
 
     Appconfig.firebaseRef.onAuth((jsonUser) => {
@@ -22,7 +22,7 @@ var App = React.createClass({
     });
   },
 
-  render: function() {
+  render() {
     return <RouteHandler />;
   },
 });

@@ -2,11 +2,11 @@ var Appconfig = require('../appconfig');
 var React = require('react');
 
 var Login = React.createClass({
-  handleClick: function() {
+  handleClick() {
     Appconfig.firebaseRef.authWithOAuthRedirect('twitter', function() {});
   },
 
-  render: function() {
+  render() {
     return <a className="login-button" onClick={this.handleClick}>Login</a>;
   },
 });

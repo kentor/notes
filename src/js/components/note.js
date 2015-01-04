@@ -4,17 +4,17 @@ var moment = require('moment');
 var React = require('react/addons');
 
 var Note = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return { swiped: false };
   },
 
-  toggleLocalHidden: function(e) {
+  toggleLocalHidden(e) {
     if (window.getSelection().toString() ||
         e.target.tagName.match(/^[ai]$/i)) return;
     this.props.onToggleLocalHidden();
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     new Hammer(this.getDOMNode(), {
       cssProps: {
         userSelect: true,
@@ -28,7 +28,7 @@ var Note = React.createClass({
     });
   },
 
-  render: function() {
+  render() {
     var note = this.props.note;
     var noteClasses = React.addons.classSet({
       [note.get('className')]: true,
@@ -62,7 +62,7 @@ var Note = React.createClass({
         </a>
       </li>
     );
-  }
+  },
 });
 
 module.exports = Note;

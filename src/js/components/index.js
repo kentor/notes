@@ -15,18 +15,18 @@ var Index = React.createClass({
   mixins: [React.addons.LinkedStateMixin, Reflux.ListenerMixin],
 
   statics: {
-    willTransitionTo: function(transition) {
+    willTransitionTo(transition) {
       if (Appconfig.authRequired && !Appconfig.user) {
         transition.redirect('login');
       }
     },
   },
 
-  getInitialState: function() {
+  getInitialState() {
     return { notes: NoteStore.getAll(), newNote: '', filter: '' };
   },
 
-  componentWillMount: function() {
+  componentWillMount() {
     this.listenTo(NoteStore, () => {
       var notes = NoteStore.getAll();
       if (this.state.notes !== notes) {
@@ -55,14 +55,14 @@ var Index = React.createClass({
     });
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     this.firebaseRef.off('child_added');
     this.firebaseRef.off('child_removed');
     this.firebaseRef.off('child_changed');
     NoteStore.clearAll();
   },
 
-  submitNewNote: function() {
+  submitNewNote() {
     if (!this.state.newNote) {
       return;
     }
@@ -76,27 +76,27 @@ var Index = React.createClass({
     this.setState({ newNote: '' });
   },
 
-  handleKeyDown: function(e) {
+  handleKeyDown(e) {
     if (e.keyCode == 13 && e.ctrlKey) {
       this.submitNewNote();
       e.preventDefault(); // prevents new line from pressing enter
     }
   },
 
-  toggleLocalHidden: function(note) {
+  toggleLocalHidden(note) {
     NoteActions.toggleLocalHidden(note);
   },
 
-  toggleHidden: function(note) {
+  toggleHidden(note) {
     this.firebaseRef.child(note.get('name'))
       .update({ hidden: !note.get('hidden') });
   },
 
-  delete: function(note) {
+  delete(note) {
     this.firebaseRef.child(note.get('name')).remove();
   },
 
-  render: function() {
+  render() {
     var notes = this.state.notes.toSeq();
 
     if (this.state.filter) {

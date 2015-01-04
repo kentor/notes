@@ -30,37 +30,37 @@ function deserializeNote(noteName, note) {
 var NoteStore = Reflux.createStore({
   listenables: NoteActions,
 
-  getAll: function() {
+  getAll() {
     return _notesByName.size !== 0 ? _notesByName : coldNotesByName;
   },
 
-  clearAll: function() {
+  clearAll() {
     _notesByName = Immutable.OrderedMap();
   },
 
-  persist: function() {
+  persist() {
     localStorage.notes = JSON.stringify(this.getAll());
   },
 
-  onNoteAdded: function(noteName, note) {
+  onNoteAdded(noteName, note) {
     note = deserializeNote(noteName, note);
     _notesByName = _notesByName.set(note.get('name'), note);
     this.triggerAsync();
   },
 
-  onNoteRemoved: function(noteName) {
+  onNoteRemoved(noteName) {
     _notesByName = _notesByName.remove(noteName);
     this.triggerAsync();
   },
 
-  onNoteChanged: function(noteName, note) {
+  onNoteChanged(noteName, note) {
     var newNote = _notesByName.get(noteName).merge(note);
     newNote = newNote.set('localHidden', note.hidden);
     _notesByName = _notesByName.set(noteName, newNote);
     this.triggerAsync();
   },
 
-  onToggleLocalHidden: function(note) {
+  onToggleLocalHidden(note) {
     var newNote = note.set('localHidden', !note.get('localHidden'));
     _notesByName = _notesByName.set(note.get('name'), newNote);
     this.triggerAsync();
