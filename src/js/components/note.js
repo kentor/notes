@@ -1,7 +1,7 @@
 var Hammer = require('hammerjs');
 var Markdown = require('pagedown').getSanitizingConverter();
 var moment = require('moment');
-var React = require('react');
+var React = require('react/addons');
 
 var Note = React.createClass({
   getInitialState: function() {
@@ -30,14 +30,12 @@ var Note = React.createClass({
 
   render: function() {
     var note = this.props.note;
-    var cx = React.addons.classSet;
-    var noteClasses = {
+    var noteClasses = React.addons.classSet({
       [note.get('className')]: true,
       'note': true,
       'swiped': this.state.swiped,
-    };
-    noteClasses = cx(noteClasses);
-    var noteContentClasses = cx({
+    });
+    var noteContentClasses = React.addons.classSet({
       'note-content': true,
       'hidden': note.has('localHidden') ? note.get('localHidden')
                                         : note.get('hidden'),
