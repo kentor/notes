@@ -32,10 +32,10 @@ var Note = React.createClass({
     var note = this.props.note;
     var cx = React.addons.classSet;
     var noteClasses = {
+      [note.get('className')]: true,
       'note': true,
       'swiped': this.state.swiped,
     };
-    noteClasses[note.get('className')] = true;
     noteClasses = cx(noteClasses);
     var noteContentClasses = cx({
       'note-content': true,
