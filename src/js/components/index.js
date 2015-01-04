@@ -105,11 +105,11 @@ var Index = React.createClass({
     }
 
     notes = notes.map((note, name) => (
-        <Note note={note}
-              key={name}
-              onToggleLocalHidden={this.toggleLocalHidden.bind(this, note)}
-              onToggleHidden={this.toggleHidden.bind(this, note)}
-              onDelete={this.delete.bind(this, note)} />
+      <Note note={note}
+            key={name}
+            onToggleLocalHidden={this.toggleLocalHidden.bind(this, note)}
+            onToggleHidden={this.toggleHidden.bind(this, note)}
+            onDelete={this.delete.bind(this, note)} />
     )).reverse().toArray();
 
     var logoutLink;
