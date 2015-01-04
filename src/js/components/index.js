@@ -101,20 +101,16 @@ var Index = React.createClass({
 
     if (this.state.filter) {
       var filterRegexp = new RegExp(escapeRegexp(this.state.filter), 'i');
-      notes = notes.filter(function(note) {
-        return note.get('content').match(filterRegexp);
-      });
+      notes = notes.filter(note => note.get('content').match(filterRegexp));
     }
 
-    notes = notes.map((note, name) => {
-      return (
+    notes = notes.map((note, name) => (
         <Note note={note}
               key={name}
               onToggleLocalHidden={this.toggleLocalHidden.bind(this, note)}
               onToggleHidden={this.toggleHidden.bind(this, note)}
               onDelete={this.delete.bind(this, note)} />
-      );
-    }).reverse().toArray();
+    )).reverse().toArray();
 
     var logoutLink;
     if (Appconfig.user) {
