@@ -63,17 +63,19 @@ var Index = React.createClass({
   },
 
   submitNewNote() {
-    if (!this.state.newNote) {
+    var newNote = this.state.newNote.trim();
+
+    this.setState({ newNote: '' });
+
+    if (!newNote) {
       return;
     }
 
     this.firebaseRef.push({
-      content: this.state.newNote,
+      content: newNote,
       createdAt: (new Date()).toISOString(),
       hidden: false,
     });
-
-    this.setState({ newNote: '' });
   },
 
   handleKeyDown(e) {
