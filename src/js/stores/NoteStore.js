@@ -36,6 +36,7 @@ var NoteStore = Reflux.createStore({
 
   clearAll() {
     _notesByName = Immutable.OrderedMap();
+    delete localStorage.notes;
   },
 
   persist() {
