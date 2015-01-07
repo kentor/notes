@@ -5,6 +5,7 @@ import NoteActions from '../actions/NoteActions';
 import NoteStore from '../stores/NoteStore';
 import React from 'react/addons';
 import Reflux from 'reflux';
+import UserStore from '../stores/UserStore';
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -17,7 +18,7 @@ var Index = React.createClass({
 
   statics: {
     willTransitionTo(transition) {
-      if (Appconfig.authRequired && !Appconfig.user) {
+      if (Appconfig.authRequired && !UserStore.user()) {
         transition.redirect('login');
       }
     },

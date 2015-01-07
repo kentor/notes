@@ -2,6 +2,7 @@ import Appconfig from '../appconfig';
 import React from 'react';
 import Router from 'react-router';
 import { RouteHandler } from 'react-router';
+import UserActions from '../actions/UserActions';
 
 var App = React.createClass({
   mixins: [Router.Navigation],
@@ -11,12 +12,10 @@ var App = React.createClass({
 
     Appconfig.firebaseRef.onAuth((jsonUser) => {
       if (jsonUser) {
-        Appconfig.user = jsonUser;
-        localStorage.setItem('user', JSON.stringify(jsonUser));
+        UserActions.loggedIn(jsonUser);
         this.transitionTo('index');
       } else {
-        Appconfig.user = null;
-        localStorage.removeItem('user');
+        UserActions.loggedOut();
         this.transitionTo('login');
       }
     });
