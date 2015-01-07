@@ -1,3 +1,4 @@
+import FastClick from 'fastclick';
 import React from 'react';
 import Router from 'react-router';
 import { DefaultRoute, Route } from 'react-router';
@@ -17,4 +18,4 @@ Router.run((
   React.render(<Handler />, document.body);
 });
 
-require('fastclick')(document.body);
+FastClick(document.body);
