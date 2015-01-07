@@ -13,7 +13,9 @@ var App = React.createClass({
     Appconfig.firebaseRef.onAuth((jsonUser) => {
       if (jsonUser) {
         UserActions.loggedIn(jsonUser);
-        this.transitionTo('index');
+        setTimeout(() => {
+          this.transitionTo('index');
+        }, 0);
       } else {
         UserActions.loggedOut();
         this.transitionTo('login');
