@@ -13,7 +13,7 @@ Router.run((
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
   </Route>
-), function(Handler) {
+), (Handler) => {
   React.render(<Handler />, document.body);
 });
 

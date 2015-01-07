@@ -3,7 +3,7 @@ import React from 'react';
 
 var Login = React.createClass({
   handleClick() {
-    Appconfig.firebaseRef.authWithOAuthRedirect('twitter', function() {});
+    Appconfig.firebaseRef.authWithOAuthRedirect('twitter', () => {});
   },
 
   render() {
