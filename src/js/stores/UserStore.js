@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import UserActions from '../actions/UserActions';
 
-var user = JSON.parse(localStorage.user);
+var user = JSON.parse(localStorage.user || null);
 
 var UserStore = Reflux.createStore({
   listenables: UserActions,
