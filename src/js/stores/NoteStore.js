@@ -1,3 +1,4 @@
+import ApiEvents from '../events/ApiEvents';
 import BgGen from '../bg-gen';
 import Immutable from 'immutable';
 import Note from '../models/note';
@@ -27,7 +28,7 @@ function deserializeNote(noteName, note) {
 }
 
 var NoteStore = Reflux.createStore({
-  listenables: NoteActions,
+  listenables: [ApiEvents, NoteActions],
 
   getAll() {
     return _notesByName.size !== 0 ? _notesByName : coldNotesByName;

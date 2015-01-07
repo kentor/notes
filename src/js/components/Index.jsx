@@ -1,11 +1,12 @@
+import API from '../API';
 import Appconfig from '../appconfig';
-import { Link } from 'react-router';
 import Note from './Note.jsx';
 import NoteActions from '../actions/NoteActions';
 import NoteStore from '../stores/NoteStore';
 import React from 'react/addons';
 import Reflux from 'reflux';
 import UserStore from '../stores/UserStore';
+import { Link } from 'react-router';
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -29,6 +30,7 @@ var Index = React.createClass({
   },
 
   componentWillMount() {
+    API.start();
     this.listenTo(NoteStore, () => {
       var notes = NoteStore.getAll();
       if (this.state.notes !== notes) {
@@ -36,31 +38,10 @@ var Index = React.createClass({
         this.setState({ notes });
       }
     });
-
-    this.firebaseRef = Appconfig.firebaseRef.child('notes');
-
-    this.firebaseRef.on('child_added', (snapshot) => {
-      var noteName = snapshot.key();
-      var note = snapshot.val();
-      NoteActions.noteAdded(noteName, note);
-    });
-
-    this.firebaseRef.on('child_removed', (snapshot) => {
-      var noteName = snapshot.key();
-      NoteActions.noteRemoved(noteName);
-    });
-
-    this.firebaseRef.on('child_changed', (snapshot) => {
-      var noteName = snapshot.key();
-      var note = snapshot.val();
-      NoteActions.noteChanged(noteName, note);
-    });
   },
 
   componentWillUnmount() {
-    this.firebaseRef.off('child_added');
-    this.firebaseRef.off('child_removed');
-    this.firebaseRef.off('child_changed');
+    API.stop();
     NoteStore.clearAll();
   },
 
@@ -73,7 +54,7 @@ var Index = React.createClass({
       return;
     }
 
-    this.firebaseRef.push({
+    NoteActions.createNote({
       content: newNote,
       createdAt: (new Date()).toISOString(),
       hidden: false,
@@ -92,12 +73,11 @@ var Index = React.createClass({
   },
 
   toggleHidden(note) {
-    this.firebaseRef.child(note.get('name'))
-      .update({ hidden: !note.get('hidden') });
+    NoteActions.updateNote(note.get('name'), { hidden: !note.get('hidden') });
   },
 
   delete(note) {
-    this.firebaseRef.child(note.get('name')).remove();
+    NoteActions.deleteNote(note.get('name'));
   },
 
   render() {

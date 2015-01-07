@@ -1,10 +1,23 @@
+import API from '../api';
 import Reflux from 'reflux';
 
-var Actions = Reflux.createActions([
-  'noteAdded',
-  'noteRemoved',
-  'noteChanged',
+var NoteActions = Reflux.createActions([
+  'createNote',
+  'deleteNote',
   'toggleLocalHidden',
+  'updateNote',
 ]);
 
-export default Actions;
+NoteActions.createNote.listen((data) => {
+  API.createNote(data);
+});
+
+NoteActions.deleteNote.listen((name) => {
+  API.deleteNote(name);
+});
+
+NoteActions.updateNote.listen((name, data) => {
+  API.updateNote(name, data);
+});
+
+export default NoteActions;
