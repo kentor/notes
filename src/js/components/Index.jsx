@@ -1,4 +1,4 @@
-import API from '../API';
+import API from '../api';
 import Appconfig from '../appconfig';
 import Note from './Note.jsx';
 import NoteActions from '../actions/NoteActions';
