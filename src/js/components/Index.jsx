@@ -1,6 +1,6 @@
 import Appconfig from '../appconfig';
 import { Link } from 'react-router';
-import Note from './note';
+import Note from './Note.jsx';
 import NoteActions from '../actions/NoteActions';
 import NoteStore from '../stores/NoteStore';
 import React from 'react/addons';
@@ -117,7 +117,7 @@ var Index = React.createClass({
     )).reverse().toArray();
 
     var logoutLink;
-    if (Appconfig.user) {
+    if (UserStore.user()) {
       logoutLink = <Link to="logout" className="logout-button">Logout</Link>;
     }
 

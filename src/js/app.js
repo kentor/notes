@@ -2,10 +2,10 @@ import React from 'react';
 import Router from 'react-router';
 import { DefaultRoute, Route } from 'react-router';
 
-import App from './components/app';
-import Index from './components/index';
-import Login from './components/login';
-import Logout from './components/logout';
+import App from './components/App.jsx';
+import Index from './components/Index.jsx';
+import Login from './components/Login.jsx';
+import Logout from './components/Logout.jsx';
 
 Router.run((
   <Route name="app" path="/" handler={App}>
