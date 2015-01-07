@@ -11,4 +11,4 @@ class BackgroundGenerator {
   }
 }
 
-module.exports = BackgroundGenerator;
+export default BackgroundGenerator;

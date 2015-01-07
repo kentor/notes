@@ -1,4 +1,4 @@
-var Reflux = require('reflux');
+import Reflux from 'reflux';
 
 var Actions = Reflux.createActions([
   'noteAdded',
@@ -7,4 +7,4 @@ var Actions = Reflux.createActions([
   'toggleLocalHidden',
 ]);
 
-module.exports = Actions;
+export default Actions;

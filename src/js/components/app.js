@@ -1,7 +1,7 @@
-var React = require('react');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
-var Appconfig = require('../appconfig');
+import Appconfig from '../appconfig';
+import React from 'react';
+import Router from 'react-router';
+import { RouteHandler } from 'react-router';
 
 var App = React.createClass({
   mixins: [Router.Navigation],
@@ -27,4 +27,4 @@ var App = React.createClass({
   },
 });
 
-module.exports = App;
+export default App;

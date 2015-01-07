@@ -1,7 +1,9 @@
-var Hammer = require('hammerjs');
-var Markdown = require('pagedown').getSanitizingConverter();
-var moment = require('moment');
-var React = require('react/addons');
+import Hammer from 'hammerjs';
+import moment from 'moment';
+import pagedown from 'pagedown';
+import React from 'react/addons';
+
+var Markdown = pagedown.getSanitizingConverter();
 
 var Note = React.createClass({
   getInitialState() {
@@ -65,4 +67,4 @@ var Note = React.createClass({
   },
 });
 
-module.exports = Note;
+export default Note;

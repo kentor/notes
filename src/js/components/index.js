@@ -1,11 +1,12 @@
-var Appconfig = require('../appconfig');
-var Link = require('react-router').Link;
-var Note = require('./note');
-var NoteActions = require('../actions/NoteActions');
-var NoteStore = require('../stores/NoteStore');
-var React = require('react/addons');
+import Appconfig from '../appconfig';
+import { Link } from 'react-router';
+import Note from './note';
+import NoteActions from '../actions/NoteActions';
+import NoteStore from '../stores/NoteStore';
+import React from 'react/addons';
+import Reflux from 'reflux';
+
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-var Reflux = require('reflux');
 
 function escapeRegexp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
@@ -146,4 +147,4 @@ var Index = React.createClass({
   },
 });
 
-module.exports = Index;
+export default Index;

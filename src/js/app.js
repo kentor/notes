@@ -1,11 +1,11 @@
-var React  = require('react');
-var Router = require('react-router');
-var Route  = Router.Route;
+import React from 'react';
+import Router from 'react-router';
+import { Route } from 'react-router';
 
-var App    = require('./components/app');
-var Index  = require('./components/index');
-var Login  = require('./components/login');
-var Logout = require('./components/logout');
+import App from './components/app';
+import Index from './components/index';
+import Login from './components/login';
+import Logout from './components/logout';
 
 Router.run((
   <Route name="app" path="/" handler={App}>

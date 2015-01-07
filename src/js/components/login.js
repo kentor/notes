@@ -1,5 +1,5 @@
-var Appconfig = require('../appconfig');
-var React = require('react');
+import Appconfig from '../appconfig';
+import React from 'react';
 
 var Login = React.createClass({
   handleClick() {
@@ -11,4 +11,4 @@ var Login = React.createClass({
   },
 });
 
-module.exports = Login;
+export default Login;

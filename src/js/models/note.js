@@ -1,4 +1,4 @@
-var Immutable = require('immutable');
+import Immutable from 'immutable';
 
 var Note = Immutable.Record({
   name: '',
@@ -17,4 +17,4 @@ Note.prototype.toJS = function() {
   return pojo;
 };
 
-module.exports = Note;
+export default Note;

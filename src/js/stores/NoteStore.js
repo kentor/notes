@@ -1,9 +1,8 @@
-var BgGen     = require('../bg-gen');
-var Immutable = require('immutable');
-var Note      = require('../models/note');
-
-var Reflux = require('reflux');
-var NoteActions = require('../actions/NoteActions');
+import BgGen from '../bg-gen';
+import Immutable from 'immutable';
+import Note from '../models/note';
+import NoteActions from '../actions/NoteActions';
+import Reflux from 'reflux';
 
 var _notesByName = Immutable.OrderedMap();
 
@@ -67,4 +66,4 @@ var NoteStore = Reflux.createStore({
   }
 });
 
-module.exports = NoteStore;
+export default NoteStore;
