@@ -17,7 +17,7 @@ var UserStore = Reflux.createStore({
 
   onLoggedOut() {
     user = null;
-    localStorage.removeItem('user', JSON.stringify(jsonUser));
+    localStorage.removeItem('user');
   },
 });
 
