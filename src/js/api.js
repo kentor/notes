@@ -1,6 +1,7 @@
 import ApiEvents from './events/ApiEvents';
 import { firebaseRef } from './appconfig';
 
+var ref = firebaseRef;
 var noteRef = firebaseRef.child('notes');
 
 var API = {
@@ -39,6 +40,10 @@ var API = {
 
   updateNote(name, data) {
     noteRef.child(name).update(data);
+  },
+
+  login() {
+    ref.authWithOAuthRedirect('twitter', () => {});
   },
 };
 

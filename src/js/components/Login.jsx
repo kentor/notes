@@ -1,9 +1,9 @@
-import Appconfig from '../appconfig';
 import React from 'react';
+import UserActions from '../actions/UserActions';
 
 var Login = React.createClass({
   handleClick() {
-    Appconfig.firebaseRef.authWithOAuthRedirect('twitter', () => {});
+    UserActions.login();
   },
 
   render() {
