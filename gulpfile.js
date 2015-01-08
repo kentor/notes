@@ -75,7 +75,12 @@ gulp.task('build-js', function() {
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
-    .pipe(uglify())
+    .pipe(uglify({
+      compress: {
+        unsafe: true,
+        screw_ie8: true,
+      },
+    }))
     .pipe(gulp.dest('./public/js/'));
 });
 
