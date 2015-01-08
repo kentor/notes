@@ -62,11 +62,10 @@ var NoteStore = Reflux.createStore({
     this.triggerAsync();
   },
 
-  onToggleLocalHidden(note) {
-    var newNote = note.set('localHidden', !note.get('localHidden'));
-    _notesByName = _notesByName.set(note.get('name'), newNote);
+  onToggleLocalHidden(noteName) {
+    _notesByName = _notesByName.updateIn([noteName, 'localHidden'], v => !v);
     this.triggerAsync();
-  }
+  },
 });
 
 export default NoteStore;
