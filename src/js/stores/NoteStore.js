@@ -1,6 +1,7 @@
 import ApiEvents from '../events/ApiEvents';
 import BgGen from '../bg-gen';
 import Immutable from 'immutable';
+import localStorage from '../localStorage';
 import Note from '../models/note';
 import NoteActions from '../actions/NoteActions';
 import Reflux from 'reflux';

@@ -1,3 +1,4 @@
+import localStorage from '../localStorage';
 import Reflux from 'reflux';
 import UserActions from '../actions/UserActions';
 
