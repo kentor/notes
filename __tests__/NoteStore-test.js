@@ -1,11 +1,14 @@
 jest.autoMockOff();
+jest.mock('../src/js/localStorage');
 
-import NoteStore from '../src/js/stores/NoteStore';
+var NoteStore;
 
 describe('NoteStore', () => {
   var dateTime = (new Date()).toISOString();
 
   beforeEach(() => {
+    NoteStore = require('../src/js/stores/NoteStore');
+
     var noteObj = {
       content: 'hey',
       createdAt: dateTime,
@@ -57,5 +60,13 @@ describe('NoteStore', () => {
     NoteStore.onToggleLocalHidden('1');
     var newLocalHidden = NoteStore.getAll().get('1').get('localHidden');
     expect(newLocalHidden).toBe(!oldLocalHidden);
+  });
+
+  it('can persist to localStorage', () => {
+    var localStorage = require('../src/js/localStorage');
+    spyOn(JSON, 'stringify').andReturn(':)');
+    NoteStore.persist();
+    expect(JSON.stringify).toHaveBeenCalledWith(NoteStore.getAll());
+    expect(localStorage.setItem).toBeCalledWith('notes', ':)');
   });
 });
