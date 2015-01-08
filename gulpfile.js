@@ -127,10 +127,13 @@ gulp.task('build-rev', ['build-css', 'build-js'], function() {
     .pipe(gulp.dest('public'))
     .pipe(rev.manifest())
     .pipe(gulp.dest('public'));
-})
+});
 
 gulp.task('build', ['build-rev'], function() {
-  return gulp.src('src/index.html')
+  gulp.src(['src/fonts/**/*', 'src/images/**/*'], { base: 'src/' })
+    .pipe(gulp.dest('public'));
+
+  gulp.src('src/index.html')
     .pipe(replace(require('./public/rev-manifest.json')))
     .pipe(gulp.dest('public'));
 });

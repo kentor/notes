@@ -2,7 +2,5 @@
 *.log
 .DS_Store
 node_modules
-public/css/*.css
-public/index.html
-public/js/*.js
+public
 rev-manifest.json
