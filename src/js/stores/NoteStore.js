@@ -7,7 +7,7 @@ import Reflux from 'reflux';
 
 var _notesByName = Immutable.OrderedMap();
 
-var localNotes = localStorage && localStorage.notes;
+var localNotes = localStorage.getItem('notes');
 var coldNotesByName = Immutable.OrderedMap();
 if (localNotes) {
   coldNotesByName = coldNotesByName.mergeDeep(JSON.parse(localNotes));
@@ -36,11 +36,11 @@ var NoteStore = Reflux.createStore({
 
   clearAll() {
     _notesByName = Immutable.OrderedMap();
-    delete localStorage.notes;
+    localStorage.removeItem('notes');
   },
 
   persist() {
-    localStorage.notes = JSON.stringify(this.getAll());
+    localStorage.setItem('notes', JSON.stringify(this.getAll()));
   },
 
   onNoteAdded(noteName, note) {

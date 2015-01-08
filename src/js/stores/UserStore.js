@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import UserActions from '../actions/UserActions';
 
-var user = JSON.parse(localStorage.user || null);
+var user = JSON.parse(localStorage.getItem('user'));
 
 var UserStore = Reflux.createStore({
   listenables: UserActions,
@@ -12,12 +12,12 @@ var UserStore = Reflux.createStore({
 
   onLoggedIn(jsonUser) {
     user = jsonUser;
-    localStorage.user = JSON.stringify(jsonUser);
+    localStorage.setItem('user', JSON.stringify(jsonUser));
   },
 
   onLoggedOut() {
     user = null;
-    delete localStorage.user;
+    localStorage.removeItem('user');
   },
 });
 
