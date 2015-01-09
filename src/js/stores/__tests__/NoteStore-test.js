@@ -1,13 +1,12 @@
 jest.autoMockOff();
-jest.mock('../src/js/localStorage');
-
-var NoteStore;
+jest.mock('../localStorage');
 
 describe('NoteStore', () => {
+  var NoteStore;
   var dateTime = (new Date()).toISOString();
 
   beforeEach(() => {
-    NoteStore = require('../src/js/stores/NoteStore');
+    NoteStore = require('../NoteStore');
 
     var noteObj = {
       content: 'hey',
@@ -63,7 +62,7 @@ describe('NoteStore', () => {
   });
 
   it('can persist to localStorage', () => {
-    var localStorage = require('../src/js/localStorage');
+    var localStorage = require('../localStorage');
     spyOn(JSON, 'stringify').andReturn(':)');
     NoteStore.persist();
     expect(JSON.stringify).toHaveBeenCalledWith(NoteStore.getAll());
