@@ -56,10 +56,7 @@ var NoteStore = Reflux.createStore({
   },
 
   onNoteChanged(noteName, note) {
-    var newNote = _notesByName.get(noteName).merge(note);
-    newNote = newNote.set('localHidden', note.hidden);
-    _notesByName = _notesByName.set(noteName, newNote);
-    this.triggerAsync();
+    this.onNoteAdded(noteName, note);
   },
 
   onToggleLocalHidden(noteName) {

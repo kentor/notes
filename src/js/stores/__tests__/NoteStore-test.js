@@ -5,8 +5,16 @@ describe('NoteStore', () => {
   var NoteStore;
   var dateTime = (new Date()).toISOString();
 
+  function expectDifference(countFn, fn, delta = 1) {
+    var before = countFn();
+    fn();
+    var after = countFn();
+    expect(after - before).toBe(delta);
+  }
+
   beforeEach(() => {
     NoteStore = require('../NoteStore');
+    spyOn(NoteStore, 'triggerAsync');
 
     var noteObj = {
       content: 'hey',
@@ -31,15 +39,24 @@ describe('NoteStore', () => {
     expect(note.get('createdAt').toISOString()).toEqual(dateTime);
     expect(note.get('hidden')).toBe(false);
     expect(note.get('localHidden')).toBe(false);
+    expect(NoteStore.triggerAsync).toHaveBeenCalled();
   });
 
   it('can update notes', () => {
-    NoteStore.onNoteChanged('1', { hidden: true });
+    var noteObj = {
+      content: 'new stuff',
+      createdAt: dateTime,
+      hidden: true,
+    };
+
+    expectDifference(() => NoteStore.triggerAsync.callCount, () => {
+      NoteStore.onNoteChanged('1', noteObj);
+    });
 
     var note = NoteStore.getAll().get('1');
 
     expect(note.get('name')).toEqual('1');
-    expect(note.get('content')).toEqual('hey');
+    expect(note.get('content')).toEqual('new stuff');
     expect(note.get('createdAt').toISOString()).toEqual(dateTime);
     expect(note.get('hidden')).toBe(true);
     expect(note.get('localHidden')).toBe(true);
@@ -47,7 +64,11 @@ describe('NoteStore', () => {
 
   it('can remove notes', () => {
     var beforeSize = NoteStore.getAll().size;
-    NoteStore.onNoteRemoved('1');
+
+    expectDifference(() => NoteStore.triggerAsync.callCount, () => {
+      NoteStore.onNoteRemoved('1');
+    });
+
     var notes = NoteStore.getAll();
 
     expect(notes.size - beforeSize).toBe(-1);
@@ -56,7 +77,9 @@ describe('NoteStore', () => {
 
   it('can toggle localHidden', () => {
     var oldLocalHidden = NoteStore.getAll().get('1').get('localHidden');
-    NoteStore.onToggleLocalHidden('1');
+    expectDifference(() => NoteStore.triggerAsync.callCount, () => {
+      NoteStore.onToggleLocalHidden('1');
+    });
     var newLocalHidden = NoteStore.getAll().get('1').get('localHidden');
     expect(newLocalHidden).toBe(!oldLocalHidden);
   });
