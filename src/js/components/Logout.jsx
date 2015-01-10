@@ -1,12 +1,12 @@
-import Appconfig from '../appconfig';
 import React from 'react';
 import Router from 'react-router';
+import UserActions from '../actions/UserActions';
 
 var Logout = React.createClass({
   mixins: [Router.Navigation],
 
   componentWillMount() {
-    Appconfig.firebaseRef.unauth();
+    UserActions.logout();
     this.transitionTo('login');
   },
 

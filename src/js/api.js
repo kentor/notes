@@ -45,6 +45,10 @@ var API = {
   login() {
     ref.authWithOAuthRedirect('twitter', () => {});
   },
+
+  logout() {
+    ref.unauth();
+  },
 };
 
 export default API;
