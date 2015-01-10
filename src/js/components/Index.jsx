@@ -1,5 +1,6 @@
 import API from '../api';
 import Appconfig from '../appconfig';
+import NewNoteForm from './NewNoteForm.jsx';
 import Note from './Note.jsx';
 import NoteActions from '../actions/NoteActions';
 import NoteStore from '../stores/NoteStore';
@@ -26,7 +27,7 @@ var Index = React.createClass({
   },
 
   getInitialState() {
-    return { notes: NoteStore.getAll(), newNote: '', filter: '' };
+    return { notes: NoteStore.getAll(), filter: '' };
   },
 
   componentWillMount() {
@@ -43,29 +44,6 @@ var Index = React.createClass({
   componentWillUnmount() {
     API.stop();
     NoteStore.clearAll();
-  },
-
-  submitNewNote() {
-    var newNote = this.state.newNote.trim();
-
-    this.setState({ newNote: '' });
-
-    if (!newNote) {
-      return;
-    }
-
-    NoteActions.createNote({
-      content: newNote,
-      createdAt: (new Date()).toISOString(),
-      hidden: false,
-    });
-  },
-
-  handleKeyDown(e) {
-    if (e.keyCode == 13 && e.ctrlKey) {
-      this.submitNewNote();
-      e.preventDefault(); // prevents new line from pressing enter
-    }
   },
 
   toggleLocalHidden(note) {
@@ -104,11 +82,7 @@ var Index = React.createClass({
     return (
       <div id="wrapper">
         <aside>
-          <div>
-            <textarea valueLink={this.linkState('newNote')}
-                      onKeyDown={this.handleKeyDown}></textarea>
-            <button onClick={this.submitNewNote}>Post</button>
-          </div>
+          <NewNoteForm />
 
           <div>
             <input type="text" valueLink={this.linkState('filter')} />
