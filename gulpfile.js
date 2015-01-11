@@ -102,14 +102,10 @@ gulp.task('watch-lint', ['lint'], function() {
   gulp.watch(LINT, ['lint']);
 });
 
-var tinylr;
-
 gulp.task('livereload', function() {
-  tinylr = livereload();
+  var tinylr = livereload();
   tinylr.listen(4070);
-});
 
-gulp.task('watch-livereload', ['livereload'], function() {
   gulp.watch('public/**/*', function(event) {
     var filename = require('path').relative(__dirname, event.path);
     tinylr.changed({
@@ -138,5 +134,5 @@ gulp.task('build', ['build-rev'], function() {
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('default', ['express', 'watch-css', 'watch-html', 'watch-lint',
-                      'watch-livereload', 'watch-js']);
+gulp.task('default', ['express', 'livereload', 'watch-css', 'watch-html',
+                      'watch-lint', 'watch-js']);
