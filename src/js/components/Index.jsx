@@ -44,27 +44,11 @@ var Index = React.createClass({
     NoteStore.clearAll();
   },
 
-  toggleLocalHidden(note) {
-    NoteActions.toggleLocalHidden(note.get('name'));
-  },
-
-  toggleHidden(note) {
-    NoteActions.updateNote(note.get('name'), { hidden: !note.get('hidden') });
-  },
-
-  delete(note) {
-    NoteActions.deleteNote(note.get('name'));
-  },
-
   render() {
     var notes = this.state.notes.toSeq();
 
     notes = notes.map((note, name) => (
-      <Note note={note}
-            key={name}
-            onToggleLocalHidden={this.toggleLocalHidden.bind(this, note)}
-            onToggleHidden={this.toggleHidden.bind(this, note)}
-            onDelete={this.delete.bind(this, note)} />
+      <Note note={note} key={name} />
     )).reverse().toArray();
 
     var logoutLink;

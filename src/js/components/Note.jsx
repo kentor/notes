@@ -2,6 +2,7 @@ import FilterStore from '../stores/FilterStore';
 import Hammer from 'hammerjs';
 import marked from 'marked';
 import moment from 'moment';
+import NoteActions from '../actions/NoteActions';
 import React from 'react/addons';
 import Reflux from 'reflux';
 
@@ -18,12 +19,6 @@ var Note = React.createClass({
       filtered: this.noteFiltered(),
       swiped: false,
     };
-  },
-
-  toggleLocalHidden(e) {
-    if (window.getSelection().toString() ||
-        e.target.tagName.match(/^[ai]$/i)) return;
-    this.props.onToggleLocalHidden();
   },
 
   componentDidMount() {
@@ -44,9 +39,25 @@ var Note = React.createClass({
     });
   },
 
+  delete() {
+    NoteActions.deleteNote(this.props.note.get('name'));
+  },
+
   noteFiltered() {
     return FilterStore.filter() &&
            !this.props.note.get('content').match(FilterStore.filterRegexp());
+  },
+
+  toggleHidden() {
+    var note = this.props.note;
+    NoteActions.updateNote(note.get('name'), { hidden: !note.get('hidden') });
+  },
+
+  toggleLocalHidden(e) {
+    if (window.getSelection().toString() ||
+        e.target.tagName.match(/^[ai]$/i)) return;
+    var note = this.props.note;
+    NoteActions.toggleLocalHidden(note.get('name'));
   },
 
   render() {
@@ -70,16 +81,16 @@ var Note = React.createClass({
         <div className="controls">
           <time>{time}</time>
           <div className="icons">
-            <a onClick={this.props.onToggleHidden}>
+            <a onClick={this.toggleHidden}>
               {note.get('hidden') ? '☆' : '★'}
             </a>
             &nbsp;
-            <a className="delete-note" onClick={this.props.onDelete}>⌫</a>
+            <a className="delete-note" onClick={this.delete}>⌫</a>
           </div>
         </div>
         <div className={noteContentClasses}
              dangerouslySetInnerHTML={{__html: content}} />
-        <a onClick={this.props.onDelete} className="swipe-delete">
+        <a onClick={this.delete} className="swipe-delete">
           Delete
         </a>
       </li>
