@@ -1,9 +1,12 @@
 import Hammer from 'hammerjs';
+import marked from 'marked';
 import moment from 'moment';
-import pagedown from 'pagedown';
 import React from 'react/addons';
 
-var Markdown = pagedown.getSanitizingConverter();
+marked.setOptions({
+  breaks: true,
+  sanitize: true,
+});
 
 var Note = React.createClass({
   getInitialState() {
@@ -42,7 +45,7 @@ var Note = React.createClass({
       'hidden': note.has('localHidden') ? note.get('localHidden')
                                         : note.get('hidden'),
     });
-    var content = Markdown.makeHtml(note.get('content'));
+    var content = marked(note.get('content'));
     var time = moment(note.get('createdAt')).fromNow().replace(' ago', '');
 
     return (
