@@ -1,7 +1,9 @@
+import FilterStore from '../stores/FilterStore';
 import Hammer from 'hammerjs';
 import marked from 'marked';
 import moment from 'moment';
 import React from 'react/addons';
+import Reflux from 'reflux';
 
 marked.setOptions({
   breaks: true,
@@ -9,8 +11,13 @@ marked.setOptions({
 });
 
 var Note = React.createClass({
+  mixins: [Reflux.ListenerMixin],
+
   getInitialState() {
-    return { swiped: false };
+    return {
+      filtered: this.noteFiltered(),
+      swiped: false,
+    };
   },
 
   toggleLocalHidden(e) {
@@ -31,12 +38,22 @@ var Note = React.createClass({
     .on('swiperight', () => {
       this.setState({swiped: false});
     });
+
+    this.listenTo(FilterStore, () => {
+      this.setState({ filtered: this.noteFiltered() });
+    });
+  },
+
+  noteFiltered() {
+    return FilterStore.filter() &&
+           !this.props.note.get('content').match(FilterStore.filterRegexp());
   },
 
   render() {
     var note = this.props.note;
     var noteClasses = React.addons.classSet({
       [note.get('className')]: true,
+      'hidden': this.state.filtered,
       'note': true,
       'swiped': this.state.swiped,
     });

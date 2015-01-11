@@ -1,5 +1,6 @@
 import API from '../api';
 import Appconfig from '../appconfig';
+import FilterBox from './FilterBox.jsx';
 import NewNoteForm from './NewNoteForm.jsx';
 import Note from './Note.jsx';
 import NoteActions from '../actions/NoteActions';
@@ -10,10 +11,6 @@ import UserStore from '../stores/UserStore';
 import { Link } from 'react-router';
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
-function escapeRegexp(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-}
 
 var Index = React.createClass({
   mixins: [React.addons.LinkedStateMixin, Reflux.ListenerMixin],
@@ -27,11 +24,12 @@ var Index = React.createClass({
   },
 
   getInitialState() {
-    return { notes: NoteStore.getAll(), filter: '' };
+    return { notes: NoteStore.getAll() };
   },
 
   componentWillMount() {
     API.start();
+
     this.listenTo(NoteStore, () => {
       var notes = NoteStore.getAll();
       if (this.state.notes !== notes) {
@@ -61,11 +59,6 @@ var Index = React.createClass({
   render() {
     var notes = this.state.notes.toSeq();
 
-    if (this.state.filter) {
-      var filterRegexp = new RegExp(escapeRegexp(this.state.filter), 'i');
-      notes = notes.filter(note => note.get('content').match(filterRegexp));
-    }
-
     notes = notes.map((note, name) => (
       <Note note={note}
             key={name}
@@ -83,11 +76,7 @@ var Index = React.createClass({
       <div id="wrapper">
         <aside>
           <NewNoteForm />
-
-          <div>
-            <input type="text" valueLink={this.linkState('filter')} />
-          </div>
-
+          <FilterBox />
           {logoutLink}
         </aside>
 
