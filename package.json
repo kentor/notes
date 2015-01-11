@@ -27,7 +27,6 @@
     "normalize.css": "^3.0.2",
     "pagedown": "^1.1.0",
     "react": "^0.12.2",
-    "react-addons": "^0.9.0",
     "react-router": "^0.11.6",
     "reactify": "^0.17.1",
     "reflux": "^0.2.3",
