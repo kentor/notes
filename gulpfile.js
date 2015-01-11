@@ -4,6 +4,7 @@ var gulp       = require('gulp');
 var jshint     = require('gulp-jshint');
 var livereload = require('tiny-lr');
 var minifyCSS  = require('gulp-minify-css');
+var plumber    = require('gulp-plumber');
 var react      = require('gulp-react');
 var replace    = require('gulp-fingerprint');
 var rev        = require('gulp-rev');
@@ -63,6 +64,7 @@ gulp.task('watch-js', function() {
   function rebundle() {
     return bundler
       .bundle()
+      .on('error', function() {}) // let lint task handle reporting error
       .pipe(source('app.js'))
       .pipe(gulp.dest('./public/js/'));
   }
@@ -93,6 +95,7 @@ var LINT = [
 
 gulp.task('lint', function() {
   return gulp.src(LINT)
+    .pipe(plumber())
     .pipe(react())
     .pipe(jshint())
     .pipe(jshint.reporter(require('jshint-stylish')));
