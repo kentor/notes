@@ -54,10 +54,10 @@ var Note = React.createClass({
           <time>{time}</time>
           <div className="icons">
             <a onClick={this.props.onToggleHidden}>
-              {note.get('hidden') ? '☼' : '☀'}
+              {note.get('hidden') ? '☆' : '★'}
             </a>
             &nbsp;
-            <a className="delete-note" onClick={this.props.onDelete}>✖</a>
+            <a className="delete-note" onClick={this.props.onDelete}>⌫</a>
           </div>
         </div>
         <div className={noteContentClasses}
