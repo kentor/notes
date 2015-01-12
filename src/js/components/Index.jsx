@@ -44,11 +44,7 @@ var Index = React.createClass({
   },
 
   render() {
-    var notes = this.state.notes.toSeq();
-
-    notes = notes.map((note, name) => (
-      <Note note={note} key={name} />
-    )).reverse().toArray();
+    var notes = this.state.notes;
 
     var logoutLink;
     if (UserStore.user()) {
@@ -65,9 +61,11 @@ var Index = React.createClass({
 
         <ReactCSSTransitionGroup transitionName="fade" transitionEnter={false}
                                  component="ul">
-          <li>Notes: {this.state.notes.size}</li>
-          {notes}
-          <li>Notes: {this.state.notes.size}</li>
+          <li>Notes: {notes.size}</li>
+          {notes.toSeq().map((note, name) => (
+            <Note note={note} key={name} />
+          )).reverse().toArray()}
+          <li>Notes: {notes.size}</li>
         </ReactCSSTransitionGroup>
       </div>
     );
