@@ -3,7 +3,6 @@ import Appconfig from '../appconfig';
 import FilterBox from './FilterBox.jsx';
 import NewNoteForm from './NewNoteForm.jsx';
 import Note from './Note.jsx';
-import NoteActions from '../actions/NoteActions';
 import NoteStore from '../stores/NoteStore';
 import React from 'react/addons';
 import Reflux from 'reflux';
