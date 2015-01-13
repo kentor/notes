@@ -6,7 +6,7 @@ import Note from '../models/note';
 import NoteActions from '../actions/NoteActions';
 import Reflux from 'reflux';
 
-var _notesByName = Immutable.OrderedMap();
+var notesByName = Immutable.OrderedMap();
 
 var localNotes = localStorage.getItem('notes');
 var coldNotesByName = Immutable.OrderedMap();
@@ -32,11 +32,11 @@ var NoteStore = Reflux.createStore({
   listenables: [ApiEvents, NoteActions],
 
   getAll() {
-    return _notesByName.size !== 0 ? _notesByName : coldNotesByName;
+    return notesByName.size ? notesByName : coldNotesByName;
   },
 
   clearAll() {
-    _notesByName = Immutable.OrderedMap();
+    notesByName = Immutable.OrderedMap();
     localStorage.removeItem('notes');
   },
 
@@ -46,12 +46,12 @@ var NoteStore = Reflux.createStore({
 
   onNoteAdded(noteName, note) {
     note = deserializeNote(noteName, note);
-    _notesByName = _notesByName.set(note.get('name'), note);
+    notesByName = notesByName.set(note.get('name'), note);
     this.triggerAsync();
   },
 
   onNoteRemoved(noteName) {
-    _notesByName = _notesByName.remove(noteName);
+    notesByName = notesByName.remove(noteName);
     this.triggerAsync();
   },
 
@@ -60,7 +60,7 @@ var NoteStore = Reflux.createStore({
   },
 
   onToggleLocalHidden(noteName) {
-    _notesByName = _notesByName.updateIn([noteName, 'localHidden'], v => !v);
+    notesByName = notesByName.updateIn([noteName, 'localHidden'], v => !v);
     this.triggerAsync();
   },
 });
