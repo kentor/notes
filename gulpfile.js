@@ -13,7 +13,7 @@ var stylus     = require('gulp-stylus');
 var uglify     = require('gulp-uglify');
 var watchify   = require('watchify');
 
-gulp.task('express', function() {
+gulp.task('web-server', function() {
   var express = require('express');
   var app = express();
   app.use(require('connect-livereload')({ port: 4070 }));
@@ -137,5 +137,5 @@ gulp.task('build', ['build-rev'], function() {
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('default', ['express', 'livereload', 'watch-css', 'watch-html',
-                      'watch-lint', 'watch-js']);
+gulp.task('default', ['livereload', 'watch-css', 'watch-html', 'watch-lint',
+                      'watch-js', 'web-server']);
