@@ -68,6 +68,10 @@ var Note = React.createClass({
       'note': true,
       'swiped': this.state.swiped,
     });
+    var noteStyles = {
+      backgroundColor: `hsl(${note.get('className').match(/\d+/)[0]}, 100%,
+        87.5%)`,
+    };
     var noteContentClasses = React.addons.classSet({
       'note-content': true,
       'hidden': note.has('localHidden') ? note.get('localHidden')
@@ -77,7 +81,8 @@ var Note = React.createClass({
     var time = moment(note.get('createdAt')).fromNow().replace(' ago', '');
 
     return (
-      <li className={noteClasses} onClick={this.toggleLocalHidden}>
+      <li className={noteClasses} style={noteStyles}
+        onClick={this.toggleLocalHidden}>
         <div className="controls">
           <time>{time}</time>
           <div className="icons">
