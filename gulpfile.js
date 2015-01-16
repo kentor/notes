@@ -8,6 +8,7 @@ var plumber    = require('gulp-plumber');
 var react      = require('gulp-react');
 var replace    = require('gulp-fingerprint');
 var rev        = require('gulp-rev');
+var send       = require('send');
 var source     = require('vinyl-source-stream');
 var stylus     = require('gulp-stylus');
 var uglify     = require('gulp-uglify');
@@ -17,6 +18,9 @@ gulp.task('web-server', function() {
   var express = require('express');
   var app = express();
   app.use(require('connect-livereload')({ port: 4070 }));
+  app.get(/^[^\.]+$/, function(req, res) {
+    send(req, 'index.html', { root: __dirname + '/public', }).pipe(res);
+  });
   app.use(express.static(__dirname + '/public'));
   app.listen(4069);
 });

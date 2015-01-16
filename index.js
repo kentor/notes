@@ -8,7 +8,7 @@ var app = express();
 app.use(compression());
 app.use(morgan('dev'));
 
-app.get('/', function(req, res) {
+app.get(/^[^\.]+$/, function(req, res) {
   send(req, 'index.html', {
     maxAge: 0,
     root: __dirname + '/public',

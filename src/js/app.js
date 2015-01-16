@@ -14,7 +14,7 @@ Router.run((
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
   </Route>
-), (Handler) => {
+), Router.HistoryLocation, (Handler) => {
   React.render(<Handler />, document.body);
 });
 
