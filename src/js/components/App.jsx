@@ -1,23 +1,26 @@
+import Api from '../api';
 import Appconfig from '../appconfig';
 import React from 'react';
+import Reflux from 'reflux';
 import Router from 'react-router';
+import UserStore from '../stores/UserStore';
 import { RouteHandler } from 'react-router';
-import UserActions from '../actions/UserActions';
 
 var App = React.createClass({
-  mixins: [Router.Navigation],
+  mixins: [
+    Reflux.ListenerMixin,
+    Router.Navigation,
+  ],
 
   componentWillMount() {
     if (!Appconfig.authRequired) return;
 
-    Appconfig.firebaseRef.onAuth((jsonUser) => {
-      if (jsonUser) {
-        UserActions.loggedIn(jsonUser);
-        setTimeout(() => {
-          this.transitionTo('index');
-        }, 0);
+    Api.authenticate();
+
+    this.listenTo(UserStore, () => {
+      if (UserStore.user()) {
+        this.transitionTo('index');
       } else {
-        UserActions.loggedOut();
         this.transitionTo('login');
       }
     });

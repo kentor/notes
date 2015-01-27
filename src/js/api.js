@@ -42,6 +42,16 @@ var API = {
     noteRef.child(name).update(data);
   },
 
+  authenticate() {
+    ref.onAuth(jsonUser => {
+      if (jsonUser) {
+        ApiEvents.loggedIn(jsonUser);
+      } else {
+        ApiEvents.loggedOut();
+      }
+    });
+  },
+
   login() {
     ref.authWithOAuthRedirect('twitter', () => {});
   },
