@@ -89,7 +89,7 @@ var Note = React.createClass({
             <a onClick={this.toggleHidden}>
               {note.get('hidden') ? '☆' : '★'}
             </a>
-            &nbsp;
+            {' '}
             <a className="delete-note" onClick={this.delete}>⌫</a>
           </div>
         </div>
