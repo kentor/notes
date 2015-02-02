@@ -4,6 +4,8 @@ import Reflux from 'reflux';
 var NoteActions = Reflux.createActions([
   'createNote',
   'deleteNote',
+  'expandAll',
+  'resetLocalHidden',
   'toggleLocalHidden',
   'updateNote',
 ]);

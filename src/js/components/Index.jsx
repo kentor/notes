@@ -2,6 +2,7 @@ import API from '../api';
 import Appconfig from '../appconfig';
 import FilterBox from './FilterBox.jsx';
 import NewNoteForm from './NewNoteForm.jsx';
+import NoteActions from '../actions/NoteActions';
 import Note from './Note.jsx';
 import NoteStore from '../stores/NoteStore';
 import React from 'react/addons';
@@ -43,6 +44,14 @@ var Index = React.createClass({
     NoteStore.clearAll();
   },
 
+  expandAll() {
+    NoteActions.expandAll();
+  },
+
+  resetLocalHidden() {
+    NoteActions.resetLocalHidden();
+  },
+
   render() {
     var notes = this.state.notes;
 
@@ -61,7 +70,14 @@ var Index = React.createClass({
 
         <ReactCSSTransitionGroup transitionName="fade" transitionEnter={false}
                                  component="ul">
-          <li>Notes: {notes.size}</li>
+          <li className="note-head">
+            <span>Notes: {notes.size}</span>
+            <span>
+              <a onClick={this.resetLocalHidden}>☆</a>
+              {' '}
+              <a onClick={this.expandAll}>★</a>
+            </span>
+          </li>
           {notes.toSeq().map((note, name) => (
             <Note note={note} key={name} />
           )).reverse().toArray()}

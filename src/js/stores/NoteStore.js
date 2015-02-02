@@ -44,6 +44,11 @@ var NoteStore = Reflux.createStore({
     localStorage.setItem('notes', JSON.stringify(this.getAll()));
   },
 
+  onExpandAll() {
+    notesByName = notesByName.map(n => n.set('localHidden', false));
+    this.triggerAsync();
+  },
+
   onNoteAdded(noteName, note) {
     note = deserializeNote(noteName, note);
     notesByName = notesByName.set(note.get('name'), note);
@@ -61,6 +66,11 @@ var NoteStore = Reflux.createStore({
 
   onToggleLocalHidden(noteName) {
     notesByName = notesByName.updateIn([noteName, 'localHidden'], v => !v);
+    this.triggerAsync();
+  },
+
+  onResetLocalHidden() {
+    notesByName = notesByName.map(n => n.set('localHidden', n.get('hidden')));
     this.triggerAsync();
   },
 });
