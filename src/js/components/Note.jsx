@@ -5,6 +5,7 @@ import moment from 'moment';
 import NoteActions from '../actions/NoteActions';
 import React from 'react/addons';
 import Reflux from 'reflux';
+import Youtube from './Youtube.jsx';
 
 marked.setOptions({
   breaks: true,
@@ -17,6 +18,7 @@ var Note = React.createClass({
   getInitialState() {
     return {
       filtered: this.noteFiltered(),
+      showAddon: false,
       swiped: false,
     };
   },
@@ -39,6 +41,14 @@ var Note = React.createClass({
     });
   },
 
+  hasAddon() {
+    var content = this.props.note.get('content');
+    var [,id] = content.match(/youtube\.com\/watch\?v=([\w-]+)\b/) || [];
+    if (id) {
+      return id;
+    }
+  },
+
   delete() {
     NoteActions.deleteNote(this.props.note.get('name'));
   },
@@ -58,6 +68,10 @@ var Note = React.createClass({
         e.target.tagName.match(/^[ai]$/i)) return;
     var note = this.props.note;
     NoteActions.toggleLocalHidden(note.get('name'));
+  },
+
+  toggleShowAddon() {
+    this.setState({ showAddon: !this.state.showAddon });
   },
 
   render() {
@@ -86,6 +100,10 @@ var Note = React.createClass({
         <div className="controls">
           <time>{time}</time>
           <div className="icons">
+            {!!this.hasAddon() &&
+              <a onClick={this.toggleShowAddon}>♪</a>
+            }
+            {' '}
             <a onClick={this.toggleHidden}>
               {note.get('hidden') ? '☆' : '★'}
             </a>
@@ -93,8 +111,12 @@ var Note = React.createClass({
             <a className="delete-note" onClick={this.delete}>⌫</a>
           </div>
         </div>
-        <div className={noteContentClasses}
-             dangerouslySetInnerHTML={{__html: content}} />
+        <div className={noteContentClasses}>
+          <div dangerouslySetInnerHTML={{__html: content}} />
+          {this.state.showAddon &&
+            <Youtube id={this.hasAddon()} />
+          }
+        </div>
         <a onClick={this.delete} className="swipe-delete">
           Delete
         </a>
