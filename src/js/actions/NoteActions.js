@@ -10,8 +10,8 @@ var NoteActions = Reflux.createActions([
   'updateNote',
 ]);
 
-NoteActions.createNote.listen((data) => {
-  API.createNote(data);
+NoteActions.createNote.listen(content => {
+  API.createNote(content);
 });
 
 NoteActions.deleteNote.listen((name) => {

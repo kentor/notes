@@ -30,8 +30,12 @@ var API = {
     noteRef.off('child_changed');
   },
 
-  createNote(data) {
-    noteRef.push(data);
+  createNote(content) {
+    noteRef.push({
+      content,
+      createdAt: (new Date()).toISOString(),
+      hidden: false,
+    });
   },
 
   deleteNote(name) {

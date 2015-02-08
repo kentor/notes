@@ -18,14 +18,8 @@ var NewNoteForm = React.createClass({
   submit() {
     var note = this.state.note.trim();
     this.setState({ note: '' });
-
     if (!note) return;
-
-    NoteActions.createNote({
-      content: note,
-      createdAt: (new Date()).toISOString(),
-      hidden: false,
-    });
+    NoteActions.createNote(note);
   },
 
   render() {

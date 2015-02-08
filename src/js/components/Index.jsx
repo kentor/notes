@@ -53,7 +53,7 @@ var Index = React.createClass({
   },
 
   render() {
-    var notes = this.state.notes;
+    var { notes } = this.state;
 
     var logoutLink;
     if (UserStore.user()) {
