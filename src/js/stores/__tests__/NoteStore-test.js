@@ -5,12 +5,12 @@ describe('NoteStore', () => {
   var NoteStore;
   var dateTime = (new Date()).toISOString();
 
-  function expectDifference(countFn, fn, delta = 1) {
+  var expectDifference = (countFn, fn, delta = 1) => {
     var before = countFn();
     fn();
     var after = countFn();
     expect(after - before).toBe(delta);
-  }
+  };
 
   beforeEach(() => {
     NoteStore = require('../NoteStore');

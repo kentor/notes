@@ -1,11 +1,10 @@
 var browserify = require('browserify');
 var buffer     = require('vinyl-buffer');
+var eslint     = require('gulp-eslint');
 var gulp       = require('gulp');
-var jshint     = require('gulp-jshint');
 var livereload = require('tiny-lr');
 var minifyCSS  = require('gulp-minify-css');
-var plumber    = require('gulp-plumber');
-var react      = require('gulp-react');
+var path       = require('path');
 var replace    = require('gulp-fingerprint');
 var rev        = require('gulp-rev');
 var send       = require('send');
@@ -19,9 +18,10 @@ gulp.task('web-server', function() {
   var app = express();
   app.use(require('connect-livereload')({ port: 4070 }));
   app.get(/^[^\.]+$/, function(req, res) {
-    send(req, 'index.html', { root: __dirname + '/public', }).pipe(res);
+    send(req, 'index.html', { root: path.join(__dirname, 'public') })
+      .pipe(res);
   });
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(path.join(__dirname, 'public')));
   app.listen(4069);
 });
 
@@ -62,16 +62,18 @@ gulp.task('watch-js', function() {
   watchify.args.debug = true;
   var bundler = watchify(browserify('./src/js/app.js', watchify.args));
 
-  bundler.on('update', rebundle);
-  bundler.on('log', console.error);
-
   function rebundle() {
     return bundler
       .bundle()
-      .on('error', function() {}) // let lint task handle reporting error
+      .on('error', function(err) {
+        console.error(err.message || err);
+      })
       .pipe(source('app.js'))
       .pipe(gulp.dest('./public/js/'));
   }
+
+  bundler.on('update', rebundle);
+  bundler.on('log', console.error);
 
   return rebundle();
 });
@@ -99,10 +101,8 @@ var LINT = [
 
 gulp.task('lint', function() {
   return gulp.src(LINT)
-    .pipe(plumber())
-    .pipe(react())
-    .pipe(jshint())
-    .pipe(jshint.reporter(require('jshint-stylish')));
+    .pipe(eslint())
+    .pipe(eslint.format());
 });
 
 gulp.task('watch-lint', ['lint'], function() {
@@ -124,7 +124,10 @@ gulp.task('livereload', function() {
 });
 
 gulp.task('build-rev', ['build-css', 'build-js'], function() {
-  return gulp.src(['public/css/app.css', 'public/js/app.js'], { base: 'public' })
+  return gulp.src([
+    'public/css/app.css',
+    'public/js/app.js'
+  ], { base: 'public' })
     .pipe(gulp.dest('public'))
     .pipe(rev())
     .pipe(gulp.dest('public'))
