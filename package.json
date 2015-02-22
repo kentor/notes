@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "postinstall": "./node_modules/.bin/gulp build",
+    "postinstall": "[ -n \"$BUILD\" ] && ./node_modules/.bin/gulp build || true",
     "test": "jest"
   },
   "browserify": {
