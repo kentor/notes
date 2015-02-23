@@ -1,28 +1,28 @@
 ---
-  ecmaFeatures:
-    arrowFunctions: true
-    blockBindings: true
-    defaultParams: true
-    jsx: true
-    objectLiteralShorthandMethods: true
-    objectLiteralShorthandProperties: true
-    templateStrings: true
-  env:
-    browser: true
-    jasmine: true
-    node: true
-  globals:
-    jest: true
-  rules:
-    camelcase: false
-    curly: 0
-    max-len: 79
-    new-cap: false
-    no-alert: false
-    no-comma-dangle: false
-    no-multi-spaces: false
-    no-multi-str: false
-    no-underscore-dangle: false
-    quotes: 0
-    space-infix-ops: false
-    strict: 0
+ecmaFeatures:
+  arrowFunctions: true
+  blockBindings: true
+  defaultParams: true
+  jsx: true
+  objectLiteralShorthandMethods: true
+  objectLiteralShorthandProperties: true
+  templateStrings: true
+env:
+  browser: true
+  jasmine: true
+  node: true
+globals:
+  jest: true
+rules:
+  camelcase: false
+  curly: 0
+  max-len: 79
+  new-cap: false
+  no-alert: false
+  no-comma-dangle: false
+  no-multi-spaces: false
+  no-multi-str: false
+  no-underscore-dangle: false
+  quotes: 0
+  space-infix-ops: false
+  strict:0
