@@ -9,7 +9,7 @@ var NewNoteForm = React.createClass({
   },
 
   handleKeyDown(e) {
-    if (e.keyCode == 13 && e.ctrlKey) {
+    if (e.keyCode === 13 && e.ctrlKey) {
       this.submit();
       e.preventDefault(); // prevents new line from pressing enter
     }

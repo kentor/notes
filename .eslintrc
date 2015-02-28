@@ -13,16 +13,20 @@ env:
   node: true
 globals:
   jest: true
+parser: babel-eslint
 rules:
-  camelcase: false
+  camelcase: 0
+  comma-spacing: 1
   curly: 0
   max-len: 79
-  new-cap: false
-  no-alert: false
-  no-comma-dangle: false
-  no-multi-spaces: false
-  no-multi-str: false
-  no-underscore-dangle: false
+  new-cap: 0
+  no-alert: 0
+  no-comma-dangle: 0
+  no-multi-spaces: 0
+  no-multi-str: 0
+  no-undef: 1
+  no-underscore-dangle: 0
+  no-unused-vars: 1
   quotes: 0
-  space-infix-ops: false
-  strict:0
+  space-infix-ops: 0
+  strict: 0

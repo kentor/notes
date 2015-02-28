@@ -43,7 +43,7 @@ var Note = React.createClass({
 
   hasAddon() {
     var content = this.props.note.get('content');
-    var [,id] = content.match(/youtube\.com\/watch\?v=([\w-]+)\b/) || [];
+    var [, id] = content.match(/youtube\.com\/watch\?v=([\w-]+)\b/) || [];
     if (id) {
       return id;
     }
