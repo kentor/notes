@@ -102,7 +102,8 @@ var LINT = [
 gulp.task('lint', function() {
   return gulp.src(LINT)
     .pipe(eslint())
-    .pipe(eslint.format());
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError());
 });
 
 gulp.task('watch-lint', ['lint'], function() {
