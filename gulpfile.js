@@ -86,7 +86,7 @@ gulp.task('build-js', function() {
     .pipe(uglify({
       compress: {
         unsafe: true,
-        screw_ie8: true,
+        screw_ie8: true, // eslint-disable-line camelcase
       },
     }))
     .pipe(gulp.dest('./public/js/'));
