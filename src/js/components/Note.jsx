@@ -1,3 +1,4 @@
+var classNames = require('classnames');
 var FilterStore = require('../stores/FilterStore');
 var Hammer = require('hammerjs');
 var marked = require('marked');
@@ -76,7 +77,7 @@ var Note = React.createClass({
 
   render() {
     var note = this.props.note;
-    var noteClasses = React.addons.classSet({
+    var noteClasses = classNames({
       [note.get('className')]: true,
       'hidden': this.state.filtered,
       'note': true,
@@ -86,7 +87,7 @@ var Note = React.createClass({
       backgroundColor: `hsl(${note.get('className').match(/\d+/)[0]}, 100%,
         87.5%)`,
     };
-    var noteContentClasses = React.addons.classSet({
+    var noteContentClasses = classNames({
       'note-content': true,
       'hidden': note.has('localHidden') ? note.get('localHidden')
                                         : note.get('hidden'),
