@@ -1,4 +1,4 @@
-import React from 'react';
+var React = require('react');
 
 var Youtube = React.createClass({
   render() {
@@ -24,4 +24,4 @@ var Youtube = React.createClass({
   }
 });
 
-export default Youtube;
+module.exports = Youtube;

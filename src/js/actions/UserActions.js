@@ -1,5 +1,5 @@
-import API from '../api';
-import Reflux from 'reflux';
+var API = require('../api');
+var Reflux = require('reflux');
 
 var UserActions = Reflux.createActions([
   'login',
@@ -14,4 +14,4 @@ UserActions.logout.listen(() => {
   API.logout();
 });
 
-export default UserActions;
+module.exports = UserActions;

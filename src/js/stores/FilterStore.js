@@ -1,5 +1,5 @@
-import Reflux from 'reflux';
-import FilterActions from '../actions/FilterActions';
+var Reflux = require('reflux');
+var FilterActions = require('../actions/FilterActions');
 
 var filter = '';
 var filterRegexp = new RegExp();
@@ -26,4 +26,4 @@ var FilterStore = Reflux.createStore({
   },
 });
 
-export default FilterStore;
+module.exports = FilterStore;

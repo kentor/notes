@@ -1,5 +1,5 @@
-import NoteActions from '../actions/NoteActions';
-import React from 'react/addons';
+var NoteActions = require('../actions/NoteActions');
+var React = require('react/addons');
 
 var NewNoteForm = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
@@ -33,4 +33,4 @@ var NewNoteForm = React.createClass({
   },
 });
 
-export default NewNoteForm;
+module.exports = NewNoteForm;

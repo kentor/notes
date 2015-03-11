@@ -1,6 +1,6 @@
-import React from 'react';
-import Router from 'react-router';
-import UserActions from '../actions/UserActions';
+var React = require('react');
+var Router = require('react-router');
+var UserActions = require('../actions/UserActions');
 
 var Logout = React.createClass({
   mixins: [Router.Navigation],
@@ -15,4 +15,4 @@ var Logout = React.createClass({
   },
 });
 
-export default Logout;
+module.exports = Logout;

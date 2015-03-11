@@ -1,5 +1,5 @@
-import React from 'react';
-import UserActions from '../actions/UserActions';
+var React = require('react');
+var UserActions = require('../actions/UserActions');
 
 var Login = React.createClass({
   handleClick() {
@@ -11,4 +11,4 @@ var Login = React.createClass({
   },
 });
 
-export default Login;
+module.exports = Login;

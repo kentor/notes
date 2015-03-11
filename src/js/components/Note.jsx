@@ -1,11 +1,11 @@
-import FilterStore from '../stores/FilterStore';
-import Hammer from 'hammerjs';
-import marked from 'marked';
-import moment from 'moment';
-import NoteActions from '../actions/NoteActions';
-import React from 'react/addons';
-import Reflux from 'reflux';
-import Youtube from './Youtube.jsx';
+var FilterStore = require('../stores/FilterStore');
+var Hammer = require('hammerjs');
+var marked = require('marked');
+var moment = require('moment');
+var NoteActions = require('../actions/NoteActions');
+var React = require('react');
+var Reflux = require('reflux');
+var Youtube = require('./Youtube.jsx');
 
 marked.setOptions({
   breaks: true,
@@ -125,4 +125,4 @@ var Note = React.createClass({
   },
 });
 
-export default Note;
+module.exports = Note;

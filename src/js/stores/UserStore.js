@@ -1,6 +1,6 @@
-import ApiEvents from '../events/ApiEvents';
-import localStorage from './localStorage';
-import Reflux from 'reflux';
+var ApiEvents = require('../events/ApiEvents');
+var localStorage = require('./localStorage');
+var Reflux = require('reflux');
 
 var user = JSON.parse(localStorage.getItem('user'));
 
@@ -26,4 +26,4 @@ var UserStore = Reflux.createStore({
   },
 });
 
-export default UserStore;
+module.exports = UserStore;

@@ -1,5 +1,5 @@
-import ApiEvents from './events/ApiEvents';
-import { firebaseRef } from './appconfig';
+var ApiEvents = require('./events/ApiEvents');
+var { firebaseRef } = require('./appconfig');
 
 var ref = firebaseRef;
 var noteRef = firebaseRef.child('notes');
@@ -65,4 +65,4 @@ var API = {
   },
 };
 
-export default API;
+module.exports = API;

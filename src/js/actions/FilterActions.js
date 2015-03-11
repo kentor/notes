@@ -1,7 +1,7 @@
-import Reflux from 'reflux';
+var Reflux = require('reflux');
 
 var FilterActions = Reflux.createActions([
   'setFilter',
 ]);
 
-export default FilterActions;
+module.exports = FilterActions;

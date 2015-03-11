@@ -1,6 +1,6 @@
-import FilterActions from '../actions/FilterActions';
-import FilterStore from '../stores/FilterStore';
-import React from 'react';
+var FilterActions = require('../actions/FilterActions');
+var FilterStore = require('../stores/FilterStore');
+var React = require('react');
 
 var FilterBox = React.createClass({
   getInitialState() {
@@ -26,4 +26,4 @@ var FilterBox = React.createClass({
   },
 });
 
-export default FilterBox;
+module.exports = FilterBox;

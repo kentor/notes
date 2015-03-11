@@ -1,12 +1,12 @@
-import FastClick from 'fastclick';
-import React from 'react';
-import Router from 'react-router';
-import { DefaultRoute, Route } from 'react-router';
+var FastClick = require('fastclick');
+var React = require('react');
+var Router = require('react-router');
+var { DefaultRoute, Route } = require('react-router');
 
-import App from './components/App.jsx';
-import Index from './components/Index.jsx';
-import Login from './components/Login.jsx';
-import Logout from './components/Logout.jsx';
+var App = require('./components/App.jsx');
+var Index = require('./components/Index.jsx');
+var Login = require('./components/Login.jsx');
+var Logout = require('./components/Logout.jsx');
 
 Router.run((
   <Route name="app" path="/" handler={App}>

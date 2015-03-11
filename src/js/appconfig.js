@@ -1,6 +1,6 @@
-import Firebase from 'firebase';
+var Firebase = require('firebase');
 
-export default {
+module.exports = {
   authRequired: true,
   firebaseRef: new Firebase("https://qdsndc.firebaseio.com"),
 };

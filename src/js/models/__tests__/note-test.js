@@ -1,7 +1,7 @@
 jest.autoMockOff();
 
-import Immutable from 'immutable';
-import Note from '../note';
+var Immutable = require('immutable');
+var Note = require('../note');
 
 describe('note', () => {
   it('serializes without localHidden when fed to JSON.stringify', () => {

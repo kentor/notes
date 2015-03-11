@@ -1,5 +1,5 @@
-import API from '../api';
-import Reflux from 'reflux';
+var API = require('../api');
+var Reflux = require('reflux');
 
 var NoteActions = Reflux.createActions([
   'createNote',
@@ -22,4 +22,4 @@ NoteActions.updateNote.listen((name, data) => {
   API.updateNote(name, data);
 });
 
-export default NoteActions;
+module.exports = NoteActions;

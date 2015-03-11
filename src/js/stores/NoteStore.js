@@ -1,10 +1,10 @@
-import ApiEvents from '../events/ApiEvents';
-import BgGen from '../bg-gen';
-import Immutable from 'immutable';
-import localStorage from './localStorage';
-import Note from '../models/note';
-import NoteActions from '../actions/NoteActions';
-import Reflux from 'reflux';
+var ApiEvents = require('../events/ApiEvents');
+var BgGen = require('../bg-gen');
+var Immutable = require('immutable');
+var localStorage = require('./localStorage');
+var Note = require('../models/note');
+var NoteActions = require('../actions/NoteActions');
+var Reflux = require('reflux');
 
 var notesByName = Immutable.OrderedMap();
 
@@ -75,4 +75,4 @@ var NoteStore = Reflux.createStore({
   },
 });
 
-export default NoteStore;
+module.exports = NoteStore;

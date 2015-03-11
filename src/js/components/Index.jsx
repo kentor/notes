@@ -1,14 +1,14 @@
-import API from '../api';
-import Appconfig from '../appconfig';
-import FilterBox from './FilterBox.jsx';
-import NewNoteForm from './NewNoteForm.jsx';
-import NoteActions from '../actions/NoteActions';
-import Note from './Note.jsx';
-import NoteStore from '../stores/NoteStore';
-import React from 'react/addons';
-import Reflux from 'reflux';
-import UserStore from '../stores/UserStore';
-import { Link } from 'react-router';
+var API = require('../api');
+var Appconfig = require('../appconfig');
+var FilterBox = require('./FilterBox.jsx');
+var NewNoteForm = require('./NewNoteForm.jsx');
+var NoteActions = require('../actions/NoteActions');
+var Note = require('./Note.jsx');
+var NoteStore = require('../stores/NoteStore');
+var React = require('react/addons');
+var Reflux = require('reflux');
+var UserStore = require('../stores/UserStore');
+var { Link } = require('react-router');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -88,4 +88,4 @@ var Index = React.createClass({
   },
 });
 
-export default Index;
+module.exports = Index;

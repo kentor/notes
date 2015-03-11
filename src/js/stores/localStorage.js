@@ -1,4 +1,4 @@
-export default typeof localStorage !== "undefined" ? localStorage : (() => {
+module.exports = typeof localStorage !== "undefined" ? localStorage : (() => {
   return {
     setItem: function() {},
     getItem: function() {},

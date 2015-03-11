@@ -1,4 +1,4 @@
-import Reflux from 'reflux';
+var Reflux = require('reflux');
 
 var ApiEvents = Reflux.createActions([
   'loggedIn',
@@ -8,4 +8,4 @@ var ApiEvents = Reflux.createActions([
   'noteRemoved',
 ]);
 
-export default ApiEvents;
+module.exports = ApiEvents;
