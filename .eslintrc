@@ -8,6 +8,8 @@ env:
   node: true
 globals:
   jest: true
+plugins:
+  - react
 rules:
   comma-dangle: 0
   curly: [2, multi-line]
@@ -26,3 +28,7 @@ rules:
   quotes: 0
   space-after-keywords: 2
   space-before-function-parentheses: [2, never]
+  ### eslint-plugin-react ###
+  react/jsx-uses-react: 1
+  react/jsx-uses-vars: 1
+  react/react-in-jsx-scope: 1

@@ -9,6 +9,7 @@
     "compression": "^1.4.3",
     "connect-livereload": "^0.5.3",
     "eslint": "^0.17.1",
+    "eslint-plugin-react": "^1.6.1",
     "express": "^4.12.3",
     "fastclick": "^1.0.6",
     "firebase": "^2.2.3",
