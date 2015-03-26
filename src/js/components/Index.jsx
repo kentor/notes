@@ -78,9 +78,9 @@ var Index = React.createClass({
               <a onClick={this.expandAll}>★</a>
             </span>
           </li>
-          {notes.toSeq().map((note, name) => (
-            <Note note={note} key={name} />
-          )).reverse().toArray()}
+          {notes.toIndexedSeq().map(note => (
+            <Note note={note} key={note.get('name')} />
+          )).reverse()}
           <li>Notes: {notes.size}</li>
         </ReactCSSTransitionGroup>
       </div>
