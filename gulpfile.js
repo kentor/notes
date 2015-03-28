@@ -1,3 +1,4 @@
+var autoprefixer = require('gulp-autoprefixer');
 var browserify = require('browserify');
 var buffer     = require('vinyl-buffer');
 var envify     = require('envify/custom');
@@ -34,6 +35,7 @@ gulp.task('css', function() {
         inline: true,
       },
     }))
+    .pipe(autoprefixer())
     .pipe(gulp.dest('public/css/'));
 });
 
@@ -46,6 +48,7 @@ gulp.task('build-css', function() {
     .pipe(stylus({
       'include css': true,
     }))
+    .pipe(autoprefixer())
     .pipe(minifyCSS())
     .pipe(gulp.dest('public/css/'));
 });

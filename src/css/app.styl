@@ -34,7 +34,7 @@ textarea
 button,
 input,
 textarea
-  -webkit-appearance none
+  appearance none
   background #333
   border-radius 0
   border 1px solid #fff
@@ -58,7 +58,7 @@ button
 
 #notes, ul
   border-radius 4px
-  -webkit-flex-grow 1
+  flex-grow 1
 
 li
   background #f9f9f9
@@ -77,9 +77,9 @@ li:hover
   cursor pointer
 
 .note-head
-  -webkit-align-items center
-  -webkit-justify-content space-between
-  display -webkit-flex
+  align-items center
+  display flex
+  justify-content space-between
 
   a
     font-size 12px
@@ -89,34 +89,34 @@ li:hover
   position relative
 
 .swipe-delete
-  -webkit-align-items center
-  -webkit-transform translate3d(100%, 0, 0)
-  -webkit-transition all .1s ease-in-out
+  align-items center
   background #f00
   bottom 0
   color #fff
-  display -webkit-flex
+  display flex
   padding 10px
   position absolute
   right 0
   top 0
+  transform translate3d(100%, 0, 0)
+  transition all .1s ease-in-out
   user-select none
 
 .note.swiped .swipe-delete
-  -webkit-transform translate3d(0, 0, 0)
+  transform translate3d(0, 0, 0)
 
 .controls
-  -webkit-align-items center
-  -webkit-justify-content space-between
-  display -webkit-flex
+  align-items center
+  display flex
   font-size 12px
+  justify-content space-between
 
 .icons
   line-height 1em
 
 .controls,
 .icons
-  -webkit-user-select none
+  user-select none
 
 .delete-note
   display none
@@ -153,7 +153,7 @@ a
 
 @media (min-width: 700px)
   #wrapper
-    display -webkit-flex
+    display flex
 
   aside
     margin-right 20px
