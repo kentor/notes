@@ -1,7 +1,7 @@
 {
   "name": "notejs-react",
   "version": "0.0.0",
-  "devDependencies": {
+  "dependencies": {
     "babel-jest": "^4.0.0",
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
@@ -45,6 +45,10 @@
     "postinstall": "[ -n \"$BUILD\" ] && gulp build || true",
     "test": "gulp lint && jest",
     "watch": "gulp"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "2.7.x"
   },
   "browserify": {
     "transform": [
