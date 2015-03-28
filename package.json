@@ -41,8 +41,9 @@
     "watchify": "^2.6.1"
   },
   "scripts": {
+    "build": "gulp build",
+    "postinstall": "[ -n \"$BUILD\" ] && npm run build || true",
     "start": "node index.js",
-    "postinstall": "[ -n \"$BUILD\" ] && gulp build || true",
     "test": "gulp lint && jest",
     "watch": "gulp"
   },
