@@ -1,5 +1,6 @@
 var browserify = require('browserify');
 var buffer     = require('vinyl-buffer');
+var envify     = require('envify/custom');
 var eslint     = require('gulp-eslint');
 var gulp       = require('gulp');
 var livereload = require('tiny-lr');
@@ -80,6 +81,10 @@ gulp.task('watch-js', function() {
 
 gulp.task('build-js', function() {
   return browserify('./src/js/app.js')
+    .transform(envify({
+      NODE_ENV: 'production',
+    }), { global: true })
+    .transform('unreachable-branch-transform', { global: true })
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())

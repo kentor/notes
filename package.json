@@ -8,6 +8,7 @@
     "classnames": "^1.2.0",
     "compression": "^1.4.3",
     "connect-livereload": "^0.5.3",
+    "envify": "^3.4.0",
     "eslint": "^0.17.1",
     "eslint-plugin-react": "^1.6.1",
     "express": "^4.12.3",
@@ -32,6 +33,7 @@
     "reflux": "^0.2.7",
     "send": "^0.12.2",
     "tiny-lr": "^0.1.5",
+    "unreachable-branch-transform": "^0.2.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^2.6.1"
