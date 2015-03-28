@@ -2,16 +2,20 @@ var classNames = require('classnames');
 var FilterStore = require('../stores/FilterStore');
 var Hammer = require('hammerjs');
 var marked = require('marked');
-var moment = require('moment');
 var NoteActions = require('../actions/NoteActions');
 var React = require('react');
 var Reflux = require('reflux');
+var ta = require('time-ago')();
 var Youtube = require('./Youtube.jsx');
 
 marked.setOptions({
   breaks: true,
   sanitize: true,
 });
+
+function timeago(isoString) {
+  return ta.ago(Date.parse(isoString)).replace(' ago', '');
+}
 
 var Note = React.createClass({
   mixins: [Reflux.ListenerMixin],
@@ -93,13 +97,14 @@ var Note = React.createClass({
                                         : note.get('hidden'),
     });
     var content = marked(note.get('content'));
-    var time = moment(note.get('createdAt')).fromNow().replace(' ago', '');
 
     return (
       <li className={noteClasses} style={noteStyles}
         onClick={this.toggleLocalHidden}>
         <div className="controls">
-          <time>{time}</time>
+          <time>
+            {timeago(note.get('createdAt'))}
+          </time>
           <div className="icons">
             {!!this.hasAddon() &&
               <a onClick={this.toggleShowAddon}>♪</a>
