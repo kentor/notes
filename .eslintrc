@@ -13,13 +13,10 @@ plugins:
 rules:
   comma-dangle: 0
   curly: [2, multi-line]
-  no-multi-spaces: 0 # Ideally, we'd want no multi spaces unless for alignment
   no-multi-str: 0
   no-undef: 1
-  no-unused-vars: [1, args: none] # Warn until JSX implies using React is fixed
   strict: 0
   ### Style Rules ###
-  comma-spacing: 1 # Warn until fixes for using commas in JSX, should be err
   eol-last: 2
   indent: [2, 2]
   max-len: [2, 80]

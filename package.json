@@ -10,8 +10,8 @@
     "compression": "^1.4.3",
     "connect-livereload": "^0.5.3",
     "envify": "^3.4.0",
-    "eslint": "^0.17.1",
-    "eslint-plugin-react": "^1.6.1",
+    "eslint": "^0.18.0",
+    "eslint-plugin-react": "^2.0.1",
     "express": "^4.12.3",
     "fastclick": "^1.0.6",
     "firebase": "^2.2.3",
@@ -24,7 +24,7 @@
     "gulp-stylus": "^2.0.1",
     "gulp-uglify": "^1.1.0",
     "hammerjs": "^2.0.4",
-    "immutable": "^3.6.4",
+    "immutable": "^3.7.1",
     "jest-cli": "^0.4.0",
     "marked": "^0.3.3",
     "morgan": "^1.5.2",
@@ -38,7 +38,7 @@
     "unreachable-branch-transform": "^0.2.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^2.6.1"
+    "watchify": "^3.0.0"
   },
   "scripts": {
     "build": "gulp build",
