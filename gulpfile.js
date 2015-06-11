@@ -1,8 +1,10 @@
 var autoprefixer = require('gulp-autoprefixer');
 var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
+var del = require('del');
 var envify = require('envify/custom');
 var eslint = require('gulp-eslint');
+var ghPages = require('gulp-gh-pages');
 var gulp = require('gulp');
 var livereload = require('tiny-lr');
 var minifyCSS = require('gulp-minify-css');
@@ -43,7 +45,7 @@ gulp.task('watch-css', ['css'], function() {
   gulp.watch('src/css/**/*.styl', ['css']);
 });
 
-gulp.task('build-css', function() {
+gulp.task('build-css', ['clean'], function() {
   return gulp.src('src/css/app.styl')
     .pipe(stylus({
       'include css': true,
@@ -82,7 +84,7 @@ gulp.task('watch-js', function() {
   return rebundle();
 });
 
-gulp.task('build-js', function() {
+gulp.task('build-js', ['clean'], function() {
   return browserify('./src/js/app.js')
     .plugin('bundle-collapser/plugin')
     .transform(envify({
@@ -133,6 +135,12 @@ gulp.task('livereload', function() {
   });
 });
 
+gulp.task('clean', function(cb) {
+  del([
+    'public/**/*',
+  ], cb);
+});
+
 gulp.task('build-rev', ['build-css', 'build-js'], function() {
   return gulp.src([
     'public/css/app.css',
@@ -145,14 +153,31 @@ gulp.task('build-rev', ['build-css', 'build-js'], function() {
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('build', ['build-rev'], function() {
-  gulp.src(['src/fonts/**/*', 'src/images/**/*'], { base: 'src/' })
+gulp.task('static', ['clean'], function() {
+  return gulp.src([
+    'src/CNAME',
+    'src/fonts/**/*',
+    'src/images/**/*',
+  ], { base: 'src/' })
     .pipe(gulp.dest('public'));
+});
 
-  gulp.src('src/index.html')
+gulp.task('build', ['build-rev', 'static'], function() {
+  return gulp.src('src/index.html')
     .pipe(replace(require('./public/rev-manifest.json')))
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('default', ['livereload', 'watch-css', 'watch-html', 'watch-lint',
-                      'watch-js', 'web-server']);
+gulp.task('deploy', ['build'], function() {
+  return gulp.src('./public/**/*')
+    .pipe(ghPages());
+});
+
+gulp.task('default', [
+  'livereload',
+  'watch-css',
+  'watch-html',
+  'watch-js',
+  'watch-lint',
+  'web-server',
+]);
