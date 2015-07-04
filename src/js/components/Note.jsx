@@ -35,10 +35,10 @@ var Note = React.createClass({
       },
     })
     .on('swipeleft', () => {
-      this.setState({swiped: true});
+      this.setState({ swiped: true });
     })
     .on('swiperight', () => {
-      this.setState({swiped: false});
+      this.setState({ swiped: false });
     });
 
     this.listenTo(FilterStore, () => {
@@ -118,7 +118,7 @@ var Note = React.createClass({
           </div>
         </div>
         <div className={noteContentClasses}>
-          <div dangerouslySetInnerHTML={{__html: content}} />
+          <div dangerouslySetInnerHTML={{ __html: content }} />
           {this.state.showAddon &&
             <Youtube id={this.hasAddon()} />
           }
