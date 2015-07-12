@@ -1,5 +1,5 @@
 var ApiEvents = require('./events/ApiEvents');
-var { firebaseRef } = require('./appconfig');
+var { firebaseRef, provider } = require('./appconfig');
 
 var ref = firebaseRef;
 var noteRef = firebaseRef.child('notes');
@@ -57,7 +57,7 @@ var API = {
   },
 
   login() {
-    ref.authWithOAuthRedirect('twitter', () => {});
+    ref.authWithOAuthRedirect(provider, () => {});
   },
 
   logout() {
