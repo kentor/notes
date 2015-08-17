@@ -1,5 +1,4 @@
 var ApiEvents = require('../events/ApiEvents');
-var BgGen = require('../bg-gen');
 var Immutable = require('immutable');
 var localStorage = require('./localStorage');
 var Note = require('../models/note');
@@ -18,12 +17,6 @@ function deserializeNote(noteName, note) {
   note.name = noteName;
   note.createdAt = new Date(note.createdAt);
   note.localHidden = note.hidden;
-
-  var noteInColdNotes = coldNotesByName.get(note.name);
-
-  var className = (noteInColdNotes && noteInColdNotes.get('className')) ||
-    (new BgGen()).toClassName();
-  note.className = className;
 
   return new Note(note);
 }

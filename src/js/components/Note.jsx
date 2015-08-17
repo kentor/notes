@@ -1,5 +1,6 @@
 var classNames = require('classnames');
 var FilterStore = require('../stores/FilterStore');
+var getBackground = require('../utils/get-background');
 var Hammer = require('hammerjs');
 var marked = require('marked');
 var NoteActions = require('../actions/NoteActions');
@@ -80,17 +81,19 @@ var Note = React.createClass({
   },
 
   render() {
-    var note = this.props.note;
-    var noteClasses = classNames({
-      [note.get('className')]: true,
+    const { note } = this.props;
+    const background = getBackground(note.get('name'));
+
+    const noteClasses = classNames({
       'hidden': this.state.filtered,
       'note': true,
       'swiped': this.state.swiped,
+      [background.pattern]: true,
     });
-    var noteStyles = {
-      backgroundColor: `hsl(${note.get('className').match(/\d+/)[0]}, 100%,
-        87.5%)`,
+    const noteStyles = {
+      backgroundColor: `hsl(${background.hue}, 100%, 87.5%)`,
     };
+
     var noteContentClasses = classNames({
       'note-content': true,
       'hidden': note.has('localHidden') ? note.get('localHidden')
