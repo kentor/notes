@@ -56,9 +56,9 @@ button
   display inline-block
   margin-top 15px
 
-#notes, ul
+.notes
   border-radius 4px
-  flex-grow 1
+  overflow hidden
 
 li
   background #f9f9f9
@@ -152,10 +152,8 @@ a
     opacity 0
 
 @media (min-width: 700px)
-  #wrapper
-    display flex
-
   aside
+    float left
     margin-right 20px
     min-width 220px
 

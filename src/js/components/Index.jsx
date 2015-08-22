@@ -68,8 +68,12 @@ var Index = React.createClass({
           {logoutLink}
         </aside>
 
-        <ReactCSSTransitionGroup transitionName="fade" transitionEnter={false}
-                                 component="ul">
+        <ReactCSSTransitionGroup
+          className="notes"
+          component="ul"
+          transitionEnter={false}
+          transitionName="fade"
+        >
           <li className="note-head">
             <span>Notes: {notes.size}</span>
             <span>
