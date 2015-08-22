@@ -61,7 +61,7 @@ var Index = React.createClass({
     }
 
     return (
-      <div id="wrapper">
+      <div>
         <aside>
           <NewNoteForm />
           <FilterBox />
