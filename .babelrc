@@ -1,0 +1,8 @@
+{
+  "env": {
+    "development": {
+      "plugins": ["auto-symbol-description"]
+    }
+  },
+  "optional": ["runtime"]
+}

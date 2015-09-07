@@ -29,7 +29,7 @@ A [Firebase](https://www.firebase.com/) backed [React](https://facebook.github.i
     ```
 
     If you don't know what to put in place of `twitter:12345678`, you can find out by logging in first and then run this in the console: `JSON.parse(localStorage.getItem('user')).uid`.
-- Run `npm run watch` to incrementally build the app in development. The app will be available at http://localhost:4069/.
+- Run `npm start` to incrementally build the app in development. The app will be available at http://localhost:3000/.
 
 ## Deployment
 - Make sure to update the CNAME file with the domain of your choice.

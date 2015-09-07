@@ -1,25 +1,20 @@
-var API = require('../api');
-var Reflux = require('reflux');
+export const ADD_SUCCESS = Symbol();
+export const DESTROY_SUCCESS = Symbol();
+export const FETCH_SUCCESS = Symbol();
+export const HYDRATE = Symbol();
+export const TOGGLE_LOCAL_HIDDEN = Symbol();
+export const UPDATE_SUCCESS = Symbol();
 
-var NoteActions = Reflux.createActions([
-  'createNote',
-  'deleteNote',
-  'expandAll',
-  'resetLocalHidden',
-  'toggleLocalHidden',
-  'updateNote',
-]);
+export function hydrate() {
+  return {
+    type: HYDRATE,
+    payload: JSON.parse(localStorage.getItem('notes')),
+  };
+}
 
-NoteActions.createNote.listen(content => {
-  API.createNote(content);
-});
-
-NoteActions.deleteNote.listen((name) => {
-  API.deleteNote(name);
-});
-
-NoteActions.updateNote.listen((name, data) => {
-  API.updateNote(name, data);
-});
-
-module.exports = NoteActions;
+export function toggleLocalHidden(note) {
+  return {
+    type: TOGGLE_LOCAL_HIDDEN,
+    payload: note,
+  };
+}

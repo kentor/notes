@@ -1,7 +1,7 @@
-var Firebase = require('firebase');
+import Firebase from 'firebase';
 
-module.exports = {
+export default {
   authRequired: true,
-  firebaseRef: new Firebase("https://qdsndc.firebaseio.com"),
+  firebaseRef: new Firebase('https://qdsndc.firebaseio.com'),
   provider: 'twitter',
 };

@@ -1,183 +1,66 @@
-var autoprefixer = require('gulp-autoprefixer');
-var browserify = require('browserify');
-var buffer = require('vinyl-buffer');
-var del = require('del');
-var envify = require('envify/custom');
-var eslint = require('gulp-eslint');
-var ghPages = require('gulp-gh-pages');
-var gulp = require('gulp');
-var livereload = require('tiny-lr');
-var minifyCSS = require('gulp-minify-css');
-var path = require('path');
-var replace = require('gulp-fingerprint');
-var rev = require('gulp-rev');
-var send = require('send');
-var source = require('vinyl-source-stream');
-var stylus = require('gulp-stylus');
-var uglify = require('gulp-uglify');
-var watchify = require('watchify');
+const autoprefixer = require('autoprefixer');
+const cssnext = require('cssnext');
+const gulp = require('gulp');
+const minifycss = require('gulp-minify-css');
+const postcss = require('gulp-postcss');
+const postcssImport = require('postcss-import');
+const processhtml = require('gulp-processhtml');
+const sourcemaps = require('gulp-sourcemaps');
 
-gulp.task('web-server', function() {
-  var express = require('express');
-  var app = express();
-  app.use(require('connect-livereload')({ port: 4070 }));
-  app.get(/^[^\.]+$/, function(req, res) {
-    send(req, 'index.html', { root: path.join(__dirname, 'public') })
-      .pipe(res);
-  });
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.listen(4069);
-});
-
-gulp.task('css', function() {
-  return gulp.src('src/css/app.styl')
-    .pipe(stylus({
-      'include css': true,
-      sourcemap: {
-        inline: true,
-      },
-    }))
-    .pipe(autoprefixer())
-    .pipe(gulp.dest('public/css/'));
-});
-
-gulp.task('watch-css', ['css'], function() {
-  gulp.watch('src/css/**/*.styl', ['css']);
-});
-
-gulp.task('build-css', ['clean'], function() {
-  return gulp.src('src/css/app.styl')
-    .pipe(stylus({
-      'include css': true,
-    }))
-    .pipe(autoprefixer())
-    .pipe(minifyCSS())
-    .pipe(gulp.dest('public/css/'));
-});
-
-gulp.task('html', function() {
-  return gulp.src('src/index.html')
-    .pipe(gulp.dest('public'));
-});
-
-gulp.task('watch-html', ['html'], function() {
-  gulp.watch('src/index.html', ['html']);
-});
-
-gulp.task('watch-js', function() {
-  watchify.args.debug = true;
-  var bundler = watchify(browserify('./src/js/app.js', watchify.args));
-
-  function rebundle() {
-    return bundler
-      .bundle()
-      .on('error', function(err) {
-        console.error(err.message || err);
-      })
-      .pipe(source('app.js'))
-      .pipe(gulp.dest('./public/js/'));
-  }
-
-  bundler.on('update', rebundle);
-  bundler.on('log', console.error);
-
-  return rebundle();
-});
-
-gulp.task('build-js', ['clean'], function() {
-  return browserify('./src/js/app.js')
-    .plugin('bundle-collapser/plugin')
-    .transform(envify({
-      NODE_ENV: 'production',
-    }), { global: true })
-    .transform('unreachable-branch-transform', { global: true })
-    .bundle()
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe(uglify({
-      compress: {
-        unsafe: true,
-        screw_ie8: true, // eslint-disable-line camelcase
-      },
-    }))
-    .pipe(gulp.dest('./public/js/'));
-});
-
-var LINT = [
-  'src/js/**/*.js',
-  'src/js/**/*.jsx',
-  '__tests__/**/*.js',
-  'gulpfile.js',
+const processors = [
+  postcssImport,
+  cssnext(),
+  autoprefixer,
 ];
 
-gulp.task('lint', function() {
-  return gulp.src(LINT)
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failOnError());
+gulp.task('css', function(done) {
+  return gulp.src('src/css/app.css')
+    .pipe(sourcemaps.init())
+    .pipe(postcss(processors))
+    .on('error', done)
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('watch-lint', ['lint'], function() {
-  gulp.watch(LINT, ['lint']);
+gulp.task('css:watch', ['css'], function() {
+  gulp.watch('src/css/**/*', ['css']);
 });
 
-gulp.task('livereload', function() {
-  var tinylr = livereload();
-  tinylr.listen(4070);
-
-  gulp.watch('public/**/*', function(event) {
-    var filename = require('path').relative(__dirname, event.path);
-    tinylr.changed({
-      body: {
-        files: [filename],
-      },
-    });
-  });
+gulp.task('css:build', function() {
+  return gulp.src('src/css/app.css')
+    .pipe(postcss(processors))
+    .pipe(minifycss({ keepSpecialComments: 0 }))
+    .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('clean', function(cb) {
-  del([
-    'public/**/*',
-  ], cb);
-});
-
-gulp.task('build-rev', ['build-css', 'build-js'], function() {
-  return gulp.src([
-    'public/css/app.css',
-    'public/js/app.js'
-  ], { base: 'public' })
-    .pipe(gulp.dest('public'))
-    .pipe(rev())
-    .pipe(gulp.dest('public'))
-    .pipe(rev.manifest())
+gulp.task('processhtml', function() {
+  gulp.src('public/index.html')
+    .pipe(processhtml())
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('static', ['clean'], function() {
-  return gulp.src([
-    'src/CNAME',
-    'src/fonts/**/*',
-    'src/images/**/*',
-  ], { base: 'src/' })
+const staticFiles = [
+  'src/CNAME',
+  'src/fonts/**/*',
+  'src/images/**/*',
+  'src/index.html',
+];
+
+gulp.task('static', function() {
+  return gulp.src(staticFiles, { base: 'src/' })
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('build', ['build-rev', 'static'], function() {
-  return gulp.src('src/index.html')
-    .pipe(replace(require('./public/rev-manifest.json')))
-    .pipe(gulp.dest('public'));
-});
-
-gulp.task('deploy', ['build'], function() {
-  return gulp.src('./public/**/*')
-    .pipe(ghPages());
+gulp.task('static:watch', ['static'], function() {
+  gulp.watch(staticFiles, ['static']);
 });
 
 gulp.task('default', [
-  'livereload',
-  'watch-css',
-  'watch-html',
-  'watch-js',
-  'watch-lint',
-  'web-server',
+  'css:watch',
+  'static:watch',
+]);
+
+gulp.task('build', [
+  'css:build',
+  'static',
 ]);

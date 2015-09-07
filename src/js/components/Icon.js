@@ -1,0 +1,54 @@
+import React from 'react/addons';
+
+const Icon = React.createClass({
+  propTypes: {
+    icon: React.PropTypes.string.isRequired,
+  },
+
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
+
+  /* eslint-disable max-len */
+  renderGraphic() {
+    switch (this.props.icon) {
+      case 'delete':
+        return (
+          <g><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-12h-12v12zm13-15h-3.5l-1-1h-5l-1 1h-3.5v2h14v-2z"></path></g>
+        );
+      case 'star':
+        return (
+          <g><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></g>
+        );
+      case 'star-outline':
+        return (
+          <g><path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"></path></g>
+        );
+      default:
+        return null;
+    }
+  },
+  /* eslint-enable max-len */
+
+  render() {
+    const size = this.props.size || '0.9rem';
+    const styles = {
+      fill: 'currentcolor',
+      height: size,
+      width: size,
+    };
+
+    return (
+      <svg
+        fit
+        preserveAspectRatio="xMidYMid meet"
+        style={styles}
+        viewBox="0 0 24 24"
+      >
+        {this.renderGraphic()}
+      </svg>
+    );
+  },
+});
+
+export default Icon;

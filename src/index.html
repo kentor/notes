@@ -1,13 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>dem notes</title>
+    <title>notes</title>
     <meta name="viewport" content="width=device-width">
     <link rel="icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
+    <div id="root"></div>
     <script src="js/app.js"></script>
+    <!-- build:remove -->
+    <script>
+      document.write(
+        '<script src="http://' + location.host.split(':')[0] + ':45537/js/' +
+        'app.js"></' + 'script>'
+      );
+    </script>
+    <!-- /build -->
   </body>
 </html>

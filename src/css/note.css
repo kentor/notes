@@ -1,0 +1,47 @@
+.Note {
+  background-color: #f9f9f9;
+  margin: var(--interspacing) 0;
+  overflow: hidden;
+  padding: calc(10rem / 15);
+  position: relative;
+  word-wrap: break-word;
+}
+
+.Note:hover {
+  cursor: pointer;
+}
+
+.Note:first-child {
+  border-radius: 4px 4px 0 0;
+  cursor: default;
+}
+
+.Note:last-child {
+  border-radius: 0 0 4px 4px;
+  cursor: default;
+}
+
+.Note-meta {
+  font-size: .8rem;
+}
+
+.Note-controls {
+  float: right;
+  position: relative;
+}
+
+.Note-mobileDelete {
+  align-items: center;
+  background: hwb(0, 25%, 0%);
+  bottom: 0;
+  display: flex;
+  padding: 0 1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: transform .1s ease-in-out;
+}
+
+.Note:not(.swiped) .Note-mobileDelete {
+  transform: translateX(100%);
+}

@@ -1,0 +1,15 @@
+@media screen and (max-width: 32rem) {
+  .Sidebar {
+    float: none;
+    padding-right: 0;
+    width: auto;
+  }
+
+  .Notes {
+    overflow: visible;
+  }
+
+  .Note-deleteIcon {
+    display: none;
+  }
+}

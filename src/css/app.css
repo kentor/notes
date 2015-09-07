@@ -1,0 +1,71 @@
+@import "fonts";
+@import "normalize.css/normalize";
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --interspacing: calc(20rem / 15);
+  font-size: 15px;
+}
+
+body {
+  background: #1a1b1f;
+  font-family: Source Sans Pro, Helvetica Neue, sans-serif;
+  margin: 0 var(--interspacing);
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  appearance: none;
+  background: #333;
+  border-radius: 0; /* iOS */
+  border: 1px solid;
+  color: #f9f9f9;
+  line-height: 1;
+  outline: none;
+  padding: calc(1rem / 3);
+}
+
+.hidden {
+  display: none;
+}
+
+.Main {
+  margin: auto;
+  max-width: 56rem;
+}
+
+.Sidebar {
+  float: left;
+  padding-right: var(--interspacing);
+  width: 16rem;
+}
+
+.Login {
+  display: block;
+  font-size: 2rem;
+  line-height: 100vh;
+  text-align: center;
+}
+
+.Logout {
+  color: #777;
+}
+
+@import "bg";
+@import "new-note";
+@import "note";
+@import "notes";
+
+@import "responsive";
