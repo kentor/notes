@@ -1,14 +1,25 @@
 import * as NoteActions from '../actions/NoteActions';
 import API from '../api';
 import LoadingIndicator from './LoadingIndicator';
+import Icon from './Icon';
 import NewNoteForm from './NewNoteForm';
 import Note from './Note';
 import NotesPersister from './NotesPersister';
-import React from 'react';
+import React from 'react/addons';
 import { authRequired } from '../appconfig';
 import { connect } from 'react-redux';
 
 const NotesIndex = React.createClass({
+  mixins: [
+    React.addons.LinkedStateMixin,
+  ],
+
+  getInitialState() {
+    return {
+      query: '',
+    };
+  },
+
   componentDidMount() {
     this.props.dispatch(NoteActions.hydrate());
     API.subscribe();
@@ -40,26 +51,37 @@ const NotesIndex = React.createClass({
 
   render() {
     const { loading, notes } = this.props;
+    const query = this.state.query.trim().toLowerCase();
 
     return (
       <main className="Main">
         <aside className="Sidebar">
           <NewNoteForm onSubmit={this.createNote} />
-          {authRequired &&
-            <a className="Logout" onClick={this.logout}>Logout</a>
-          }
+          <input
+            className="FilterInput"
+            type="text"
+            valueLink={this.linkState('query')}
+          />
         </aside>
 
         <ul className="Notes">
           <li className="Note">
-            Notes: {notes.size}
-            {' '}
-            {loading &&
-              <LoadingIndicator />
+            <span>
+              Notes: {notes.size}
+              {' '}
+              {loading &&
+                <LoadingIndicator />
+              }
+            </span>
+            {authRequired &&
+              <a onClick={this.logout}>
+                <Icon icon="logout" />
+              </a>
             }
           </li>
           {notes.toSeq().reverse().map(note =>
             <Note
+              hidden={query && !~note.content.toLowerCase().indexOf(query)}
               key={note.get('id')}
               localHidden={this.props.localHidden.get(note.get('id'))}
               note={note}

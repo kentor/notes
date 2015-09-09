@@ -12,8 +12,10 @@
 }
 
 .Note:first-child {
+  align-items: center;
   border-radius: 4px 4px 0 0;
-  cursor: default;
+  display: flex;
+  justify-content: space-between;
 }
 
 .Note:last-child {

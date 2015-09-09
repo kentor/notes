@@ -9,3 +9,7 @@
   resize: none;
   width: 100%;
 }
+
+.NewNote-button {
+  float: right;
+}
