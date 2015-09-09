@@ -12,7 +12,7 @@
     "start": "gulp & npm run js:watch & npm run lint:watch & npm run webserver",
     "test": "npm run lint && NODE_ENV=test mocha --opts ./mocha.opts",
     "test:watch": "npm test -- --watch",
-    "webserver": "live-server --port=3000 public"
+    "webserver": "live-server --port=3000 --no-browser public"
   },
   "author": "Kenneth Chung",
   "license": "MIT",
