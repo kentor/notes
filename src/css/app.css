@@ -45,6 +45,15 @@ input {
   display: none;
 }
 
+.fade-leave {
+  opacity: 1;
+  transition: opacity .5s ease-out;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0;
+}
+
 .Main {
   margin: auto;
   max-width: 56rem;

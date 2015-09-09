@@ -9,6 +9,8 @@ import React from 'react/addons';
 import { authRequired } from '../appconfig';
 import { connect } from 'react-redux';
 
+const { CSSTransitionGroup } = React.addons;
+
 const NotesIndex = React.createClass({
   mixins: [
     React.addons.LinkedStateMixin,
@@ -64,7 +66,12 @@ const NotesIndex = React.createClass({
           />
         </aside>
 
-        <ul className="Notes">
+        <CSSTransitionGroup
+          className="Notes"
+          component="ul"
+          transitionEnter={false}
+          transitionName="fade"
+        >
           <li className="Note">
             <span>
               Notes: {notes.size}
@@ -91,7 +98,7 @@ const NotesIndex = React.createClass({
             />
           ).toArray()}
           <li className="Note">Notes: {notes.size}</li>
-        </ul>
+        </CSSTransitionGroup>
 
         {!loading &&
           <NotesPersister notes={notes} />
