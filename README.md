@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/kentor/notejs-react.svg?branch=master)](https://travis-ci.org/kentor/notejs-react)
-[![Dependency
-Status](https://david-dm.org/kentor/notejs-react.svg?style=flat)](https://david-dm.org/kentor/notejs-react)
+[![devDependency Status](https://david-dm.org/kentor/notejs-react/dev-status.svg)](https://david-dm.org/kentor/notejs-react#info=devDependencies)
 
 ## About
 A [Firebase](https://www.firebase.com/) backed [React](https://facebook.github.io/react/) application for storing notes. Intended for a single user only.
