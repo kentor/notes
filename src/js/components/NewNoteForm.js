@@ -1,8 +1,9 @@
-import React from 'react/addons';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 
 const NewNoteForm = React.createClass({
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
 
   handleKeyDown(e) {
@@ -13,7 +14,7 @@ const NewNoteForm = React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
-    const node = React.findDOMNode(this.refs.newNote);
+    const node = this.refs.newNote;
     const content = node.value.trim();
     if (content) {
       this.props.onSubmit(content);

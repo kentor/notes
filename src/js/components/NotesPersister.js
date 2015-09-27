@@ -1,8 +1,9 @@
-import React from 'react/addons';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 
 const NotesPersister = React.createClass({
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
 
   render() {

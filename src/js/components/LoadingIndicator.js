@@ -1,4 +1,5 @@
-import React from 'react/addons';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 
 function *dotsCounter() {
   let x = 2;
@@ -10,7 +11,7 @@ function *dotsCounter() {
 
 const LoadingIndicator = React.createClass({
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
 
   getDefaultProps() {

@@ -1,9 +1,10 @@
 import background from '../lib/background';
-import React from 'react/addons';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 
 const Login = React.createClass({
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
 
   render() {

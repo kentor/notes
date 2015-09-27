@@ -3,7 +3,8 @@ import cx from 'classnames';
 import Hammer from 'hammerjs';
 import Icon from './Icon';
 import marked from 'marked';
-import React from 'react/addons';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 import TimeAgo from 'react-timeago';
 
 marked.setOptions({
@@ -17,7 +18,7 @@ function formatTimeAgo(value, unit) {
 
 const Note = React.createClass({
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
 
   getInitialState() {
@@ -27,7 +28,7 @@ const Note = React.createClass({
   },
 
   componentDidMount() {
-    new Hammer(React.findDOMNode(this), {
+    new Hammer(this.refs.note, {
       cssProps: { userSelect: true },
     }).on('swipeleft', () => {
       this.setState({ swiped: true });
@@ -69,6 +70,7 @@ const Note = React.createClass({
           'swiped': this.state.swiped,
           [bg.pattern]: true,
         })}
+        ref="note"
         onClick={this.toggleLocalHidden}
         style={{
           backgroundColor: `hsl(${bg.hue}, 100%, 87.5%)`,

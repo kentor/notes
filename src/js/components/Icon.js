@@ -1,4 +1,5 @@
-import React from 'react/addons';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 
 const Icon = React.createClass({
   propTypes: {
@@ -6,7 +7,7 @@ const Icon = React.createClass({
   },
 
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
 
   /* eslint-disable max-len */

@@ -1,19 +1,19 @@
 import * as NoteActions from '../actions/NoteActions';
 import API from '../api';
-import LoadingIndicator from './LoadingIndicator';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './Icon';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import LoadingIndicator from './LoadingIndicator';
 import NewNoteForm from './NewNoteForm';
 import Note from './Note';
 import NotesPersister from './NotesPersister';
-import React from 'react/addons';
+import React from 'react';
 import { authRequired } from '../appconfig';
 import { connect } from 'react-redux';
 
-const { CSSTransitionGroup } = React.addons;
-
 const NotesIndex = React.createClass({
   mixins: [
-    React.addons.LinkedStateMixin,
+    LinkedStateMixin,
   ],
 
   getInitialState() {
@@ -70,6 +70,7 @@ const NotesIndex = React.createClass({
           className="Notes"
           component="ul"
           transitionEnter={false}
+          transitionLeaveTimeout={500}
           transitionName="fade"
         >
           <li className="Note">
