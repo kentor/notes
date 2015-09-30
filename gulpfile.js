@@ -4,7 +4,6 @@ const gulp = require('gulp');
 const minifycss = require('gulp-minify-css');
 const postcss = require('gulp-postcss');
 const postcssImport = require('postcss-import');
-const processhtml = require('gulp-processhtml');
 const sourcemaps = require('gulp-sourcemaps');
 
 const processors = [
@@ -31,12 +30,6 @@ gulp.task('css:build', function() {
     .pipe(postcss(processors))
     .pipe(minifycss({ keepSpecialComments: 0 }))
     .pipe(gulp.dest('public/css'));
-});
-
-gulp.task('processhtml', function() {
-  gulp.src('public/index.html')
-    .pipe(processhtml())
-    .pipe(gulp.dest('public'));
 });
 
 const staticFiles = [
