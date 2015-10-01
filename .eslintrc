@@ -39,6 +39,7 @@ rules:
   id-length: 0
   id-match: 0
   indent: [2, 2, {SwitchCase: 1}]
+  jsx-quotes: [2, prefer-double]
   key-spacing: [2, {beforeColon: false, afterColon: true}]
   linebreak-style: [2, unix]
   lines-around-comment: 0
@@ -98,7 +99,6 @@ rules:
   react/jsx-curly-spacing: [2, never]
   react/jsx-indent-props: [2, 2]
   react/jsx-no-undef: 2
-  react/jsx-quotes: [2, double]
   react/jsx-uses-react: 2
   react/jsx-uses-vars: 2
   react/no-unknown-property: 2
