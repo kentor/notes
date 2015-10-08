@@ -1,9 +1,9 @@
 import expect from 'expect';
 import NewNoteForm from '../NewNoteForm';
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import sinon from 'sinon';
-
-const { TestUtils } = React.addons;
+import TestUtils from 'react-addons-test-utils';
 
 describe('NewNoteForm', () => {
   let c;
@@ -14,8 +14,8 @@ describe('NewNoteForm', () => {
   beforeEach(() => {
     spy = sinon.spy();
     c = TestUtils.renderIntoDocument(<NewNoteForm onSubmit={spy} />);
-    form = React.findDOMNode(c);
-    textarea = React.findDOMNode(c.refs.newNote);
+    form = ReactDOM.findDOMNode(c);
+    textarea = ReactDOM.findDOMNode(c.refs.newNote);
   });
 
   it('does not call onSubmit when input is empty', () => {

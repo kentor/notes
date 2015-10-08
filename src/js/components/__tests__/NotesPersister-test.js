@@ -2,10 +2,9 @@ import expect from 'expect';
 import Immutable from 'immutable';
 import Note from '../../models/Note';
 import NotesPersister from '../NotesPersister';
-import React from 'react/addons';
+import React from 'react';
 import Storage from 'dom-storage';
-
-const { TestUtils } = React.addons;
+import TestUtils from 'react-addons-test-utils';
 
 describe('NotePersister Component', () => {
   beforeEach(() => {

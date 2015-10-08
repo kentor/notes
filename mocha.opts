@@ -1,2 +1,3 @@
 src/js/**/__tests__/*-test.js
 --compilers js:babel/register
+--require src/js/lib/test-setup.js

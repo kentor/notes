@@ -1,11 +1,12 @@
 import expect from 'expect';
 import Note from '../Note';
 import NoteModel from '../../models/Note';
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import sinon from 'sinon';
+import TestUtils from 'react-addons-test-utils';
 
-const { TestUtils } = React.addons;
-const render = React.addons.TestUtils.renderIntoDocument;
+const render = TestUtils.renderIntoDocument;
 
 describe('Note Component', () => {
   describe('#shouldShowContent', () => {
@@ -29,19 +30,19 @@ describe('Note Component', () => {
   describe('with markdown', () => {
     it('render links', () => {
       const note = new NoteModel({ content: 'http://kentor.me/' });
-      const node = React.findDOMNode(render(<Note note={note} />));
+      const node = ReactDOM.findDOMNode(render(<Note note={note} />));
       expect(node.innerHTML).toContain('<a href="http://kentor.me/">');
     });
 
     it('escapes html', () => {
       const note = new NoteModel({ content: '<script></script>' });
-      const node = React.findDOMNode(render(<Note note={note} />));
+      const node = ReactDOM.findDOMNode(render(<Note note={note} />));
       expect(node.innerHTML).toContain('&lt;script&gt;&lt;/script&gt;');
     });
 
     it('inserts line breaks', () => {
       const note = new NoteModel({ content: '犬\n猫' });
-      const node = React.findDOMNode(render(<Note note={note} />));
+      const node = ReactDOM.findDOMNode(render(<Note note={note} />));
       expect(node.innerHTML).toContain('犬<br>猫');
     });
   });
@@ -51,11 +52,11 @@ describe('Note Component', () => {
     let note;
 
     note = new NoteModel({ createdAt: new Date() - 1000 });
-    node = React.findDOMNode(render(<Note note={note} />));
+    node = ReactDOM.findDOMNode(render(<Note note={note} />));
     expect(node.textContent).toMatch(/1 second/);
 
     note = new NoteModel({ createdAt: new Date() - 2000 * 60 });
-    node = React.findDOMNode(render(<Note note={note} />));
+    node = ReactDOM.findDOMNode(render(<Note note={note} />));
     expect(node.textContent).toMatch(/2 minutes/);
   });
 
@@ -87,8 +88,8 @@ describe('Note Component', () => {
       />
     );
 
-    TestUtils.Simulate.click(React.findDOMNode(c.refs.destroy));
-    TestUtils.Simulate.click(React.findDOMNode(c.refs.toggleHidden));
+    TestUtils.Simulate.click(ReactDOM.findDOMNode(c.refs.destroy));
+    TestUtils.Simulate.click(ReactDOM.findDOMNode(c.refs.toggleHidden));
     expect(destroySpy.callCount).toBe(1);
     expect(toggleHiddenSpy.callCount).toBe(1);
     expect(toggleLocalHiddenSpy.callCount).toBe(0);
