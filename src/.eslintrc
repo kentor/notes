@@ -1,7 +1,7 @@
 ---
 env:
-  browser: true
-rules:
-  no-console: 2
-  no-var: 2
-  object-shorthand: [2, always]
+  mocha: true
+extends:
+  - kentor/browser
+  - kentor/es6
+  - kentor/react

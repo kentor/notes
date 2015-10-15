@@ -33,6 +33,7 @@
     "cssnext": "^1.8.4",
     "dom-storage": "^2.0.1",
     "eslint": "^1.6.0",
+    "eslint-config-kentor": "^1.0.0",
     "eslint-plugin-react": "^3.5.1",
     "eslint-watch": "^2.1.2",
     "expect": "^1.12.0",
