@@ -5,7 +5,11 @@ const middlewares = [
 ];
 
 if (process.env.NODE_ENV !== 'production') {
-  middlewares.push(require('redux-logger')());
+  middlewares.push(require('redux-logger')({
+    actionTransformer(action) {
+      return Object.assign({}, action, { type: String(action.type) });
+    },
+  }));
 }
 
 const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
