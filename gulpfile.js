@@ -1,5 +1,4 @@
-const autoprefixer = require('autoprefixer');
-const cssnext = require('cssnext');
+const cssnext = require('postcss-cssnext');
 const gulp = require('gulp');
 const minifycss = require('gulp-minify-css');
 const postcss = require('gulp-postcss');
@@ -7,9 +6,8 @@ const postcssImport = require('postcss-import');
 const sourcemaps = require('gulp-sourcemaps');
 
 const processors = [
-  postcssImport,
+  postcssImport(),
   cssnext(),
-  autoprefixer,
 ];
 
 gulp.task('css', function(done) {
