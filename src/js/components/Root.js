@@ -1,18 +1,18 @@
 import API from '../api';
-import appconfig from '../appconfig';
 import Login from './Login';
 import NotesIndex from './NotesIndex';
 import React from 'react';
+import { authRequired } from '../appconfig';
 import { connect } from 'react-redux';
 
 const Root = React.createClass({
   componentWillMount() {
-    if (!appconfig.authRequired) return;
+    if (!authRequired) return;
     API.authenticate();
   },
 
   isAuthenticated() {
-    return !appconfig.authRequired || this.props.user;
+    return !authRequired || this.props.user;
   },
 
   render() {

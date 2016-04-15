@@ -1,7 +1,5 @@
 import Firebase from 'firebase';
 
-export default {
-  authRequired: true,
-  firebaseRef: new Firebase('https://qdsndc.firebaseio.com'),
-  provider: 'twitter',
-};
+export const authRequired = true;
+export const firebaseRef = new Firebase('https://qdsndc.firebaseio.com');
+export const provider = 'twitter';
