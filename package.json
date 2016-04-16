@@ -39,7 +39,6 @@
     "eslint-plugin-react": "4.3.0",
     "eslint-watch": "2.1.10",
     "expect": "1.16.0",
-    "fastclick": "1.0.6",
     "firebase": "2.4.2",
     "gulp": "3.9.1",
     "gulp-minify-css": "1.2.4",
