@@ -43,6 +43,10 @@ const NotesIndex = React.createClass({
     API.logout();
   },
 
+  requestQueryChange(e) {
+    this.setState({ query: e.target.value });
+  },
+
   toggleHidden(note) {
     API.updateNote(note.get('id'), { hidden: !note.get('hidden') });
   },
@@ -61,8 +65,9 @@ const NotesIndex = React.createClass({
           <NewNoteForm onSubmit={this.createNote} />
           <input
             className="FilterInput"
+            onChange={this.requestQueryChange}
             type="text"
-            valueLink={this.linkState('query')}
+            value={this.state.query}
           />
         </aside>
 
