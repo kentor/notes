@@ -2,10 +2,11 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 function *dotsCounter() {
-  let x = 2;
   for (;;) {
-    yield Math.round(Math.cos(x * Math.PI / 2)) + 2;
-    x = (x + 1) % 4;
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 2;
   }
 }
 
