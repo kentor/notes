@@ -14,10 +14,10 @@ function NoteReducer(state = initialState, action) {
 
   switch (action.type) {
     case NoteActions.ADD_SUCCESS:
-      return state.update('items', v => v.set(payload.id, new Note(payload)));
+      return state.setIn(['items', payload.id], new Note(payload));
 
     case NoteActions.DESTROY_SUCCESS:
-      return state.update('items', v => v.delete(payload.id));
+      return state.deleteIn(['items', payload.id]);
 
     case NoteActions.FETCH_SUCCESS:
       return state.set('loaded', true).set('items', hydrateNotes(payload));
@@ -26,16 +26,19 @@ function NoteReducer(state = initialState, action) {
       return state.set('items', hydrateNotes(payload));
 
     case NoteActions.TOGGLE_LOCAL_HIDDEN:
-      if (state.getIn(['localHidden', payload.id]) === undefined) {
-        return state.setIn(['localHidden', payload.id], !payload.hidden);
-      }
-      return state.updateIn(['localHidden', payload.id], v => !v);
+      return state.updateIn(
+        ['localHidden', payload.id],
+        payload.hidden,
+        v => !v
+      );
 
     case NoteActions.UPDATE_SUCCESS:
-      if (payload.hidden !== state.getIn(['items', payload.id, 'hidden'])) {
-        state = state.deleteIn(['localHidden', payload.id]);
-      }
-      return state.update('items', v => v.set(payload.id, new Note(payload)));
+      return state.withMutations(s => {
+        if (payload.hidden !== s.getIn(['items', payload.id, 'hidden'])) {
+          s.deleteIn(['localHidden', payload.id]);
+        }
+        s.setIn(['items', payload.id], new Note(payload));
+      });
 
     default:
       return state;
