@@ -3,10 +3,15 @@ const gulp = require('gulp');
 const minifycss = require('gulp-minify-css');
 const postcss = require('gulp-postcss');
 const postcssImport = require('postcss-import');
+const postcssUrl = require('postcss-url');
 const sourcemaps = require('gulp-sourcemaps');
 
 const processors = [
   postcssImport(),
+  postcssUrl({
+    maxSize: 100,
+    url: 'inline',
+  }),
   cssnext({
     browsers: ['last 1 version'],
   }),

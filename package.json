@@ -55,6 +55,7 @@
     "parallelshell": "2.0.0",
     "postcss-cssnext": "2.7.0",
     "postcss-import": "8.1.2",
+    "postcss-url": "5.1.2",
     "react": "15.1.0",
     "react-addons-css-transition-group": "15.1.0",
     "react-addons-linked-state-mixin": "15.1.0",
