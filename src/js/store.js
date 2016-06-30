@@ -9,6 +9,9 @@ if (process.env.NODE_ENV !== 'production') {
     actionTransformer(action) {
       return Object.assign({}, action, { type: String(action.type) });
     },
+    stateTransformer(state) {
+      return state.toJS();
+    },
   }));
 }
 
