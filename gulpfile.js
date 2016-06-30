@@ -7,7 +7,9 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const processors = [
   postcssImport(),
-  cssnext(),
+  cssnext({
+    browsers: ['last 1 version'],
+  }),
 ];
 
 gulp.task('css', function(done) {
