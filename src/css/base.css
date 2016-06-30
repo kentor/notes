@@ -62,6 +62,10 @@ input {
   width: 16rem;
 }
 
+.FilterInput {
+  max-width: calc(100% - 4em);
+}
+
 .Login {
   display: block;
   font-size: 2rem;

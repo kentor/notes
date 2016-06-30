@@ -1,11 +1,7 @@
-.NewNote-form {
-  margin: var(--interspacing) 0;
-}
-
 .NewNote-textarea {
   display: block;
   height: 6rem;
-  margin-bottom: var(--interspacing);
+  margin: var(--interspacing) 0;
   resize: none;
   width: 100%;
 }
