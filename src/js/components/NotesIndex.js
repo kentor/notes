@@ -102,7 +102,7 @@ const NotesIndex = React.createClass({
               onToggleHidden={this.toggleHidden}
               onToggleLocalHidden={this.toggleLocalHidden}
             />
-          ).toArray()}
+          ).valueSeq()}
           <li className="Note">Notes: {notes.size}</li>
         </CSSTransitionGroup>
 
