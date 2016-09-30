@@ -37,7 +37,6 @@ const Icon = React.createClass({
 
     return (
       <svg
-        fit
         preserveAspectRatio="xMidYMid meet"
         style={styles}
         viewBox="0 0 24 24"
