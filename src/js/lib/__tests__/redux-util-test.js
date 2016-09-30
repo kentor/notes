@@ -1,4 +1,3 @@
-import expect from 'expect';
 import { wrapReducer } from '../redux-utils';
 
 describe('redux utils', () => {

@@ -1,34 +1,30 @@
-import expect from 'expect';
 import NewNoteForm from '../NewNoteForm';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import sinon from 'sinon';
-import TestUtils from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 
 describe('NewNoteForm', () => {
-  let c;
-  let form;
   let spy;
   let textarea;
+  let wrapper;
 
   beforeEach(() => {
     spy = sinon.spy();
-    c = TestUtils.renderIntoDocument(<NewNoteForm onSubmit={spy} />);
-    form = ReactDOM.findDOMNode(c);
-    textarea = ReactDOM.findDOMNode(c.refs.newNote);
+    wrapper = mount(<NewNoteForm onSubmit={spy} />);
+    textarea = wrapper.ref('newNote').get(0);
   });
 
   it('does not call onSubmit when input is empty', () => {
-    TestUtils.Simulate.submit(form);
+    wrapper.simulate('submit');
     expect(spy.callCount).toBe(0);
     textarea.value = '   ';
-    TestUtils.Simulate.submit(form);
+    wrapper.simulate('submit');
     expect(spy.callCount).toBe(0);
   });
 
   it('emptys the input when onSubmit is called', () => {
     textarea.value = '  よし  ';
-    TestUtils.Simulate.submit(form);
+    wrapper.simulate('submit');
     expect(spy.callCount).toBe(1);
     expect(spy.calledWith('よし')).toBe(true);
     expect(textarea.value).toBe('');

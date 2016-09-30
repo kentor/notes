@@ -1,9 +1,7 @@
-import expect from 'expect';
 import LoadingIndicator from '../LoadingIndicator';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import sinon from 'sinon';
-import TestUtils from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 
 describe('LoadingIndicator', () => {
   let clock;
@@ -17,25 +15,24 @@ describe('LoadingIndicator', () => {
   });
 
   it('shows correct number of dots', () => {
-    const c = TestUtils.renderIntoDocument(<LoadingIndicator interval={42}/>);
-    const node = ReactDOM.findDOMNode(c);
+    const wrapper = mount(<LoadingIndicator interval={42} />);
 
-    expect(node.textContent).toBe('.');
+    expect(wrapper.text()).toBe('.');
     clock.tick(42);
-    expect(node.textContent).toBe('..');
+    expect(wrapper.text()).toBe('..');
     clock.tick(42);
-    expect(node.textContent).toBe('...');
+    expect(wrapper.text()).toBe('...');
     clock.tick(42);
-    expect(node.textContent).toBe('..');
+    expect(wrapper.text()).toBe('..');
     clock.tick(42);
-    expect(node.textContent).toBe('.');
+    expect(wrapper.text()).toBe('.');
     clock.tick(42);
-    expect(node.textContent).toBe('..');
+    expect(wrapper.text()).toBe('..');
     clock.tick(42);
-    expect(node.textContent).toBe('...');
+    expect(wrapper.text()).toBe('...');
     clock.tick(42);
-    expect(node.textContent).toBe('..');
+    expect(wrapper.text()).toBe('..');
     clock.tick(42);
-    expect(node.textContent).toBe('.');
+    expect(wrapper.text()).toBe('.');
   });
 });

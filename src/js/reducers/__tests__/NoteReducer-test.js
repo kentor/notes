@@ -1,5 +1,4 @@
 import * as NoteActions from '../../actions/NoteActions';
-import expect from 'expect';
 import NoteReducer from '../NoteReducer';
 
 describe('NoteReducer', () => {

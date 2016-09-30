@@ -1,5 +1,4 @@
 import background from '../background';
-import expect from 'expect';
 
 describe('background util', () => {
   it('returns the same background given the same id', () => {

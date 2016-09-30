@@ -1,5 +1,4 @@
 import * as NoteActions from '../NoteActions';
-import expect from 'expect';
 import Storage from 'dom-storage';
 
 describe('NoteActions', () => {

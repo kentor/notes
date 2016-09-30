@@ -1,10 +1,9 @@
-import expect from 'expect';
 import Immutable from 'immutable';
 import Note from '../../models/Note';
 import NotesPersister from '../NotesPersister';
 import React from 'react';
 import Storage from 'dom-storage';
-import TestUtils from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 
 describe('NotePersister Component', () => {
   beforeEach(() => {
@@ -21,7 +20,7 @@ describe('NotePersister Component', () => {
         id: 'a',
       }),
     });
-    TestUtils.renderIntoDocument(<NotesPersister notes={notes} />);
+    mount(<NotesPersister notes={notes} />);
     expect(localStorage.getItem('notes')).toBe(JSON.stringify(notes));
   });
 });

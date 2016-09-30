@@ -1,5 +1,4 @@
 import * as SessionActions from '../../actions/SessionActions';
-import expect from 'expect';
 import SessionReducer from '../SessionReducer';
 
 describe('SessionReducer', () => {
