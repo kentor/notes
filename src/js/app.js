@@ -2,7 +2,7 @@ import './polyfills';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from './router';
+import Root from './components/Root';
 import store from './store';
 import { Provider } from 'react-redux';
 
@@ -14,7 +14,7 @@ if (module.hot) {
 
 ReactDOM.render(
   <Provider store={store}>
-    {Router}
+    <Root />
   </Provider>,
   document.getElementById('root')
 );
