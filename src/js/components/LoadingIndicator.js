@@ -1,4 +1,3 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 function *dotsCounter() {
@@ -10,29 +9,24 @@ function *dotsCounter() {
   }
 }
 
-const LoadingIndicator = React.createClass({
-  mixins: [
-    PureRenderMixin,
-  ],
+class LoadingIndicator extends React.PureComponent {
+  static defaultProps = { interval: 100 };
 
-  getDefaultProps() {
-    return { interval: 100 };
-  },
-
-  getInitialState() {
+  constructor(props) {
+    super(props);
     this.dotsCounter = dotsCounter();
-    return { dots: this.dotsCounter.next().value };
-  },
+    this.state = { dots: this.dotsCounter.next().value };
+  }
 
   componentDidMount() {
     this.timer = setInterval(() => {
       this.setState({ dots: this.dotsCounter.next().value });
     }, this.props.interval);
-  },
+  }
 
   componentWillUnmount() {
     clearInterval(this.timer);
-  },
+  }
 
   render() {
     const { dots } = this.state;
@@ -44,7 +38,7 @@ const LoadingIndicator = React.createClass({
         {dots === 3 && <span>.</span>}
       </span>
     );
-  },
-});
+  }
+}
 
 export default LoadingIndicator;

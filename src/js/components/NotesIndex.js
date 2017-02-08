@@ -2,7 +2,6 @@ import * as NoteActions from '../actions/NoteActions';
 import API from '../api';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import Icon from './Icon';
-import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import LoadingIndicator from './LoadingIndicator';
 import NewNoteForm from './NewNoteForm';
 import Note from './Note';
@@ -11,49 +10,43 @@ import React from 'react';
 import { authRequired } from '../appconfig';
 import { connect } from 'react-redux';
 
-const NotesIndex = React.createClass({
-  mixins: [
-    LinkedStateMixin,
-  ],
-
-  getInitialState() {
-    return {
-      query: '',
-    };
-  },
+class NotesIndex extends React.Component {
+  state = {
+    query: '',
+  };
 
   componentDidMount() {
     this.props.dispatch(NoteActions.hydrate());
     API.subscribe();
-  },
+  }
 
   componentWillUnmount() {
     API.unsubscribe();
-  },
+  }
 
-  createNote(content) {
+  createNote = (content) => {
     API.createNote(content);
-  },
+  };
 
-  destroyNote(note) {
+  destroyNote = (note) => {
     API.destroyNote(note.get('id'));
-  },
+  };
 
-  logout() {
+  logout = () => {
     API.logout();
-  },
+  };
 
-  requestQueryChange(e) {
+  requestQueryChange = (e) => {
     this.setState({ query: e.target.value });
-  },
+  };
 
-  toggleHidden(note) {
+  toggleHidden = (note) => {
     API.updateNote(note.get('id'), { hidden: !note.get('hidden') });
-  },
+  };
 
-  toggleLocalHidden(note) {
+  toggleLocalHidden = (note) => {
     this.props.dispatch(NoteActions.toggleLocalHidden(note));
-  },
+  };
 
   render() {
     const { loading, notes } = this.props;
@@ -111,8 +104,8 @@ const NotesIndex = React.createClass({
         }
       </main>
     );
-  },
-});
+  }
+}
 
 function mapStateToProps(state) {
   return {

@@ -1,12 +1,7 @@
 import background from '../lib/background';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-const Login = React.createClass({
-  mixins: [
-    PureRenderMixin,
-  ],
-
+class Login extends React.PureComponent {
   render() {
     const { hue } = background('login');
     const color = `hsl(${hue}, 100%, 87.5%)`;
@@ -20,7 +15,7 @@ const Login = React.createClass({
         Login
       </a>
     );
-  },
-});
+  }
+}
 
 export default Login;

@@ -5,15 +5,15 @@ import React from 'react';
 import { authRequired } from '../appconfig';
 import { connect } from 'react-redux';
 
-const Root = React.createClass({
+class Root extends React.Component {
   componentWillMount() {
     if (!authRequired) return;
     API.authenticate();
-  },
+  }
 
-  isAuthenticated() {
+  isAuthenticated = () => {
     return !authRequired || this.props.user;
-  },
+  };
 
   render() {
     return (
@@ -22,8 +22,8 @@ const Root = React.createClass({
       :
         <Login onRequestLogin={API.login.bind(API)} />
     );
-  },
-});
+  }
+}
 
 function mapStateToProps(state) {
   return {

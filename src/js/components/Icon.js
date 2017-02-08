@@ -1,17 +1,12 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-const Icon = React.createClass({
-  propTypes: {
+class Icon extends React.PureComponent {
+  static propTypes = {
     icon: React.PropTypes.string.isRequired,
-  },
-
-  mixins: [
-    PureRenderMixin,
-  ],
+  };
 
   /* eslint-disable max-len */
-  renderGraphic() {
+  renderGraphic = () => {
     switch (this.props.icon) {
       case 'delete':
         return <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-12h-12v12zm13-15h-3.5l-1-1h-5l-1 1h-3.5v2h14v-2z" />;
@@ -24,7 +19,8 @@ const Icon = React.createClass({
       default:
         return null;
     }
-  },
+  };
+
   /* eslint-enable max-len */
 
   render() {
@@ -44,7 +40,7 @@ const Icon = React.createClass({
         {this.renderGraphic()}
       </svg>
     );
-  },
-});
+  }
+}
 
 export default Icon;

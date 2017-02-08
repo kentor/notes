@@ -3,7 +3,6 @@ import cx from 'classnames';
 import Hammer from 'hammerjs';
 import Icon from './Icon';
 import marked from 'marked';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 import TimeAgo from 'react-timeago';
 
@@ -16,16 +15,10 @@ function formatTimeAgo(value, unit) {
   return `${value} ${unit}${value === 1 ? '' : 's'}`;
 }
 
-const Note = React.createClass({
-  mixins: [
-    PureRenderMixin,
-  ],
-
-  getInitialState() {
-    return {
-      swiped: false,
-    };
-  },
+class Note extends React.PureComponent {
+  state = {
+    swiped: false,
+  };
 
   componentDidMount() {
     new Hammer(this.refs.note, {
@@ -35,28 +28,28 @@ const Note = React.createClass({
     }).on('swiperight', () => {
       this.setState({ swiped: false });
     });
-  },
+  }
 
-  destroy(e) {
+  destroy = (e) => {
     e.stopPropagation();
     this.props.onDestroy(this.props.note);
-  },
+  };
 
-  shouldShowContent() {
+  shouldShowContent = () => {
     const { localHidden, note } = this.props;
     return localHidden === undefined ? !note.get('hidden') : !localHidden;
-  },
+  };
 
-  toggleLocalHidden(e) {
+  toggleLocalHidden = (e) => {
     if (window.getSelection && window.getSelection().toString()) return;
     if (e && e.target.tagName === 'A') return;
     this.props.onToggleLocalHidden(this.props.note);
-  },
+  };
 
-  toggleHidden(e) {
+  toggleHidden = (e) => {
     e.stopPropagation();
     this.props.onToggleHidden(this.props.note);
-  },
+  };
 
   render() {
     const { note } = this.props;
@@ -114,7 +107,7 @@ const Note = React.createClass({
         </div>
       </li>
     );
-  },
-});
+  }
+}
 
 export default Note;
