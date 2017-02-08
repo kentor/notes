@@ -57,17 +57,13 @@ class Note extends React.PureComponent {
 
     return (
       <li
-        className={cx({
-          'hidden': this.props.hidden,
-          'Note': true,
-          'swiped': this.state.swiped,
-          [bg.pattern]: true,
+        className={cx('Note', bg.pattern, {
+          hidden: this.props.hidden,
+          swiped: this.state.swiped,
         })}
         ref="note"
         onClick={this.toggleLocalHidden}
-        style={{
-          backgroundColor: `hsl(${bg.hue}, 100%, 87.5%)`,
-        }}
+        style={{ backgroundColor: `hsl(${bg.hue}, 100%, 87.5%)` }}
       >
         <div className="Note-meta">
           <TimeAgo
@@ -90,10 +86,7 @@ class Note extends React.PureComponent {
         </div>
 
         <div
-          className={cx({
-            'hidden': !this.shouldShowContent(),
-            'Note-content': true,
-          })}
+          className={cx('Note-content', { hidden: !this.shouldShowContent() })}
         >
           <div
             dangerouslySetInnerHTML={{
