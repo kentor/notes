@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class Icon extends React.PureComponent {
   static propTypes = {
-    icon: React.PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
   };
 
   /* eslint-disable max-len */

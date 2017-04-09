@@ -58,6 +58,7 @@
     "postcss-cssnext": "2.10.0",
     "postcss-import": "9.1.0",
     "postcss-url": "6.0.4",
+    "prop-types": "15.5.4",
     "react": "15.5.3",
     "react-addons-css-transition-group": "15.5.2",
     "react-dom": "15.5.3",
