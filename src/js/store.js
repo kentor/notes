@@ -15,9 +15,6 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 }
 
-const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
-const store = createStoreWithMiddleware(RootReducer);
-
 // TODO: hot module replacement for reducers
 
-export default store;
+export default createStore(RootReducer, applyMiddleware(...middlewares));
