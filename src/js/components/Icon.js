@@ -21,7 +21,6 @@ class Icon extends React.PureComponent {
         return null;
     }
   };
-
   /* eslint-enable max-len */
 
   render() {
