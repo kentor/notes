@@ -1,8 +1,11 @@
 import Note from '../Note';
 import NoteModel from '../../models/Note';
 import React from 'react';
-import sinon from 'sinon';
-import { mount, shallow } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+
+function shallow(element) {
+  return Enzyme.shallow(element, { disableLifecycleMethods: true });
+}
 
 describe('Note Component', () => {
   describe('#shouldShowContent', () => {
@@ -57,23 +60,23 @@ describe('Note Component', () => {
 
   it('does not call onToggleLocalHidden when window has a selection', () => {
     const note = new NoteModel();
-    const spy = sinon.spy();
+    const spy = jest.fn();
     const wrapper = mount(<Note note={note} onToggleLocalHidden={spy} />);
 
     window.getSelection = () => '';
     wrapper.instance().toggleLocalHidden();
-    expect(spy.callCount).toBe(1);
+    expect(spy).toHaveBeenCalledTimes(1);
 
     window.getSelection = () => 'something';
     wrapper.instance().toggleLocalHidden();
-    expect(spy.callCount).toBe(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('handles toggleHidden and destroy correctly', () => {
     const note = new NoteModel();
-    const destroySpy = sinon.spy();
-    const toggleHiddenSpy = sinon.spy();
-    const toggleLocalHiddenSpy = sinon.spy();
+    const destroySpy = jest.fn();
+    const toggleHiddenSpy = jest.fn();
+    const toggleLocalHiddenSpy = jest.fn();
     const wrapper = mount(
       <Note
         note={note}
@@ -82,11 +85,11 @@ describe('Note Component', () => {
         onToggleLocalHidden={toggleLocalHiddenSpy}
       />
     );
-
-    wrapper.ref('destroy').simulate('click');
-    wrapper.ref('toggleHidden').simulate('click');
-    expect(destroySpy.callCount).toBe(1);
-    expect(toggleHiddenSpy.callCount).toBe(1);
-    expect(toggleLocalHiddenSpy.callCount).toBe(0);
+    const instance = wrapper.instance();
+    wrapper.find({ onClick: instance.destroy }).first().simulate('click');
+    wrapper.find({ onClick: instance.toggleHidden }).first().simulate('click');
+    expect(destroySpy).toHaveBeenCalledTimes(1);
+    expect(toggleHiddenSpy).toHaveBeenCalledTimes(1);
+    expect(toggleLocalHiddenSpy).toHaveBeenCalledTimes(0);
   });
 });

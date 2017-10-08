@@ -21,7 +21,7 @@ class Note extends React.PureComponent {
   };
 
   componentDidMount() {
-    new Hammer(this.refs.note, {
+    new Hammer(this.note, {
       cssProps: { userSelect: true },
     }).on('swipeleft', () => {
       this.setState({ swiped: true });
@@ -61,8 +61,8 @@ class Note extends React.PureComponent {
           hidden: this.props.hidden,
           swiped: this.state.swiped,
         })}
-        ref="note"
         onClick={this.toggleLocalHidden}
+        ref={c => { this.note = c; }}
         style={{ backgroundColor: `hsl(${bg.hue}, 100%, 87.5%)` }}
       >
         <div className="Note-meta">
@@ -73,14 +73,11 @@ class Note extends React.PureComponent {
           />
           <div className="Note-controls">
             <a onClick={this.toggleHidden}>
-              <Icon
-                icon={note.get('hidden') ? 'star-outline' : 'star'}
-                ref="toggleHidden"
-              />
+              <Icon icon={note.get('hidden') ? 'star-outline' : 'star'} />
             </a>
             {' '}
             <a className="Note-deleteIcon" onClick={this.destroy}>
-              <Icon icon="delete" ref="destroy" />
+              <Icon icon="delete" />
             </a>
           </div>
         </div>

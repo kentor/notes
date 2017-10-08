@@ -38,7 +38,8 @@
     "classnames": "2.2.5",
     "core-js": "2.4.1",
     "dom-storage": "2.0.2",
-    "enzyme": "2.8.0",
+    "enzyme": "3.1.0",
+    "enzyme-adapter-react-16": "1.0.1",
     "eslint": "4.8.0",
     "eslint-config-kentor": "4.0.3",
     "eslint-plugin-react": "7.4.0",
@@ -59,16 +60,17 @@
     "postcss-cssnext": "2.10.0",
     "postcss-import": "9.1.0",
     "postcss-url": "6.0.4",
-    "prop-types": "15.5.4",
-    "react": "15.5.3",
-    "react-addons-css-transition-group": "15.5.2",
-    "react-addons-test-utils": "15.5.1",
-    "react-dom": "15.5.3",
-    "react-redux": "5.0.3",
-    "react-timeago": "3.2.0",
+    "prop-types": "15.6.0",
+    "react": "16.0.0",
+    "react-addons-css-transition-group": "15.6.2",
+    "react-addons-test-utils": "15.6.2",
+    "react-dom": "16.0.0",
+    "react-redux": "5.0.6",
+    "react-test-renderer": "16.0.0",
+    "react-timeago": "3.4.3",
     "react-transform-hmr": "1.0.4",
-    "redux": "3.6.0",
-    "redux-logger": "3.0.1",
+    "redux": "3.7.2",
+    "redux-logger": "3.0.6",
     "sinon": "4.0.1",
     "watchify": "3.9.0",
     "webpack": "2.3.3"
@@ -79,6 +81,7 @@
     ]
   },
   "jest": {
+    "setupTestFrameworkScriptFile": "./jest.setup.js",
     "testRegex": "/__tests__/.*?-test\\.js$"
   }
 }
