@@ -1,4 +1,5 @@
 import background from '../lib/background';
+import Clipboard from 'clipboard';
 import cx from 'classnames';
 import Hammer from 'hammerjs';
 import Icon from './Icon';
@@ -21,6 +22,10 @@ class Note extends React.PureComponent {
   };
 
   componentDidMount() {
+    this.clipboard = new Clipboard(this.clipboardTrigger, {
+      target: () => this.clipboardTextElement,
+    });
+
     new Hammer(this.note, {
       cssProps: { userSelect: true },
     }).on('swipeleft', () => {
@@ -28,6 +33,10 @@ class Note extends React.PureComponent {
     }).on('swiperight', () => {
       this.setState({ swiped: false });
     });
+  }
+
+  componentWillUnmount() {
+    this.clipboard.destroy();
   }
 
   destroy = (e) => {
@@ -76,8 +85,15 @@ class Note extends React.PureComponent {
               <Icon icon={note.get('hidden') ? 'star-outline' : 'star'} />
             </a>
             {' '}
-            <a className="Note-deleteIcon" onClick={this.destroy}>
+            <a onClick={this.destroy}>
               <Icon icon="delete" />
+            </a>
+            {' '}
+            <a
+              ref={c => { this.clipboardTrigger = c; }}
+              style={{ marginLeft: 2 }}
+            >
+              <Icon icon="clipboard" />
             </a>
           </div>
         </div>
@@ -89,6 +105,7 @@ class Note extends React.PureComponent {
             dangerouslySetInnerHTML={{
               __html: marked(note.get('content')),
             }}
+            ref={c => { this.clipboardTextElement = c; }}
           />
         </div>
 

@@ -36,6 +36,7 @@
     "browserify": "14.4.0",
     "browserify-hmr": "0.3.5",
     "classnames": "2.2.5",
+    "clipboard": "1.7.1",
     "core-js": "2.5.1",
     "dom-storage": "2.0.2",
     "enzyme": "3.1.0",
