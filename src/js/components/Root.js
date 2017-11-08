@@ -16,9 +16,11 @@ class Root extends React.Component {
   };
 
   render() {
-    return this.isAuthenticated()
-      ? <NotesIndex />
-      : <Login onRequestLogin={API.login.bind(API)} />;
+    return this.isAuthenticated() ? (
+      <NotesIndex />
+    ) : (
+      <Login onRequestLogin={API.login.bind(API)} />
+    );
   }
 }
 

@@ -28,18 +28,20 @@ class Note extends React.PureComponent {
 
     new Hammer(this.note, {
       cssProps: { userSelect: true },
-    }).on('swipeleft', () => {
-      this.setState({ swiped: true });
-    }).on('swiperight', () => {
-      this.setState({ swiped: false });
-    });
+    })
+      .on('swipeleft', () => {
+        this.setState({ swiped: true });
+      })
+      .on('swiperight', () => {
+        this.setState({ swiped: false });
+      });
   }
 
   componentWillUnmount() {
     this.clipboard.destroy();
   }
 
-  destroy = (e) => {
+  destroy = e => {
     e.stopPropagation();
     this.props.onDestroy(this.props.note);
   };
@@ -49,13 +51,13 @@ class Note extends React.PureComponent {
     return localHidden === undefined ? !note.get('hidden') : !localHidden;
   };
 
-  toggleLocalHidden = (e) => {
+  toggleLocalHidden = e => {
     if (window.getSelection && window.getSelection().toString()) return;
     if (e && e.target.tagName === 'A') return;
     this.props.onToggleLocalHidden(this.props.note);
   };
 
-  toggleHidden = (e) => {
+  toggleHidden = e => {
     e.stopPropagation();
     this.props.onToggleHidden(this.props.note);
   };
@@ -71,7 +73,9 @@ class Note extends React.PureComponent {
           swiped: this.state.swiped,
         })}
         onClick={this.toggleLocalHidden}
-        ref={c => { this.note = c; }}
+        ref={c => {
+          this.note = c;
+        }}
         style={{ backgroundColor: `hsl(${bg.hue}, 100%, 87.5%)` }}
       >
         <div className="Note-meta">
@@ -83,14 +87,14 @@ class Note extends React.PureComponent {
           <div className="Note-controls">
             <a onClick={this.toggleHidden}>
               <Icon icon={note.get('hidden') ? 'star-outline' : 'star'} />
-            </a>
-            {' '}
+            </a>{' '}
             <a onClick={this.destroy}>
               <Icon icon="delete" />
-            </a>
-            {' '}
+            </a>{' '}
             <a
-              ref={c => { this.clipboardTrigger = c; }}
+              ref={c => {
+                this.clipboardTrigger = c;
+              }}
               style={{ marginLeft: 2 }}
             >
               <Icon icon="clipboard" />
@@ -105,7 +109,9 @@ class Note extends React.PureComponent {
             dangerouslySetInnerHTML={{
               __html: marked(note.get('content')),
             }}
-            ref={c => { this.clipboardTextElement = c; }}
+            ref={c => {
+              this.clipboardTextElement = c;
+            }}
           />
         </div>
 

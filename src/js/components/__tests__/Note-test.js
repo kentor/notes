@@ -86,8 +86,14 @@ describe('Note Component', () => {
       />
     );
     const instance = wrapper.instance();
-    wrapper.find({ onClick: instance.destroy }).first().simulate('click');
-    wrapper.find({ onClick: instance.toggleHidden }).first().simulate('click');
+    wrapper
+      .find({ onClick: instance.destroy })
+      .first()
+      .simulate('click');
+    wrapper
+      .find({ onClick: instance.toggleHidden })
+      .first()
+      .simulate('click');
     expect(destroySpy).toHaveBeenCalledTimes(1);
     expect(toggleHiddenSpy).toHaveBeenCalledTimes(1);
     expect(toggleLocalHiddenSpy).toHaveBeenCalledTimes(0);

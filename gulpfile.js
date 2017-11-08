@@ -18,7 +18,8 @@ const processors = [
 ];
 
 gulp.task('css', function(done) {
-  return gulp.src('src/css/app.css')
+  return gulp
+    .src('src/css/app.css')
     .pipe(sourcemaps.init())
     .pipe(postcss(processors))
     .on('error', done)
@@ -31,7 +32,8 @@ gulp.task('css:watch', ['css'], function() {
 });
 
 gulp.task('css:build', function() {
-  return gulp.src('src/css/app.css')
+  return gulp
+    .src('src/css/app.css')
     .pipe(postcss(processors))
     .pipe(minifycss({ keepSpecialComments: 0 }))
     .pipe(gulp.dest('public/css'));
@@ -45,20 +47,13 @@ const staticFiles = [
 ];
 
 gulp.task('static', function() {
-  return gulp.src(staticFiles, { base: 'src/' })
-    .pipe(gulp.dest('public'));
+  return gulp.src(staticFiles, { base: 'src/' }).pipe(gulp.dest('public'));
 });
 
 gulp.task('static:watch', ['static'], function() {
   gulp.watch(staticFiles, ['static']);
 });
 
-gulp.task('default', [
-  'css:watch',
-  'static:watch',
-]);
+gulp.task('default', ['css:watch', 'static:watch']);
 
-gulp.task('build', [
-  'css:build',
-  'static',
-]);
+gulp.task('build', ['css:build', 'static']);

@@ -18,7 +18,7 @@ describe('NoteActions', () => {
       localStorage.setItem('notes', JSON.stringify({ s: { content: '水' } }));
       expect(NoteActions.hydrate()).toEqual({
         type: NoteActions.HYDRATE,
-        payload: { 's': { content: '水' } },
+        payload: { s: { content: '水' } },
       });
     });
   });

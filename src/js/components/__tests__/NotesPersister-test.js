@@ -15,7 +15,7 @@ describe('NotePersister Component', () => {
     const notes = Immutable.OrderedMap({
       a: new Note({
         content: '年',
-        createdAt: (new Date()).toISOString(),
+        createdAt: new Date().toISOString(),
         hidden: true,
         id: 'a',
       }),

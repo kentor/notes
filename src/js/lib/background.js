@@ -1,8 +1,4 @@
-const PATTERNS = [
-  'checkerboard',
-  'dots',
-  'stripes',
-];
+const PATTERNS = ['checkerboard', 'dots', 'stripes'];
 
 const cache = {};
 

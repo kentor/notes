@@ -1,13 +1,13 @@
 import React from 'react';
 
 class NewNoteForm extends React.PureComponent {
-  handleKeyDown = (e) => {
+  handleKeyDown = e => {
     if (e.ctrlKey && e.key === 'Enter') {
       this.handleSubmit(e);
     }
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const node = this.refs.newNote;
     const content = node.value.trim();

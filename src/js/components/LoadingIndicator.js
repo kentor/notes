@@ -1,6 +1,6 @@
 import React from 'react';
 
-function *dotsCounter() {
+function* dotsCounter() {
   for (;;) {
     yield 1;
     yield 2;

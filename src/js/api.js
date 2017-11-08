@@ -58,7 +58,7 @@ Object.assign(API.prototype, {
   createNote(content) {
     this.noteRef.push({
       content,
-      createdAt: (new Date()).toISOString(),
+      createdAt: new Date().toISOString(),
       hidden: false,
     });
   },

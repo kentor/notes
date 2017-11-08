@@ -24,11 +24,11 @@ class NotesIndex extends React.Component {
     API.unsubscribe();
   }
 
-  createNote = (content) => {
+  createNote = content => {
     API.createNote(content);
   };
 
-  destroyNote = (note) => {
+  destroyNote = note => {
     API.destroyNote(note.get('id'));
   };
 
@@ -36,21 +36,22 @@ class NotesIndex extends React.Component {
     API.logout();
   };
 
-  requestQueryChange = (e) => {
+  requestQueryChange = e => {
     this.setState({ query: e.target.value });
   };
 
-  toggleHidden = (note) => {
+  toggleHidden = note => {
     API.updateNote(note.get('id'), { hidden: !note.get('hidden') });
   };
 
-  toggleLocalHidden = (note) => {
+  toggleLocalHidden = note => {
     this.props.dispatch(NoteActions.toggleLocalHidden(note));
   };
 
   render() {
-    const { loading, notes } = this.props;
+    const notes = this.props.notes.valueSeq().reverse();
     const query = this.state.query.trim().toLowerCase();
+    const { loading } = this.props;
 
     return (
       <main className="Main">
@@ -73,19 +74,15 @@ class NotesIndex extends React.Component {
         >
           <li className="Note">
             <span>
-              Notes: {notes.size}
-              {' '}
-              {loading &&
-                <LoadingIndicator />
-              }
+              Notes: {notes.size} {loading && <LoadingIndicator />}
             </span>
-            {authRequired &&
+            {authRequired && (
               <a onClick={this.logout}>
                 <Icon icon="logout" />
               </a>
-            }
+            )}
           </li>
-          {notes.toSeq().reverse().map(note =>
+          {notes.map(note => (
             <Note
               hidden={query && !~note.content.toLowerCase().indexOf(query)}
               key={note.get('id')}
@@ -95,13 +92,11 @@ class NotesIndex extends React.Component {
               onToggleHidden={this.toggleHidden}
               onToggleLocalHidden={this.toggleLocalHidden}
             />
-          ).valueSeq()}
+          ))}
           <li className="Note">Notes: {notes.size}</li>
         </CSSTransitionGroup>
 
-        {!loading &&
-          <NotesPersister notes={notes} />
-        }
+        {!loading && <NotesPersister notes={notes} />}
       </main>
     );
   }
