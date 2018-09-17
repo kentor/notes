@@ -5,9 +5,7 @@ import Icon from './Icon';
 import LoadingIndicator from './LoadingIndicator';
 import NewNoteForm from './NewNoteForm';
 import Note from './Note';
-import NotesPersister from './NotesPersister';
 import React from 'react';
-import { authRequired } from '../appconfig';
 import { connect } from 'react-redux';
 
 class NotesIndex extends React.Component {
@@ -18,6 +16,12 @@ class NotesIndex extends React.Component {
   componentDidMount() {
     this.props.dispatch(NoteActions.hydrate());
     API.subscribe();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!this.props.loading && this.props.notes !== prevProps.notes) {
+      window.localStorage.setItem('notes', JSON.stringify(this.props.notes));
+    }
   }
 
   componentWillUnmount() {
@@ -49,7 +53,10 @@ class NotesIndex extends React.Component {
   };
 
   render() {
-    const notes = this.props.notes.valueSeq().reverse();
+    const notes = this.props.notes
+      .valueSeq()
+      .sortBy(note => note.createdAt)
+      .reverse();
     const query = this.state.query.trim().toLowerCase();
     const { loading } = this.props;
 
@@ -76,7 +83,7 @@ class NotesIndex extends React.Component {
             <span>
               Notes: {notes.size} {loading && <LoadingIndicator />}
             </span>
-            {authRequired && (
+            {API.authRequired && (
               <a onClick={this.logout}>
                 <Icon icon="logout" />
               </a>
@@ -95,8 +102,6 @@ class NotesIndex extends React.Component {
           ))}
           <li className="Note">Notes: {notes.size}</li>
         </CSSTransitionGroup>
-
-        {!loading && <NotesPersister notes={notes} />}
       </main>
     );
   }
