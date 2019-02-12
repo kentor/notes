@@ -1,7 +1,0 @@
----
-env:
-  jest: true
-extends:
-  - kentor/browser
-  - kentor/react
-parser: babel-eslint
