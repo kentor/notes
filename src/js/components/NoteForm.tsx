@@ -38,12 +38,12 @@ function NoteForm(props: Props) {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder="Post..."
+        rows={5}
         style={{
           display: 'block',
           flex: 'none',
           gridColumn: '1 / span 2',
           gridRow: '1',
-          height: '6rem',
           resize: 'none',
           width: '100%',
         }}

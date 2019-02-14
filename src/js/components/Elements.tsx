@@ -47,6 +47,7 @@ export function Textarea(props: React.ComponentProps<'textarea'>) {
         {`
           textarea {
             background: #333;
+            border-radius: 4px;
             border: none;
             color: #eee;
             padding: 10px;
