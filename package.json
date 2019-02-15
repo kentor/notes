@@ -14,6 +14,7 @@
     "static:build": "copy-and-watch 'src/static/**/*' public",
     "static:watch": "yarn static:build --watch",
     "test": "jest",
+    "test:watch": "jest --watch",
     "type-check": "tsc",
     "webserver": "live-server --entry-file=index.html --ignore=js --no-browser --port=10000 public"
   },
@@ -50,6 +51,7 @@
     "react": "16.8.1",
     "react-dom": "npm:@hot-loader/react-dom",
     "react-hot-loader": "^4.6.5",
+    "react-testing-library": "^5.8.0",
     "react-timeago": "^4.3.0",
     "redux": "^4.0.1",
     "redux-devtools": "^3.5.0",
