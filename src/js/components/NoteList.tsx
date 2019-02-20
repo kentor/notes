@@ -6,6 +6,7 @@ import NoteForm from 'App/components/NoteForm';
 import React, {useEffect, useState} from 'react';
 import {logout, subscribe} from 'App/api';
 import {StateShape} from 'App/types';
+import {Transition, TransitionGroup} from 'react-transition-group';
 import {useMappedState} from 'redux-react-hook';
 
 function mapState(state: StateShape) {
@@ -68,13 +69,21 @@ function NoteList() {
             </a>
           </div>
         </div>
-        {notesList.map((note) => (
-          <Note
-            key={note.id}
-            note={note}
-            visible={queryRegExp ? queryRegExp.test(note.content) : true}
-          />
-        ))}
+        <TransitionGroup component={null}>
+          {notesList.map((note) => (
+            <Transition key={note.id} timeout={500}>
+              {(state) => (
+                <Note
+                  note={note}
+                  style={{
+                    opacity: state === 'exiting' || state === 'exited' ? 0 : 1,
+                  }}
+                  visible={queryRegExp ? queryRegExp.test(note.content) : true}
+                />
+              )}
+            </Transition>
+          ))}
+        </TransitionGroup>
         <div
           style={{
             backgroundColor: '#fff',

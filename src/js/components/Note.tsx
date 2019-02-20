@@ -8,6 +8,7 @@ import {Note as NoteT} from 'App/types';
 
 type Props = {
   note: NoteT;
+  style?: {[key: string]: unknown};
   visible: boolean;
 };
 
@@ -61,13 +62,12 @@ function Note(props: Props) {
 
   return (
     <div
+      className="note"
       onClick={handleToggleLocalHidden}
       style={{
-        cursor: 'pointer',
         display: props.visible ? undefined : 'none',
-        padding: 10,
-        wordBreak: 'break-word',
         ...getBackgroundStyles(note.id),
+        ...props.style,
       }}
     >
       <div
@@ -94,6 +94,16 @@ function Note(props: Props) {
           ref={contentDiv}
         />
       </div>
+      <style jsx>
+        {`
+          .note {
+            cursor: pointer;
+            padding: 10px;
+            transition: opacity 500ms ease-in-out;
+            word-break: break-word;
+          }
+        `}
+      </style>
     </div>
   );
 }
