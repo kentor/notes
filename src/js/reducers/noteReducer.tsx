@@ -14,19 +14,14 @@ export default function noteReducer(
     case 'NoteListFetched':
       return {
         items: fromEntries(
-          action.payload
-            .slice()
-            .sort((noteA, noteB) =>
-              noteA.createdAt.localeCompare(noteB.createdAt),
-            )
-            .map<[string, Note]>((note) => [note.id, note]),
+          action.payload.map<[string, Note]>((note) => [note.id, note]),
         ),
         loaded: true,
       };
     case 'NoteRetrieved':
       return {
         ...state,
-        items: {...state.items, [action.payload.id]: action.payload},
+        items: {[action.payload.id]: action.payload, ...state.items},
       };
     case 'NoteDeleted': {
       const {[action.payload.id]: deletedNote, ...rest} = state.items;

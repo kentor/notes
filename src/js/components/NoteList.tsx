@@ -68,7 +68,7 @@ function NoteList() {
             </a>
           </div>
         </div>
-        {notesList.reverse().map((note) => (
+        {notesList.map((note) => (
           <Note
             key={note.id}
             note={note}
