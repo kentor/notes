@@ -45,30 +45,28 @@ function extractNote(
 
 export function subscribe() {
   let isInitial = true;
-  return notesCollection
-    .orderBy('createdAt', 'desc')
-    .onSnapshot((querySnapshot) => {
-      if (isInitial) {
-        isInitial = false;
-        const notes: Array<Note> = [];
-        querySnapshot.forEach((doc) => {
-          const note = extractNote(doc.id, doc.data());
-          if (!note) return;
-          notes.push(note);
-        });
-        store.dispatch({type: 'NoteListFetched', payload: notes});
-      } else {
-        querySnapshot.docChanges().forEach((change) => {
-          const note = extractNote(change.doc.id, change.doc.data());
-          if (!note) return;
-          if (change.type === 'added' || change.type === 'modified') {
-            store.dispatch({type: 'NoteRetrieved', payload: note});
-          } else if (change.type === 'removed') {
-            store.dispatch({type: 'NoteDeleted', payload: note});
-          }
-        });
-      }
-    });
+  return notesCollection.orderBy('createdAt').onSnapshot((querySnapshot) => {
+    if (isInitial) {
+      isInitial = false;
+      const notes: Array<Note> = [];
+      querySnapshot.forEach((doc) => {
+        const note = extractNote(doc.id, doc.data());
+        if (!note) return;
+        notes.push(note);
+      });
+      store.dispatch({type: 'NoteListFetched', payload: notes});
+    } else {
+      querySnapshot.docChanges().forEach((change) => {
+        const note = extractNote(change.doc.id, change.doc.data());
+        if (!note) return;
+        if (change.type === 'added' || change.type === 'modified') {
+          store.dispatch({type: 'NoteRetrieved', payload: note});
+        } else if (change.type === 'removed') {
+          store.dispatch({type: 'NoteDeleted', payload: note});
+        }
+      });
+    }
+  });
 }
 
 export function createNote(content: string) {

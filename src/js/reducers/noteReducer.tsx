@@ -21,7 +21,7 @@ export default function noteReducer(
     case 'NoteRetrieved':
       return {
         ...state,
-        items: {[action.payload.id]: action.payload, ...state.items},
+        items: {...state.items, [action.payload.id]: action.payload},
       };
     case 'NoteDeleted': {
       const {[action.payload.id]: deletedNote, ...rest} = state.items;

@@ -70,19 +70,24 @@ function NoteList() {
           </div>
         </div>
         <TransitionGroup component={null}>
-          {notesList.map((note) => (
-            <Transition key={note.id} timeout={500}>
-              {(state) => (
-                <Note
-                  note={note}
-                  style={{
-                    opacity: state === 'exiting' || state === 'exited' ? 0 : 1,
-                  }}
-                  visible={queryRegExp ? queryRegExp.test(note.content) : true}
-                />
-              )}
-            </Transition>
-          ))}
+          {notesList
+            .map((note) => (
+              <Transition key={note.id} timeout={500}>
+                {(state) => (
+                  <Note
+                    note={note}
+                    style={{
+                      opacity:
+                        state === 'exiting' || state === 'exited' ? 0 : 1,
+                    }}
+                    visible={
+                      queryRegExp ? queryRegExp.test(note.content) : true
+                    }
+                  />
+                )}
+              </Transition>
+            ))
+            .reverse()}
         </TransitionGroup>
         <div
           style={{
