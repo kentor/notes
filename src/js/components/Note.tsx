@@ -33,11 +33,13 @@ function Note(props: Props) {
     if (contentDiv.current) {
       const range = document.createRange();
       const selection = window.getSelection();
-      range.selectNodeContents(contentDiv.current);
-      selection.removeAllRanges();
-      selection.addRange(range);
-      document.execCommand('copy');
-      selection.removeAllRanges();
+      if (selection) {
+        range.selectNodeContents(contentDiv.current);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        selection.removeAllRanges();
+      }
     }
   }
 
@@ -53,7 +55,7 @@ function Note(props: Props) {
   }
 
   function handleToggleLocalHidden(e: React.MouseEvent) {
-    if (window.getSelection().toString()) return;
+    if (window.getSelection()?.toString()) return;
     if (e.target instanceof HTMLElement && e.target.tagName === 'A') {
       return;
     }

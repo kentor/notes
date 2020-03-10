@@ -1,4 +1,3 @@
-import fromEntries from 'App/lib/fromEntries';
 import {Note, AllActions, StateShape} from 'App/types';
 
 const initialState = {
@@ -13,7 +12,7 @@ export default function noteReducer(
   switch (action.type) {
     case 'NoteListFetched':
       return {
-        items: fromEntries(
+        items: Object.fromEntries(
           action.payload.map<[string, Note]>((note) => [note.id, note]),
         ),
         loaded: true,

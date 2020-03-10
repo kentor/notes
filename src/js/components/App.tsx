@@ -4,14 +4,10 @@ import React, {useEffect} from 'react';
 import {hot} from 'react-hot-loader/root';
 import {authRequired} from 'App/api';
 import {StateShape} from 'App/types';
-import {useMappedState} from 'redux-react-hook';
-
-function mapState(state: StateShape) {
-  return state;
-}
+import {useSelector} from 'react-redux';
 
 function App() {
-  const state = useMappedState(mapState);
+  const state = useSelector((state: StateShape) => state);
 
   useEffect(() => {
     window.localStorage.setItem('state', JSON.stringify(state));

@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 
-function* dotsGenerator() {
+function* dotsGenerator(): Generator<number, number, number> {
   for (;;) {
     yield 1;
     yield 2;

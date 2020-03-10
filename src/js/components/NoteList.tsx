@@ -7,21 +7,15 @@ import React, {useEffect, useState} from 'react';
 import {logout, subscribe} from 'App/api';
 import {StateShape} from 'App/types';
 import {Transition, TransitionGroup} from 'react-transition-group';
-import {useMappedState} from 'redux-react-hook';
-
-function mapState(state: StateShape) {
-  return {
-    notes: state.notes.items,
-    loading: !state.notes.loaded,
-  };
-}
+import {useSelector} from 'react-redux';
 
 function NoteList() {
   const [query, setQuery] = useState('');
 
   useEffect(() => subscribe(), []);
 
-  const {notes, loading} = useMappedState(mapState);
+  const notes = useSelector((state: StateShape) => state.notes.items);
+  const loading = useSelector((state: StateShape) => !state.notes.loaded);
 
   const trimmedQuery = query.trim();
   const queryRegExp =
