@@ -14,7 +14,7 @@ function rootReducer(
   state: StateShape | undefined,
   action: AllActions,
 ): StateShape {
-  if (action.type === '@@INIT') {
+  if (action.type === 'Init') {
     let state = combinedReducers(undefined, action);
     try {
       const stateFromLocalStorage = JSON.parse(

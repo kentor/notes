@@ -20,7 +20,7 @@ export const StateShapeExtractor = t.type({
 export type StateShape = t.TypeOf<typeof StateShapeExtractor>;
 
 type InitAction = {
-  type: '@@INIT';
+  type: 'Init';
 };
 
 type SessionLoggedInAction = {
