@@ -50,7 +50,9 @@ async function extractTitleFromContent(
         `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&fields=items%2Fsnippet%2Ftitle&key=${process.env.YOUTUBE_API_KEY}`,
       );
       const json = await response.json();
-      return json.items[0].snippet.title;
+      const {title} = json.items[0].snippet;
+      console.log(title);
+      return title;
     }
     console.log('Not a youtube link.');
   } catch (err) {
