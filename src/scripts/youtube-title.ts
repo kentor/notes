@@ -43,7 +43,7 @@ async function extractTitleFromContent(
   content: string,
 ): Promise<string | undefined> {
   try {
-    const match = content.match(/youtube.*?\?v=(.*?)(?:&|$)/);
+    const match = content.match(/youtu\.be.*?(?:\?|&)v=(.*?)(?:&|$)/);
     if (match && match[1]) {
       const id = match[1];
       const response = await fetch(
