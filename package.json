@@ -49,7 +49,7 @@
     "firebase": "^7.10.0",
     "firebase-admin": "^8.10.0",
     "fp-ts": "^2.5.3",
-    "io-ts": "^2.1.2",
+    "io-ts": "^2.2.4",
     "jest": "^25.1.0",
     "live-server": "^1.2.1",
     "marked": "^0.8.0",
