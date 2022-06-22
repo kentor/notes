@@ -1,15 +1,15 @@
 import App from 'App/components/App';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import store from 'App/store';
+import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
 
-const root = document.createElement('div');
-document.body.appendChild(root);
+const container = document.createElement('div');
+document.body.appendChild(container);
 
-ReactDOM.render(
+const root = createRoot(container);
+root.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  root,
 );
