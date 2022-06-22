@@ -11,8 +11,10 @@ function Login() {
     e.preventDefault();
     try {
       await login(email, password);
-      // `err` really should be of type `unknown` rather than `any`.
     } catch (err) {
+      if (!(err instanceof Error)) {
+        throw err;
+      }
       const message = err && err.message;
       if (typeof message === 'string') {
         setError(message);
