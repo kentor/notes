@@ -1,24 +1,43 @@
-import firebase from 'firebase/app';
 import store from 'App/store';
-import type {firestore} from 'firebase/app';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  DocumentData,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  query,
+  Timestamp,
+  Unsubscribe,
+  updateDoc,
+} from 'firebase/firestore';
+import {
+  Auth,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
+import {initializeApp} from 'firebase/app';
 import {Note, NoteExtractor} from 'App/types';
 
-import 'firebase/auth';
-import 'firebase/firestore';
-
-firebase.initializeApp({
+const app = initializeApp({
   apiKey: 'AIzaSyBGVurJbad_oh6gs5jorT2Y7fSdiE_0W-c',
   authDomain: 'qdsndc.firebaseapp.com',
   projectId: 'qdsndc',
 });
 
-const db = firebase.firestore();
-const notesCollection = db.collection('notes');
+const db = getFirestore(app);
+const notesCollection = collection(db, 'notes');
 
 export const authRequired = true;
 
+let auth: Auth | undefined;
 if (authRequired) {
-  firebase.auth().onAuthStateChanged((user) => {
+  auth = getAuth(app);
+  onAuthStateChanged(auth, (user) => {
     if (user) {
       store.dispatch({type: 'SessionLoggedIn', payload: user});
     } else {
@@ -27,10 +46,7 @@ if (authRequired) {
   });
 }
 
-function extractNote(
-  id: string,
-  data: firestore.DocumentData,
-): Note | undefined {
+function extractNote(id: string, data: DocumentData): Note | undefined {
   const maybeNote = NoteExtractor.safeParse({
     ...data,
     createdAt: new Date(data.createdAt.seconds * 1000).toISOString(),
@@ -44,9 +60,10 @@ function extractNote(
   console.error(`Note extraction error, please check the note with id ${id}`);
 }
 
-export function subscribe() {
+export function subscribe(): Unsubscribe {
   let isInitial = true;
-  return notesCollection.orderBy('createdAt').onSnapshot((querySnapshot) => {
+  const q = query(notesCollection, orderBy('createdAt'));
+  return onSnapshot(q, (querySnapshot) => {
     if (isInitial) {
       isInitial = false;
       const notes: Array<Note> = [];
@@ -71,25 +88,31 @@ export function subscribe() {
 }
 
 export function createNote(content: string) {
-  notesCollection.add({
+  addDoc(notesCollection, {
     content,
-    createdAt: firebase.firestore.Timestamp.now(),
+    createdAt: Timestamp.now(),
     hidden: false,
   });
 }
 
 export function updateNote(id: string, updates: Pick<Note, 'hidden'>) {
-  notesCollection.doc(id).update(updates);
+  updateDoc(doc(db, 'notes', id), updates);
 }
 
 export function deleteNote(id: string) {
-  notesCollection.doc(id).delete();
+  deleteDoc(doc(db, 'notes', id));
 }
 
 export function login(email: string, password: string) {
-  return firebase.auth().signInWithEmailAndPassword(email, password);
+  if (!auth) {
+    throw new Error('Called login without having an auth.');
+  }
+  return signInWithEmailAndPassword(auth, email, password);
 }
 
 export function logout() {
-  firebase.auth().signOut();
+  if (!auth) {
+    throw new Error('Called logout without having an auth.');
+  }
+  signOut(auth);
 }
