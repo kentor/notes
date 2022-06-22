@@ -7,6 +7,6 @@ export default defineConfig({
     chunkSizeWarningLimit: 750,
     outDir: 'public',
   },
-  plugins: [react({jsxRuntime: 'classic'}), tsconfigPaths({root: __dirname})],
+  plugins: [react(), tsconfigPaths({root: __dirname})],
   publicDir: 'src/static',
 });
