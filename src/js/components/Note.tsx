@@ -96,16 +96,6 @@ function Note(props: Props) {
           ref={contentDiv}
         />
       </div>
-      <style jsx>
-        {`
-          .note {
-            cursor: pointer;
-            padding: 10px;
-            transition: opacity 500ms ease-in-out;
-            word-break: break-word;
-          }
-        `}
-      </style>
     </div>
   );
 }

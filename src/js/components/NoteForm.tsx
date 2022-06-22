@@ -67,21 +67,6 @@ function NoteForm(props: Props) {
         style={{width: '100%', gridColumn: '1', gridRow: '2'}}
         value={props.query}
       />
-      <style jsx>
-        {`
-          form {
-            display: grid;
-            gap: 16px;
-          }
-
-          @media only screen and (max-width: 600px) {
-            form {
-              grid-tempalte-columns: auto auto;
-              grid-template-rows: auto auto;
-            }
-          }
-        `}
-      </style>
     </form>
   );
 }

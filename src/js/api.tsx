@@ -1,5 +1,6 @@
-import firebase, {firestore} from 'firebase/app';
+import firebase from 'firebase/app';
 import store from 'App/store';
+import type {firestore} from 'firebase/app';
 import {fold} from 'fp-ts/lib/Either';
 import {Note, NoteExtractor} from 'App/types';
 import {pipe} from 'fp-ts/lib/pipeable';
@@ -84,7 +85,7 @@ export function subscribe() {
 export function createNote(content: string) {
   notesCollection.add({
     content,
-    createdAt: firestore.Timestamp.now(),
+    createdAt: firebase.firestore.Timestamp.now(),
     hidden: false,
   });
 }

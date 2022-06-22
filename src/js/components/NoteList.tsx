@@ -93,29 +93,6 @@ function NoteList() {
           Notes: {notesList.length}
         </div>
       </div>
-      <style jsx>
-        {`
-          .grid {
-            display: grid;
-            gap: 16px;
-            margin: auto;
-            max-width: 888px;
-            padding: 16px;
-          }
-
-          @media only screen and (min-width: 600px) {
-            .grid {
-              grid-template-columns: 1fr 2.5fr;
-            }
-          }
-
-          @media only screen and (max-width: 600px) {
-            .grid {
-              grid-template-rows: auto auto;
-            }
-          }
-        `}
-      </style>
     </div>
   );
 }
