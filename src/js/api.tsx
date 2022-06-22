@@ -1,9 +1,7 @@
 import firebase from 'firebase/app';
 import store from 'App/store';
 import type {firestore} from 'firebase/app';
-import {fold} from 'fp-ts/lib/Either';
 import {Note, NoteExtractor} from 'App/types';
-import {pipe} from 'fp-ts/lib/pipeable';
 
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -33,27 +31,17 @@ function extractNote(
   id: string,
   data: firestore.DocumentData,
 ): Note | undefined {
-  let note: Note | undefined;
+  const maybeNote = NoteExtractor.safeParse({
+    ...data,
+    createdAt: new Date(data.createdAt.seconds * 1000).toISOString(),
+    id: id,
+  });
 
-  pipe(
-    NoteExtractor.decode({
-      ...data,
-      createdAt: new Date(data.createdAt.seconds * 1000).toISOString(),
-      id: id,
-    }),
-    fold(
-      (_) => {
-        console.error(
-          `Note extraction error, please check the note with id ${id}`,
-        );
-      },
-      (r) => {
-        note = r;
-      },
-    ),
-  );
+  if (maybeNote.success) {
+    return maybeNote.data;
+  }
 
-  return note;
+  console.error(`Note extraction error, please check the note with id ${id}`);
 }
 
 export function subscribe() {

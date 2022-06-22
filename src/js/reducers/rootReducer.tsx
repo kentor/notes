@@ -2,8 +2,6 @@ import noteReducer from 'App/reducers/noteReducer';
 import sessionReducer from 'App/reducers/sessionReducer';
 import {AllActions, StateShape, StateShapeExtractor} from 'App/types';
 import {combineReducers} from 'redux';
-import {fold} from 'fp-ts/lib/Either';
-import {pipe} from 'fp-ts/lib/pipeable';
 
 const combinedReducers = combineReducers<StateShape, AllActions>({
   notes: noteReducer,
@@ -20,26 +18,18 @@ function rootReducer(
       const stateFromLocalStorage = JSON.parse(
         window.localStorage.getItem('state') || '',
       );
-      pipe(
-        StateShapeExtractor.decode(stateFromLocalStorage),
-        fold(
-          (_) => {
-            // ignore hydration
-          },
-          (r) => {
-            state = {
-              ...state,
-              notes: {
-                ...state.notes,
-                items: r.notes.items,
-              },
-              session: r.session,
-            };
-          },
-        ),
-      );
-    } catch {
+      const result = StateShapeExtractor.parse(stateFromLocalStorage);
+      state = {
+        ...state,
+        notes: {
+          ...state.notes,
+          items: result.notes.items,
+        },
+        session: result.session,
+      };
+    } catch (e) {
       // ignore hydration
+      console.log(e);
     }
     return state;
   }
