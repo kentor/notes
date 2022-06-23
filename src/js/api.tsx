@@ -1,4 +1,11 @@
-import store from 'App/store';
+import {
+  noteDeleted,
+  noteListFetched,
+  noteRetrieved,
+  sessionLoggedIn,
+  sessionLoggedOut,
+  store,
+} from 'App/store';
 import {
   addDoc,
   collection,
@@ -39,9 +46,9 @@ if (authRequired) {
   auth = getAuth(app);
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      store.dispatch({type: 'SessionLoggedIn', payload: user});
+      store.dispatch(sessionLoggedIn({uid: user.uid}));
     } else {
-      store.dispatch({type: 'SessionLoggedOut'});
+      store.dispatch(sessionLoggedOut());
     }
   });
 }
@@ -72,15 +79,15 @@ export function subscribe(): Unsubscribe {
         if (!note) return;
         notes.push(note);
       });
-      store.dispatch({type: 'NoteListFetched', payload: notes});
+      store.dispatch(noteListFetched(notes));
     } else {
       querySnapshot.docChanges().forEach((change) => {
         const note = extractNote(change.doc.id, change.doc.data());
         if (!note) return;
         if (change.type === 'added' || change.type === 'modified') {
-          store.dispatch({type: 'NoteRetrieved', payload: note});
+          store.dispatch(noteRetrieved(note));
         } else if (change.type === 'removed') {
-          store.dispatch({type: 'NoteDeleted', payload: note});
+          store.dispatch(noteDeleted(note));
         }
       });
     }

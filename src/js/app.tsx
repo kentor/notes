@@ -1,8 +1,8 @@
 import App from 'App/components/App';
 import React from 'react';
-import store from 'App/store';
 import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
+import {store} from 'App/store';
 
 const container = document.createElement('div');
 document.body.appendChild(container);

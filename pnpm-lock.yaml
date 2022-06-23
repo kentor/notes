@@ -7,6 +7,7 @@ specifiers:
   '@babel/preset-react': ^7.8.3
   '@babel/preset-typescript': ^7.8.3
   '@firebase/app-types': 0.x
+  '@reduxjs/toolkit': ^1.8.2
   '@testing-library/react': ^13.3.0
   '@types/jest': ^25.1.4
   '@types/marked': ^0.7.3
@@ -36,7 +37,6 @@ specifiers:
   react-redux: ^8.0.0
   react-timeago: ^7.1.0
   react-transition-group: ^4.3.0
-  redux: ^4.0.5
   typescript: ^4.7.0
   vite: ^2.9.12
   vite-tsconfig-paths: ^3.5.0
@@ -49,6 +49,7 @@ dependencies:
   '@babel/preset-react': 7.17.12_@babel+core@7.18.5
   '@babel/preset-typescript': 7.17.12_@babel+core@7.18.5
   '@firebase/app-types': 0.7.0
+  '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
   '@testing-library/react': 13.3.0_biqbaboplfbrettd7655fr4n2y
   '@types/jest': 25.2.3
   '@types/marked': 0.7.4
@@ -75,10 +76,9 @@ dependencies:
   prettier: 2.7.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-redux: 8.0.2_jcbkrypqxz3emsprsw5dchskju
+  react-redux: 8.0.2_fzknh3pugl53jp7xsetxkg5ani
   react-timeago: 7.1.0_react@18.2.0
   react-transition-group: 4.4.2_biqbaboplfbrettd7655fr4n2y
-  redux: 4.2.0
   typescript: 4.7.4
   vite: 2.9.12
   vite-tsconfig-paths: 3.5.0_vite@2.9.12
@@ -2244,6 +2244,25 @@ packages:
 
   /@protobufjs/utf8/1.1.0:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
+    dev: false
+
+  /@reduxjs/toolkit/1.8.2_kkwg4cbsojnjnupd3btipussee:
+    resolution: {integrity: sha512-CtPw5TkN1pHRigMFCOS/0qg3b/yfPV5qGCsltVnIz7bx4PKTJlGHYfIxm97qskLknMzuGfjExaYdXJ77QTL0vg==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.0 || ^18
+      react-redux: ^7.2.1 || ^8.0.0-beta
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-redux:
+        optional: true
+    dependencies:
+      immer: 9.0.15
+      react: 18.2.0
+      react-redux: 8.0.2_fzknh3pugl53jp7xsetxkg5ani
+      redux: 4.2.0
+      redux-thunk: 2.4.1_redux@4.2.0
+      reselect: 4.1.6
     dev: false
 
   /@rollup/pluginutils/4.2.1:
@@ -4960,6 +4979,10 @@ packages:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
     dev: false
 
+  /immer/9.0.15:
+    resolution: {integrity: sha512-2eB/sswms9AEUSkOm4SbV5Y7Vmt/bKRwByd52jfLkW4OLYeaTP3EEiJ9agqU0O/tq6Dk62Zfj+TJSqfm1rLVGQ==}
+    dev: false
+
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -6944,7 +6967,7 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-redux/8.0.2_jcbkrypqxz3emsprsw5dchskju:
+  /react-redux/8.0.2_fzknh3pugl53jp7xsetxkg5ani:
     resolution: {integrity: sha512-nBwiscMw3NoP59NFCXFf02f8xdo+vSHT/uZ1ldDwF7XaTpzm+Phk97VT4urYBl5TYAPNVaFm12UHAEyzkpNzRA==}
     peerDependencies:
       '@types/react': ^16.8 || ^17.0 || ^18.0
@@ -6974,7 +6997,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 18.2.0
-      redux: 4.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
@@ -7076,6 +7098,14 @@ packages:
       glob-regex: 0.3.2
       slash: 3.0.0
       tslib: 1.14.1
+    dev: false
+
+  /redux-thunk/2.4.1_redux@4.2.0:
+    resolution: {integrity: sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==}
+    peerDependencies:
+      redux: ^4
+    dependencies:
+      redux: 4.2.0
     dev: false
 
   /redux/4.2.0:
@@ -7226,6 +7256,10 @@ packages:
 
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
+    dev: false
+
+  /reselect/4.1.6:
+    resolution: {integrity: sha512-ZovIuXqto7elwnxyXbBtCPo9YFEr3uJqj2rRbcOOog1bmu2Ag85M4hixSwFWyaBMKXNgvPaJ9OSu9SkBPIeJHQ==}
     dev: false
 
   /resolve-cwd/3.0.0:

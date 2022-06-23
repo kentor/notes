@@ -2,11 +2,10 @@ import Login from 'App/components/Login';
 import NoteList from 'App/components/NoteList';
 import React, {useEffect} from 'react';
 import {authRequired} from 'App/api';
-import {StateShape} from 'App/types';
-import {useSelector} from 'react-redux';
+import {useAppSelector} from 'App/store';
 
 function App() {
-  const state = useSelector((state: StateShape) => state);
+  const state = useAppSelector((state) => state);
 
   useEffect(() => {
     window.localStorage.setItem('state', JSON.stringify(state));

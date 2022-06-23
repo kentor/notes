@@ -14,40 +14,7 @@ export const StateShapeExtractor = z.object({
     items: z.record(NoteExtractor),
     loaded: z.boolean(),
   }),
-  session: z.unknown(),
+  session: z.null().or(z.object({uid: z.string()})),
 });
 
 export type StateShape = z.infer<typeof StateShapeExtractor>;
-
-type InitAction = {
-  type: 'Init';
-};
-
-type SessionLoggedInAction = {
-  type: 'SessionLoggedIn';
-  payload: unknown;
-};
-
-type SessionLoggedoutAction = {
-  type: 'SessionLoggedOut';
-};
-
-type NoteListFetchedAction = {
-  type: 'NoteListFetched';
-  payload: Array<Note>;
-};
-
-type NoteRetrievedAction = {
-  type: 'NoteRetrieved';
-  payload: Note;
-};
-
-export type NoteDeletedAction = {type: 'NoteDeleted'; payload: Note};
-
-export type AllActions =
-  | InitAction
-  | SessionLoggedInAction
-  | SessionLoggedoutAction
-  | NoteListFetchedAction
-  | NoteRetrievedAction
-  | NoteDeletedAction;

@@ -5,17 +5,16 @@ import Note from 'App/components/Note';
 import NoteForm from 'App/components/NoteForm';
 import React, {useEffect, useState} from 'react';
 import {logout, subscribe} from 'App/api';
-import {StateShape} from 'App/types';
 import {Transition, TransitionGroup} from 'react-transition-group';
-import {useSelector} from 'react-redux';
+import {useAppSelector} from 'App/store';
 
 function NoteList() {
   const [query, setQuery] = useState('');
 
   useEffect(() => subscribe(), []);
 
-  const notes = useSelector((state: StateShape) => state.notes.items);
-  const loading = useSelector((state: StateShape) => !state.notes.loaded);
+  const notes = useAppSelector((state) => state.notes.items);
+  const loading = useAppSelector((state) => !state.notes.loaded);
 
   const trimmedQuery = query.trim();
   const queryRegExp =
