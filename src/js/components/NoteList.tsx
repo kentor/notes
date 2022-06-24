@@ -13,6 +13,7 @@ function escapeRegExp(string: string) {
 
 function NoteList() {
   const [query, setQuery] = useState('');
+  const [showHiddenOnly, setShowHiddenOnly] = useState(false);
 
   useEffect(() => subscribe(), []);
 
@@ -32,7 +33,12 @@ function NoteList() {
           onQueryChange={(e) => {
             setQuery(e.target.value);
           }}
+          onToggleShowHiddenOnly={() => {
+            console.log(setShowHiddenOnly, !showHiddenOnly);
+            setShowHiddenOnly(!showHiddenOnly);
+          }}
           query={query}
+          showHiddenOnly={showHiddenOnly}
         />
       </div>
       <div
@@ -80,7 +86,8 @@ function NoteList() {
                           state === 'exiting' || state === 'exited' ? 0 : 1,
                       }}
                       visible={
-                        queryRegExp ? queryRegExp.test(note.content) : true
+                        (showHiddenOnly ? note.hidden : true) &&
+                        (queryRegExp ? queryRegExp.test(note.content) : true)
                       }
                     />
                   )}

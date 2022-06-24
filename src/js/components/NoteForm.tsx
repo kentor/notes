@@ -2,10 +2,13 @@ import React, {useState} from 'react';
 import {createNote} from 'App/api';
 import {Input} from 'App/components/Elements';
 import {Textarea, Button} from 'App/components/Elements';
+import Icon from './Icon';
 
 type Props = {
   onQueryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onToggleShowHiddenOnly: () => void;
   query: string;
+  showHiddenOnly: boolean;
 };
 
 function NoteForm(props: Props) {
@@ -33,40 +36,32 @@ function NoteForm(props: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      style={{display: 'flex', flexDirection: 'column', gap: 16}}
+    >
       <Textarea
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder="Post..."
         rows={5}
-        style={{
-          display: 'block',
-          flex: 'none',
-          gridColumn: '1 / span 2',
-          gridRow: '1',
-          resize: 'none',
-          width: '100%',
-        }}
+        style={{resize: 'none'}}
         value={content}
       />
-      <Button
-        style={{
-          color: '#aaa',
-          gridColumn: '2',
-          gridRow: '2',
-          justifySelf: 'end',
-          width: 'min-content',
-        }}
-        type="submit"
-      >
-        +
-      </Button>
-      <Input
-        onChange={props.onQueryChange}
-        placeholder="Search..."
-        style={{width: '100%', gridColumn: '1', gridRow: '2'}}
-        value={props.query}
-      />
+      <div style={{display: 'flex', gap: 16}}>
+        <Input
+          onChange={props.onQueryChange}
+          placeholder="Search..."
+          style={{flex: 1, width: 0}}
+          value={props.query}
+        />
+        <Button style={{color: '#aaa'}} onClick={props.onToggleShowHiddenOnly}>
+          <Icon icon={props.showHiddenOnly ? 'star-outline' : 'star'} />
+        </Button>
+        <Button style={{color: '#aaa'}} type="submit">
+          +
+        </Button>
+      </div>
     </form>
   );
 }
