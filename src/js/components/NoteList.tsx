@@ -1,4 +1,3 @@
-import escapeRegExp from 'App/lib/escapeRegExp';
 import Icon from 'App/components/Icon';
 import LoadingIndicator from 'App/components/LoadingIndicator';
 import Note from 'App/components/Note';
@@ -7,6 +6,10 @@ import React, {useEffect, useState} from 'react';
 import {logout, subscribe} from 'App/api';
 import {Transition, TransitionGroup} from 'react-transition-group';
 import {useAppSelector} from 'App/store';
+
+function escapeRegExp(string: string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 function NoteList() {
   const [query, setQuery] = useState('');
