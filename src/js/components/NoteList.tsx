@@ -64,22 +64,26 @@ function NoteList() {
         </div>
         <TransitionGroup component={null}>
           {notesList
-            .map((note) => (
-              <Transition key={note.id} timeout={500}>
-                {(state) => (
-                  <Note
-                    note={note}
-                    style={{
-                      opacity:
-                        state === 'exiting' || state === 'exited' ? 0 : 1,
-                    }}
-                    visible={
-                      queryRegExp ? queryRegExp.test(note.content) : true
-                    }
-                  />
-                )}
-              </Transition>
-            ))
+            .map((note) => {
+              const ref = React.createRef<HTMLDivElement>();
+              return (
+                <Transition key={note.id} nodeRef={ref} timeout={500}>
+                  {(state) => (
+                    <Note
+                      ref={ref}
+                      note={note}
+                      style={{
+                        opacity:
+                          state === 'exiting' || state === 'exited' ? 0 : 1,
+                      }}
+                      visible={
+                        queryRegExp ? queryRegExp.test(note.content) : true
+                      }
+                    />
+                  )}
+                </Transition>
+              );
+            })
             .reverse()}
         </TransitionGroup>
         <div
