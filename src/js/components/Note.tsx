@@ -24,8 +24,6 @@ function timeAgoFormatter(value: number, unit: string) {
 const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
   const {note} = props;
 
-  const contentDiv = React.createRef<HTMLDivElement>();
-
   const [localHidden, setLocalHidden] = useState(note.hidden);
 
   async function handleCopy(e: React.MouseEvent) {
@@ -92,7 +90,6 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
           dangerouslySetInnerHTML={{
             __html: marked.inlineLexer(note.content, []),
           }}
-          ref={contentDiv}
         />
       </div>
     </div>
