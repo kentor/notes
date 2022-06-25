@@ -3,6 +3,7 @@
 import React from 'react';
 import Clipboard from 'App/components/icons/Clipboard';
 import Logout from 'App/components/icons/Logout';
+import Pencil from 'App/components/icons/Pencil';
 import StarOutline from 'App/components/icons/StarOutline';
 import Star from 'App/components/icons/Star';
 import Trashcan from 'App/components/icons/Trashcan';
@@ -10,6 +11,7 @@ import Trashcan from 'App/components/icons/Trashcan';
 const icons = {
   'clipboard': Clipboard,
   'logout': Logout,
+  'pencil': Pencil,
   'star-outline': StarOutline,
   'star': Star,
   'trashcan': Trashcan,

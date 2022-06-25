@@ -59,7 +59,7 @@ function NoteForm(props: Props) {
           <Icon icon={props.showHiddenOnly ? 'star-outline' : 'star'} />
         </Button>
         <Button style={{color: '#aaa'}} type="submit">
-          +
+          <Icon icon="pencil" />
         </Button>
       </div>
     </form>
