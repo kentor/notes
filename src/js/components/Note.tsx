@@ -29,18 +29,12 @@ const Note = React.forwardRef(
 
     const [localHidden, setLocalHidden] = useState(note.hidden);
 
-    function handleCopy(e: React.MouseEvent) {
+    async function handleCopy(e: React.MouseEvent) {
       e.stopPropagation();
-      if (contentDiv.current) {
-        const range = document.createRange();
-        const selection = window.getSelection();
-        if (selection) {
-          range.selectNodeContents(contentDiv.current);
-          selection.removeAllRanges();
-          selection.addRange(range);
-          document.execCommand('copy');
-          selection.removeAllRanges();
-        }
+      try {
+        await navigator.clipboard.writeText(note.content);
+      } catch (e) {
+        console.error('Failed copying note', e);
       }
     }
 
