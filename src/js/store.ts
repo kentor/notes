@@ -58,7 +58,10 @@ const preloadedState = (() => {
   );
   const result = StateShapeExtractor.safeParse(stateFromLocalStorage);
   if (result.success) {
-    return result.data;
+    const {data} = result;
+    // We want to show the loading spinner after the preload.
+    data.notes.loaded = false;
+    return data;
   }
   console.log('Error deserializing state from localStorage', result.error);
 })();
