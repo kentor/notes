@@ -1,9 +1,9 @@
 import Icon from 'App/components/Icon';
-import marked from 'marked';
 import React, {useState} from 'react';
 import TimeAgo from 'react-timeago';
 import {deleteNote, updateNote} from 'App/api';
 import {getBackgroundStyles} from 'App/lib/stationery';
+import {marked} from 'marked';
 import {Note as NoteT} from 'App/types';
 
 type Props = {
@@ -14,7 +14,6 @@ type Props = {
 
 marked.setOptions({
   breaks: true,
-  sanitize: true,
 });
 
 function timeAgoFormatter(value: number, unit: string) {
@@ -85,13 +84,10 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
           </a>
         </div>
       </div>
-      <div style={{display: localHidden ? 'none' : undefined}}>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: marked.inlineLexer(note.content, []),
-          }}
-        />
-      </div>
+      <div
+        dangerouslySetInnerHTML={{__html: marked.parseInline(note.content)}}
+        style={{display: localHidden ? 'none' : undefined}}
+      ></div>
     </div>
   );
 });
