@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     window.localStorage.setItem('state', JSON.stringify(state));
-  });
+  }, [state]);
 
   const isAuntheticated = !authRequired || state.session;
 

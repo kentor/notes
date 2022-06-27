@@ -1,6 +1,6 @@
 import {configureStore, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
-import {Note, StateShapeExtractor} from './types';
+import {Note, StateShape, StateShapeExtractor} from './types';
 
 type NotesState = {
   items: Record<string, Note>;
@@ -52,18 +52,18 @@ const sessionSlice = createSlice({
 
 export const {sessionLoggedIn, sessionLoggedOut} = sessionSlice.actions;
 
-const preloadedState = (() => {
-  const stateFromLocalStorage = JSON.parse(
-    window.localStorage.getItem('state') || '',
-  );
-  const result = StateShapeExtractor.safeParse(stateFromLocalStorage);
-  if (result.success) {
-    const {data} = result;
+const preloadedState: StateShape | undefined = (() => {
+  const existingState = window.localStorage.getItem('state');
+  if (existingState == null) return;
+  try {
+    const stateFromLocalStorage = JSON.parse(existingState);
+    const result = StateShapeExtractor.parse(stateFromLocalStorage);
     // We want to show the loading spinner after the preload.
-    data.notes.loaded = false;
-    return data;
+    result.notes.loaded = false;
+    return result;
+  } catch (e) {
+    console.log('Error deserializing state from localStorage', e);
   }
-  console.log('Error deserializing state from localStorage', result.error);
 })();
 
 export const store = configureStore({
