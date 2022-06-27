@@ -43,7 +43,6 @@
     "jest": "^25.1.0",
     "live-server": "^1.2.1",
     "marked": "^0.8.0",
-    "node-fetch": "^2.6.0",
     "prettier": "^2.7.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

@@ -1,5 +1,4 @@
 import admin from 'firebase-admin';
-import fetch from 'node-fetch';
 
 admin.initializeApp({
   credential: admin.credential.cert(
