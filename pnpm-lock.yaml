@@ -7,6 +7,7 @@ specifiers:
   '@babel/preset-react': ^7.17.12
   '@babel/preset-typescript': ^7.17.12
   '@firebase/app-types': 0.x
+  '@formkit/auto-animate': 1.0.0-beta.1
   '@reduxjs/toolkit': ^1.8.2
   '@testing-library/react': ^13.3.0
   '@types/jest': ^28.1.3
@@ -16,7 +17,6 @@ specifiers:
   '@types/react-dom': ^18.0.5
   '@types/react-redux': ^7.1.24
   '@types/react-timeago': ^4.1.3
-  '@types/react-transition-group': ^4.4.5
   '@typescript-eslint/eslint-plugin': ^5.29.0
   '@typescript-eslint/parser': ^5.29.0
   '@vitejs/plugin-react': ^1.3.2
@@ -36,7 +36,6 @@ specifiers:
   react-dom: ^18.2.0
   react-redux: ^8.0.2
   react-timeago: ^7.1.0
-  react-transition-group: ^4.4.2
   typescript: ^4.7.4
   vite: ^2.9.12
   vite-tsconfig-paths: ^3.5.0
@@ -49,6 +48,7 @@ dependencies:
   '@babel/preset-react': 7.17.12_@babel+core@7.18.5
   '@babel/preset-typescript': 7.17.12_@babel+core@7.18.5
   '@firebase/app-types': 0.7.0
+  '@formkit/auto-animate': 1.0.0-beta.1_react@18.2.0
   '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
   '@testing-library/react': 13.3.0_biqbaboplfbrettd7655fr4n2y
   '@types/jest': 28.1.3
@@ -58,7 +58,6 @@ dependencies:
   '@types/react-dom': 18.0.5
   '@types/react-redux': 7.1.24
   '@types/react-timeago': 4.1.3
-  '@types/react-transition-group': 4.4.5
   '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
   '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
   '@vitejs/plugin-react': 1.3.2
@@ -78,7 +77,6 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-redux: 8.0.2_fzknh3pugl53jp7xsetxkg5ani
   react-timeago: 7.1.0_react@18.2.0
-  react-transition-group: 4.4.2_biqbaboplfbrettd7655fr4n2y
   typescript: 4.7.4
   vite: 2.9.12
   vite-tsconfig-paths: 3.5.0_vite@2.9.12
@@ -1939,6 +1937,20 @@ packages:
     resolution: {integrity: sha512-zThUKcqIU6utWzM93uEvhlh8qj8A5LMPFJPvk/ODb+8GSSif19xM2Lw1M2ijyBy8+6skSkQBbavPzOU5Oh/8tQ==}
     dev: false
 
+  /@formkit/auto-animate/1.0.0-beta.1_react@18.2.0:
+    resolution: {integrity: sha512-I3OWOBaPZKSJL4bsooXI8kC3q7bcgibD2oML0P/Lir6MnbvUe/0/7EH8br024juvM/Ulm9C9xGx9CJUQYrOWSA==}
+    peerDependencies:
+      react: ^16.8.0
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /@google-cloud/firestore/5.0.2:
     resolution: {integrity: sha512-xlGcNYaW0nvUMzNn2+pLfbEBVt6oysVqtM89faMgZWkWfEtvIQGS0h5PRdLlcqufNzRCX3yIGv29Pb+03ys+VA==}
     engines: {node: '>=10.10.0'}
@@ -2624,12 +2636,6 @@ packages:
 
   /@types/react-timeago/4.1.3:
     resolution: {integrity: sha512-XaaMBzuXLw7lxPPDs/fenlohcf3NDqM5qP4oOL/Meu+Hb1QChW4Igw/SruS1llEqch18RQB3wDTIwvqq4nivvw==}
-    dependencies:
-      '@types/react': 18.0.14
-    dev: false
-
-  /@types/react-transition-group/4.4.5:
-    resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
     dependencies:
       '@types/react': 18.0.14
     dev: false
@@ -3692,13 +3698,6 @@ packages:
 
   /dom-accessibility-api/0.5.14:
     resolution: {integrity: sha512-NMt+m9zFMPZe0JcY9gN224Qvk6qLIdqex29clBvc/y75ZBX9YA9wNK3frsYvu2DI1xcCIwxwnX+TlsJ2DSOADg==}
-    dev: false
-
-  /dom-helpers/5.2.1:
-    resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
-    dependencies:
-      '@babel/runtime': 7.18.3
-      csstype: 3.1.0
     dev: false
 
   /domexception/4.0.0:
@@ -6952,20 +6951,6 @@ packages:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: false
-
-  /react-transition-group/4.4.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==}
-    peerDependencies:
-      react: '>=16.6.0'
-      react-dom: '>=16.6.0'
-    dependencies:
-      '@babel/runtime': 7.18.3
-      dom-helpers: 5.2.1
-      loose-envify: 1.4.0
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react/18.2.0:

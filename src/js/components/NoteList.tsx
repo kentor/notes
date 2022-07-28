@@ -4,8 +4,8 @@ import Note from 'App/components/Note';
 import NoteForm from 'App/components/NoteForm';
 import React, {useEffect, useState} from 'react';
 import {logout, subscribe} from 'App/api';
-import {Transition, TransitionGroup} from 'react-transition-group';
 import {useAppSelector} from 'App/store';
+import {useAutoAnimate} from '@formkit/auto-animate/react';
 
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -16,6 +16,8 @@ function NoteList() {
   const [showHiddenOnly, setShowHiddenOnly] = useState(false);
 
   useEffect(() => subscribe(), []);
+
+  const [list] = useAutoAnimate<HTMLDivElement>();
 
   const notes = useAppSelector((state) => state.notes.items);
   const loading = useAppSelector((state) => !state.notes.loaded);
@@ -42,8 +44,8 @@ function NoteList() {
         />
       </div>
       <div
+        ref={list}
         style={{
-          alignItems: 'start',
           display: 'grid',
           gap: 16,
           gridTemplateRows: 'min-content',
@@ -71,31 +73,18 @@ function NoteList() {
             </a>
           </div>
         </div>
-        <TransitionGroup component={null}>
-          {notesList
-            .map((note) => {
-              const ref = React.createRef<HTMLDivElement>();
-              return (
-                <Transition key={note.id} nodeRef={ref} timeout={500}>
-                  {(state) => (
-                    <Note
-                      ref={ref}
-                      note={note}
-                      style={{
-                        opacity:
-                          state === 'exiting' || state === 'exited' ? 0 : 1,
-                      }}
-                      visible={
-                        (showHiddenOnly ? note.hidden : true) &&
-                        (queryRegExp ? queryRegExp.test(note.content) : true)
-                      }
-                    />
-                  )}
-                </Transition>
-              );
-            })
-            .reverse()}
-        </TransitionGroup>
+        {notesList
+          .map((note) => (
+            <Note
+              key={note.id}
+              note={note}
+              visible={
+                (showHiddenOnly ? note.hidden : true) &&
+                (queryRegExp ? queryRegExp.test(note.content) : true)
+              }
+            />
+          ))
+          .reverse()}
         <div
           style={{
             backgroundColor: '#fff',
