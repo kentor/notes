@@ -66,6 +66,7 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     >
       <div
         style={{
+          alignItems: 'center',
           display: 'flex',
           fontSize: 11,
           justifyContent: 'space-between',
