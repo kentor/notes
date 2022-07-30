@@ -53,5 +53,8 @@
     "vite": "^2.9.12",
     "vite-tsconfig-paths": "^3.5.0",
     "zod": "^3.17.3"
+  },
+  "overrides": {
+    "react": "18.2.0"
   }
 }
