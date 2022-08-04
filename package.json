@@ -55,6 +55,8 @@
     "zod": "^3.17.3"
   },
   "overrides": {
-    "react": "18.2.0"
+    "@formkit/auto-animate": {
+      "react": "18.2.x"
+    }
   }
 }
