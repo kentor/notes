@@ -2,10 +2,10 @@ import Icon from 'App/components/Icon';
 import LoadingIndicator from 'App/components/LoadingIndicator';
 import Note from 'App/components/Note';
 import NoteForm from 'App/components/NoteForm';
-import React, {useEffect, useState} from 'react';
-import {logout, subscribe} from 'App/api';
-import {useAppSelector} from 'App/store';
+import React, {useState} from 'react';
+import {logout} from 'App/api';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
+import {db} from 'App/db';
 
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -15,18 +15,28 @@ function NoteList() {
   const [query, setQuery] = useState('');
   const [showHiddenOnly, setShowHiddenOnly] = useState(false);
 
-  useEffect(() => subscribe(), []);
-
   const [list] = useAutoAnimate<HTMLDivElement>();
-
-  const notes = useAppSelector((state) => state.notes.items);
-  const loading = useAppSelector((state) => !state.notes.loaded);
 
   const trimmedQuery = query.trim();
   const queryRegExp =
     trimmedQuery && new RegExp(escapeRegExp(trimmedQuery), 'i');
 
-  const notesList = Object.values(notes);
+  const {isLoading, error, data} = db.useQuery({notes: {}});
+
+  if (isLoading) {
+    return <div />;
+  }
+
+  if (error) {
+    console.error(error);
+    return <div>Error...</div>;
+  }
+
+  const notes = data?.notes || [];
+
+  const sortedNotes = notes.sort((a, b) =>
+    b.created_at.localeCompare(a.created_at),
+  );
 
   return (
     <div className="grid">
@@ -66,25 +76,23 @@ function NoteList() {
             }}
           >
             <span>
-              Notes: {notesList.length} {loading && <LoadingIndicator />}
+              Notes: {notes.length} {isLoading && <LoadingIndicator />}
             </span>
             <a onClick={logout} style={{cursor: 'pointer'}}>
               <Icon icon="logout" />
             </a>
           </div>
         </div>
-        {notesList
-          .map((note) => (
-            <Note
-              key={note.id}
-              note={note}
-              visible={
-                (showHiddenOnly ? note.hidden : true) &&
-                (queryRegExp ? queryRegExp.test(note.content) : true)
-              }
-            />
-          ))
-          .reverse()}
+        {sortedNotes.map((note) => (
+          <Note
+            key={note.id}
+            note={note}
+            visible={
+              (showHiddenOnly ? note.hidden : true) &&
+              (queryRegExp ? queryRegExp.test(note.content) : true)
+            }
+          />
+        ))}
         <div
           style={{
             backgroundColor: '#fff',
@@ -92,7 +100,7 @@ function NoteList() {
             padding: 10,
           }}
         >
-          Notes: {notesList.length}
+          Notes: {notes.length}
         </div>
       </div>
     </div>
