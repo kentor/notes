@@ -98,6 +98,7 @@ function NoteListInner({notes}: {notes: Array<NoteT>}) {
             backgroundColor: '#fff',
             borderRadius: '0 0 4px 4px',
             padding: 10,
+            height: 'fit-content',
           }}
         >
           Notes: {notes.length}
