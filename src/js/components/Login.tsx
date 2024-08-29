@@ -1,56 +1,66 @@
 import React, {useState} from 'react';
 import {Button, Input} from 'App/components/Elements';
-import {login} from 'App/api';
+import {db} from 'App/db';
+
+const style = {
+  display: 'grid',
+  gap: 16,
+  gridTemplateColumns: 'min-content',
+  justifyContent: 'center',
+  padding: 16,
+};
 
 function Login() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [sentEmail, setSentEmail] = useState('');
+  const [code, setCode] = useState('');
   const [error, setError] = useState('');
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleEmailSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    try {
-      await login(email, password);
-    } catch (err) {
-      if (!(err instanceof Error)) {
-        throw err;
-      }
-      const message = err && err.message;
-      if (typeof message === 'string') {
-        setError(message);
-      }
-    }
+    if (!email) return;
+    setSentEmail(email);
+    db.auth.sendMagicCode({email}).catch((err) => {
+      setError(`Error: ${err.body?.message}`);
+      setSentEmail('');
+    });
   }
 
-  return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: 'grid',
-        gap: 16,
-        gridTemplateColumns: 'min-content',
-        justifyContent: 'center',
-        padding: 16,
-      }}
-    >
+  function handleCodeSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!code) return;
+    db.auth.signInWithMagicCode({email: sentEmail, code}).catch((err) => {
+      setError(`Error: ${err.body?.message}`);
+      setCode('');
+    });
+  }
+
+  return sentEmail ? (
+    <form onSubmit={handleCodeSubmit} style={style}>
+      {error && <div style={{color: 'red'}}>{error}</div>}
+      <Input type="email" value={sentEmail} disabled />
+      <Input
+        onChange={(e) => {
+          setCode(e.target.value);
+        }}
+        placeholder="Code"
+        type="text"
+        value={code}
+      />
+      <Button type="submit">Login</Button>
+    </form>
+  ) : (
+    <form onSubmit={handleEmailSubmit} style={style}>
       {error && <div style={{color: 'red'}}>{error}</div>}
       <Input
         onChange={(e) => {
           setEmail(e.target.value);
         }}
-        placeholder="Username..."
+        placeholder="Email"
         type="email"
         value={email}
       />
-      <Input
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-        placeholder="Password..."
-        type="password"
-        value={password}
-      />
-      <Button type="submit">Login</Button>
+      <Button type="submit">Send Code</Button>
     </form>
   );
 }

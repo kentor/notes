@@ -8,15 +8,11 @@
     "moduleResolution": "node",
     "noEmit": true,
     "paths": {
-      "App/*": [
-        "src/js/*"
-      ]
+      "App/*": ["src/js/*"]
     },
     "pretty": true,
     "strict": true,
     "target": "esnext"
   },
-  "include": [
-    "src/js"
-  ]
+  "include": ["src/js"]
 }

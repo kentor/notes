@@ -72,7 +72,10 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
           justifyContent: 'space-between',
         }}
       >
-        <TimeAgo date={note.createdAt} formatter={timeAgoFormatter} />
+        <TimeAgo
+          date={new Date(note.created_at)}
+          formatter={timeAgoFormatter}
+        />
         <div>
           <a onClick={handleToggleHidden}>
             <Icon icon={note.hidden ? 'star-outline' : 'star'} />

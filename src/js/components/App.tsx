@@ -1,17 +1,21 @@
 import Login from 'App/components/Login';
 import NoteList from 'App/components/NoteList';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {authRequired} from 'App/api';
-import {useAppSelector} from 'App/store';
+import {db} from 'App/db';
 
 function App() {
-  const state = useAppSelector((state) => state);
+  const {isLoading, user, error} = db.useAuth();
 
-  useEffect(() => {
-    window.localStorage.setItem('state', JSON.stringify(state));
-  }, [state]);
+  if (isLoading) {
+    return <div />;
+  }
 
-  const isAuntheticated = !authRequired || state.session;
+  if (error) {
+    return <div>Errored {error.message}</div>;
+  }
+
+  const isAuntheticated = !authRequired || user;
 
   return isAuntheticated ? <NoteList /> : <Login />;
 }
