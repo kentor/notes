@@ -43,11 +43,11 @@ function Login() {
       }}
     >
       <a
-        style={{color: '#eee', textDecoration: 'none'}}
         href={db.auth.createAuthorizationURL({
           clientName: 'n.kentor.dev',
           redirectURL: window.location.href,
         })}
+        style={{color: '#eee', textDecoration: 'none'}}
       >
         Login with google
       </a>
@@ -57,7 +57,7 @@ function Login() {
   return sentEmail ? (
     <form onSubmit={handleCodeSubmit} style={style}>
       {error && <div style={{color: 'red'}}>{error}</div>}
-      <Input type="email" value={sentEmail} disabled />
+      <Input disabled type="email" value={sentEmail} />
       <Input
         onChange={(e) => {
           setCode(e.target.value);

@@ -1,15 +1,15 @@
-import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vitest/config";
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import {defineConfig} from 'vitest/config';
 
 export default defineConfig({
   build: {
     chunkSizeWarningLimit: 750,
-    outDir: "public",
+    outDir: 'public',
   },
   plugins: [react(), tsconfigPaths()],
-  publicDir: "src/static",
+  publicDir: 'src/static',
   test: {
-    environment: "jsdom",
+    environment: 'jsdom',
   },
 });

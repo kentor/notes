@@ -55,7 +55,7 @@ function NoteForm(props: Props) {
           style={{flex: 1, width: 0}}
           value={props.query}
         />
-        <Button style={{color: '#aaa'}} onClick={props.onToggleShowHiddenOnly}>
+        <Button onClick={props.onToggleShowHiddenOnly} style={{color: '#aaa'}}>
           <Icon icon={props.showHiddenOnly ? 'star-outline' : 'star'} />
         </Button>
         <Button style={{color: '#aaa'}} type="submit">

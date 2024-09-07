@@ -57,12 +57,12 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     <div
       className="note"
       onClick={handleToggleLocalHidden}
+      ref={ref}
       style={{
         display: props.visible ? undefined : 'none',
         ...getBackgroundStyles(note.id),
         ...props.style,
       }}
-      ref={ref}
     >
       <div
         style={{
