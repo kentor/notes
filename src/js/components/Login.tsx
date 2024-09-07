@@ -35,6 +35,25 @@ function Login() {
     });
   }
 
+  const loginWithGoogle = (
+    <div
+      style={{
+        display: 'grid',
+        justifyContent: 'center',
+      }}
+    >
+      <a
+        style={{color: '#eee', textDecoration: 'none'}}
+        href={db.auth.createAuthorizationURL({
+          clientName: 'n.kentor.dev',
+          redirectURL: window.location.href,
+        })}
+      >
+        Login with google
+      </a>
+    </div>
+  );
+
   return sentEmail ? (
     <form onSubmit={handleCodeSubmit} style={style}>
       {error && <div style={{color: 'red'}}>{error}</div>}
@@ -48,6 +67,7 @@ function Login() {
         value={code}
       />
       <Button type="submit">Login</Button>
+      {loginWithGoogle}
     </form>
   ) : (
     <form onSubmit={handleEmailSubmit} style={style}>
@@ -61,6 +81,7 @@ function Login() {
         value={email}
       />
       <Button type="submit">Send Code</Button>
+      {loginWithGoogle}
     </form>
   );
 }
