@@ -1,30 +1,25 @@
 import LoadingIndicator from 'App/components/LoadingIndicator';
 import React from 'react';
-import {render, cleanup, act} from '@testing-library/react';
+import {render, cleanup} from '@testing-library/react';
+import {vi, test, expect, afterEach} from 'vitest';
 
-jest.useFakeTimers();
+vi.useFakeTimers();
 
 afterEach(cleanup);
 
-function advanceTime(ms: number) {
-  act(() => {
-    jest.advanceTimersByTime(ms);
-  });
-}
-
-test('correctly renders the loading indicator', () => {
+test('correctly renders the loading indicator', async () => {
   const {container} = render(<LoadingIndicator />);
   expect(container.textContent).toBe('.');
-  advanceTime(99);
+  await vi.advanceTimersByTimeAsync(99);
   expect(container.textContent).toBe('.');
-  advanceTime(1);
+  await vi.advanceTimersByTimeAsync(1);
   expect(container.textContent).toBe('..');
-  advanceTime(100);
+  await vi.advanceTimersByTimeAsync(100);
   expect(container.textContent).toBe('...');
-  advanceTime(100);
+  await vi.advanceTimersByTimeAsync(100);
   expect(container.textContent).toBe('..');
-  advanceTime(100);
+  await vi.advanceTimersByTimeAsync(100);
   expect(container.textContent).toBe('.');
-  advanceTime(100);
+  await vi.advanceTimersByTimeAsync(100);
   expect(container.textContent).toBe('..');
 });
