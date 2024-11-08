@@ -1,6 +1,6 @@
-import App from 'App/components/App';
+import App from 'App/components/App.tsx';
 import React from 'react';
-import {createRoot} from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 
 const container = document.createElement('div');
 document.body.appendChild(container);

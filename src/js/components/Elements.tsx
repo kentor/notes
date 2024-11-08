@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function Button(props: React.ComponentProps<'button'>) {
-  return <button type="button" {...props} />;
+  return <button type='button' {...props} />;
 }
 
 export function Input(props: React.ComponentProps<'input'>) {

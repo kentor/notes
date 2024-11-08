@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "esModuleInterop": true,
@@ -7,6 +8,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
+    "lib": ["DOM", "ES2023"],
     "paths": {
       "App/*": ["src/js/*"]
     },

@@ -1,7 +1,6 @@
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import prettier from 'eslint-plugin-prettier';
 import parser from '@typescript-eslint/parser';
 
 export default [
@@ -16,7 +15,6 @@ export default [
       parser,
     },
     plugins: {
-      prettier,
       react,
       'react-hooks': reactHooks,
       '@typescript-eslint': typescriptEslint,
@@ -24,9 +22,7 @@ export default [
     rules: {
       'prefer-const': 'error',
 
-      'prettier/prettier': 'error',
-
-      'react/jsx-sort-props': ['error', {ignoreCase: true}],
+      'react/jsx-sort-props': ['error', { ignoreCase: true }],
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': ['error'],
 
@@ -34,11 +30,11 @@ export default [
 
       '@typescript-eslint/array-type': [
         'error',
-        {default: 'generic', readonly: 'generic'},
+        { default: 'generic', readonly: 'generic' },
       ],
       '@typescript-eslint/no-unused-vars': [
         'error',
-        {caughtErrors: 'none', ignoreRestSiblings: true},
+        { caughtErrors: 'none', ignoreRestSiblings: true },
       ],
     },
   },

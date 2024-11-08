@@ -1,11 +1,11 @@
-import Login from 'App/components/Login';
-import NoteList from 'App/components/NoteList';
+import Login from 'App/components/Login.tsx';
+import NoteList from 'App/components/NoteList.tsx';
 import React from 'react';
-import {authRequired} from 'App/api';
-import {db} from 'App/db';
+import { authRequired } from 'App/api.ts';
+import { db } from 'App/db.ts';
 
 function App() {
-  const {isLoading, user, error} = db.useAuth();
+  const { isLoading, user, error } = db.useAuth();
 
   if (isLoading) {
     return <div />;

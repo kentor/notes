@@ -1,6 +1,6 @@
-import {Note} from 'App/types';
-import {db} from 'App/db';
-import {tx, id} from '@instantdb/react';
+import { Note } from 'App/types.ts';
+import { db } from 'App/db.ts';
+import { id, tx } from '@instantdb/react';
 
 export const authRequired = true;
 
@@ -21,7 +21,7 @@ export async function createNote(content: string) {
       if (!response.ok) {
         return;
       }
-      const {title} = await response.json();
+      const { title } = await response.json();
       if (title) {
         db.transact([
           tx.notes[newId].update({

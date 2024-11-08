@@ -1,0 +1,29 @@
+{
+  "tasks": {
+    "build": "vite build",
+    "fmt-check": "deno fmt --check",
+    "gen-icons": "deno run -A scripts/gen-icons.ts",
+    "lint": "eslint",
+    "start": "vite",
+    "test": "vitest",
+    "type-check": "deno check **/*.ts **/*.tsx"
+  },
+  "imports": {
+    "App/": "./src/js/"
+  },
+  "compilerOptions": {
+    "lib": [
+      "DOM",
+      "ES2023"
+    ],
+    "strict": true
+  },
+  "fmt": {
+    "singleQuote": true,
+    "exclude": [
+      "public",
+      "src/js/components/Icon.tsx",
+      "src/js/components/icons"
+    ]
+  }
+}

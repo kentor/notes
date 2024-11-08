@@ -45,7 +45,7 @@ const patterns: Array<typeof checkerboard | typeof dots | typeof stripes> = [
   stripes,
 ];
 
-type BackgroundStyles = (typeof patterns)[0] & {backgroundColor: string};
+type BackgroundStyles = (typeof patterns)[0] & { backgroundColor: string };
 
 const cache = new Map<string, BackgroundStyles>();
 
