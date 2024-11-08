@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {createNote} from 'App/api';
-import {Input} from 'App/components/Elements';
-import {Textarea, Button} from 'App/components/Elements';
-import Icon from './Icon';
+import React, { useState } from 'react';
+import { createNote } from 'App/api.ts';
+import { Input } from 'App/components/Elements.tsx';
+import { Button, Textarea } from 'App/components/Elements.tsx';
+import Icon from 'App/components/Icon.tsx';
 
 type Props = {
   onQueryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -38,28 +38,31 @@ function NoteForm(props: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      style={{display: 'flex', flexDirection: 'column', gap: 16}}
+      style={{ display: 'flex', flexDirection: 'column', gap: 16 }}
     >
       <Textarea
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        placeholder="Post..."
+        placeholder='Post...'
         rows={5}
-        style={{resize: 'none'}}
+        style={{ resize: 'none' }}
         value={content}
       />
-      <div style={{display: 'flex', gap: 16}}>
+      <div style={{ display: 'flex', gap: 16 }}>
         <Input
           onChange={props.onQueryChange}
-          placeholder="Search..."
-          style={{flex: 1, width: 0}}
+          placeholder='Search...'
+          style={{ flex: 1, width: 0 }}
           value={props.query}
         />
-        <Button onClick={props.onToggleShowHiddenOnly} style={{color: '#aaa'}}>
+        <Button
+          onClick={props.onToggleShowHiddenOnly}
+          style={{ color: '#aaa' }}
+        >
           <Icon icon={props.showHiddenOnly ? 'star-outline' : 'star'} />
         </Button>
-        <Button style={{color: '#aaa'}} type="submit">
-          <Icon icon="pencil" />
+        <Button style={{ color: '#aaa' }} type='submit'>
+          <Icon icon='pencil' />
         </Button>
       </div>
     </form>

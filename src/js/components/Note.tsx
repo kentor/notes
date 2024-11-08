@@ -1,14 +1,14 @@
-import Icon from 'App/components/Icon';
-import React, {useState} from 'react';
+import Icon from 'App/components/Icon.tsx';
+import React, { useState } from 'react';
 import TimeAgo from 'react-timeago';
-import {deleteNote, updateNote} from 'App/api';
-import {getBackgroundStyles} from 'App/lib/stationery';
-import {marked} from 'marked';
-import {Note as NoteT} from 'App/types';
+import { deleteNote, updateNote } from 'App/api.ts';
+import { getBackgroundStyles } from 'App/lib/stationery.ts';
+import { marked } from 'marked';
+import { Note as NoteT } from 'App/types.ts';
 
 type Props = {
   note: NoteT;
-  style?: {[key: string]: unknown};
+  style?: { [key: string]: unknown };
   visible: boolean;
 };
 
@@ -21,7 +21,7 @@ function timeAgoFormatter(value: number, unit: string) {
 }
 
 const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const {note} = props;
+  const { note } = props;
 
   const [localHidden, setLocalHidden] = useState(note.hidden);
 
@@ -41,7 +41,7 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 
   function handleToggleHidden(e: React.MouseEvent) {
     e.stopPropagation();
-    updateNote(note.id, {hidden: !note.hidden});
+    updateNote(note.id, { hidden: !note.hidden });
     setLocalHidden(!note.hidden);
   }
 
@@ -55,7 +55,7 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 
   return (
     <div
-      className="note"
+      className='note'
       onClick={handleToggleLocalHidden}
       ref={ref}
       style={{
@@ -81,17 +81,18 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
             <Icon icon={note.hidden ? 'star-outline' : 'star'} />
           </a>{' '}
           <a onClick={handleDelete}>
-            <Icon icon="trashcan" />
+            <Icon icon='trashcan' />
           </a>{' '}
           <a onClick={handleCopy}>
-            <Icon icon="clipboard" />
+            <Icon icon='clipboard' />
           </a>
         </div>
       </div>
       <div
-        dangerouslySetInnerHTML={{__html: marked.parseInline(note.content)}}
-        style={{display: localHidden ? 'none' : undefined}}
-      ></div>
+        dangerouslySetInnerHTML={{ __html: marked.parseInline(note.content) }}
+        style={{ display: localHidden ? 'none' : undefined }}
+      >
+      </div>
     </div>
   );
 });
