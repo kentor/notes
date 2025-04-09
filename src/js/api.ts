@@ -14,7 +14,7 @@ export async function createNote(content: string) {
         hidden: false,
       }),
     ]);
-    if (content.match(/youtu\.?be/)) {
+    if (content.match(/^https?:\/\//)) {
       const response = await fetch(
         `https://get-title.deno.dev/?url=${content}`,
       );
