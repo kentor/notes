@@ -16,7 +16,7 @@ export async function createNote(content: string) {
     ]);
     if (content.match(/^https?:\/\//)) {
       const response = await fetch(
-        `https://get-title.deno.dev/?url=${content}`,
+        `https://get-title.dirtybit.dev/?url=${content}`,
       );
       if (!response.ok) {
         return;
