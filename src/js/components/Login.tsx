@@ -44,7 +44,7 @@ function Login() {
     >
       <a
         href={db.auth.createAuthorizationURL({
-          clientName: 'n.kentor.dev',
+          clientName: 'Notes Self Hosted',
           redirectURL: window.location.href,
         })}
         style={{ color: '#eee', textDecoration: 'none' }}
