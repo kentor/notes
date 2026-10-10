@@ -1,2 +1,5 @@
+allowBuilds:
+  esbuild: true
+  workerd: true
 minimumReleaseAgeExclude:
   - '@types/node@26.6.5'
