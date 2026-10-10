@@ -24,7 +24,7 @@ function NoteList() {
   }
 
   const notes = data.notes.sort((a, b) =>
-    b.created_at.localeCompare(a.created_at)
+    b.created_at.localeCompare(a.created_at),
   );
 
   return <NoteListInner notes={notes} />;
@@ -37,8 +37,8 @@ function NoteListInner({ notes }: { notes: Array<NoteT> }) {
   const [list] = useAutoAnimate<HTMLDivElement>();
 
   const trimmedQuery = query.trim();
-  const queryRegExp = trimmedQuery &&
-    new RegExp(escapeRegExp(trimmedQuery), 'i');
+  const queryRegExp =
+    trimmedQuery && new RegExp(escapeRegExp(trimmedQuery), 'i');
 
   return (
     <div className='grid'>
@@ -87,8 +87,10 @@ function NoteListInner({ notes }: { notes: Array<NoteT> }) {
           <Note
             key={note.id}
             note={note}
-            visible={(showHiddenOnly ? note.hidden : true) &&
-              (queryRegExp ? queryRegExp.test(note.content) : true)}
+            visible={
+              (showHiddenOnly ? note.hidden : true) &&
+              (queryRegExp ? queryRegExp.test(note.content) : true)
+            }
           />
         ))}
         <div

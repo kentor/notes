@@ -3,6 +3,22 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "packageManager": "pnpm@12.10.1",
+  "engines": {
+    "node": "26.x"
+  },
+  "scripts": {
+    "build": "vite build",
+    "fmt": "prettier --write .",
+    "fmt-check": "prettier --check .",
+    "gen-icons": "node scripts/gen-icons.ts",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "start": "vite",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit"
+  },
   "dependencies": {
     "@formkit/auto-animate": "1.0.0-beta.3",
     "@instantdb/react": "^0.12.26",
@@ -27,5 +43,9 @@
     "vite": "^5.4.3",
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^2.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "prettier": "^3.6.2"
   }
 }

@@ -91,8 +91,7 @@ const Note = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
       <div
         dangerouslySetInnerHTML={{ __html: marked.parseInline(note.content) }}
         style={{ display: localHidden ? 'none' : undefined }}
-      >
-      </div>
+      ></div>
     </div>
   );
 });
