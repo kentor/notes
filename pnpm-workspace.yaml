@@ -2,4 +2,4 @@ allowBuilds:
   esbuild: true
   workerd: true
 minimumReleaseAgeExclude:
-  - '@types/node@26.6.5'
+  - '@types/node@24.19.2'

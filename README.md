@@ -4,7 +4,7 @@ A React and TypeScript notes app built with Vite.
 
 ## Setup
 
-Use Node.js 26 and pnpm 12.10.1. With nvm installed:
+Use Node.js 24 and pnpm 12.10.1. With nvm installed:
 
 ```sh
 nvm install
