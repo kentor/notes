@@ -2,7 +2,6 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "esModuleInterop": true,
     "jsx": "preserve",
     "module": "esnext",
@@ -10,12 +9,13 @@
     "noEmit": true,
     "lib": ["DOM", "ES2023"],
     "paths": {
-      "App/*": ["src/js/*"]
+      "App/*": ["./src/js/*"]
     },
     "pretty": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "types": ["node", "react", "react-dom"]
   },
   "include": ["src/js", "scripts", "vite.config.ts"]
 }

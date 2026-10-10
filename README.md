@@ -35,3 +35,9 @@ The `packageManager` field pins the pnpm version used by the project and CI.
 
 Generated icons and build output are excluded from formatting. For VS Code
 formatting, install the Prettier extension (`esbenp.prettier-vscode`).
+
+TypeScript is kept on 6.0.x and ESLint on 9.x to match the supported versions of
+the installed lint plugins.
+
+Vite resolves the `App/*` alias directly from `tsconfig.json` using its built-in
+`resolve.tsconfigPaths` option.
